@@ -16,6 +16,10 @@ main {
 
 #contact, #social-media {
     margin-bottom: 20px;
+    background-color: #222222; /* Dark gray background for contrast */
+    padding: 20px; /* Space inside sections */
+    border-radius: 5px; /* Rounded corners for softness */
+    text-align: center; /* Centered text for polish */
 }
 
 #social-media ul {
