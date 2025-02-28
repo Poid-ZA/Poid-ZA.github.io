@@ -3,43 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embed External Site</title>
+    <title>Contact and Social Media</title>
+    <!-- Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        iframe {
-            width: 100%;
-            height: 600px;
-            border: none;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
-        #fallback {
-            display: none;
+        header {
+            background-color: #333;
+            color: white;
             text-align: center;
-            margin-top: 20px;
+            padding: 1rem;
+        }
+        main {
+            padding: 1rem;
+        }
+        #contact, #social-media {
+            margin-bottom: 1rem;
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+        }
+        #social-media {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #social-media a {
+            font-size: 2rem;
+            margin: 0 0.5rem;
+            color: #333;
+            transition: color 0.3s;
+        }
+        #social-media a:hover {
+            color: #007bff;
+        }
+        #contact a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        #contact a:hover {
+            text-decoration: underline;
+        }
+        /* Responsive Design */
+        @media (min-width: 600px) {
+            main {
+                display: flex;
+                justify-content: space-around;
+            }
+            #contact, #social-media {
+                width: 45%;
+            }
+        }
+        @media (max-width: 400px) {
+            body {
+                font-size: 14px;
+            }
+            #social-media a {
+                font-size: 1.5rem;
+            }
+        }
+        @media (max-width: 600px) {
+            header {
+                padding: 0.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Embedded Content</h1>
-    <iframe id="embedded" src="http://47.100.29.251:10010/"></iframe>
-    <p id="fallback">If the content doesn't load, <a href="http://47.100.29.251:10010/" target="_blank">click here to open the site in a new tab</a>.</p>
-
-    <script>
-        const iframe = document.getElementById('embedded');
-        iframe.onload = function() {
-            try {
-                // Check if iframe has content
-                if (iframe.contentDocument && iframe.contentDocument.body.innerHTML) {
-                    // Content loaded successfully
-                } else {
-                    document.getElementById('fallback').style.display = 'block';
-                }
-            } catch (e) {
-                // Likely a cross-origin error, show fallback
-                document.getElementById('fallback').style.display = 'block';
-            }
-        };
-        iframe.onerror = function() {
-            document.getElementById('fallback').style.display = 'block';
-        };
-    </script>
+    <header>
+        <h1>Contact Details and Social Media</h1>
+    </header>
+    <main>
+        <section id="contact">
+            <h2>Contact Information</h2>
+            <p>Email: <a href="mailto:example@example.com">example@example.com</a></p>
+            <p>Phone: <a href="tel:+1234567890">+1234567890</a></p>
+            <p>Address: 123 Main St, City, Country</p>
+        </section>
+        <section id="social-media">
+            <h2>Social Media</h2>
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        </section>
+    </main>
 </body>
 </html>
