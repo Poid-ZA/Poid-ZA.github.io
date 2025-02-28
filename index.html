@@ -6,74 +6,78 @@
     <title>Contact and Social Media</title>
     <!-- Font Awesome for social media icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-        }
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #000000;
+        color: #ffffff;
+    }
+    header {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 1rem;
+    }
+    main {
+        padding: 1rem;
+    }
+    #contact, #social-media {
+        margin-bottom: 1rem;
+        background-color: #1e1e1e;
+        padding: 1rem;
+        border-radius: 5px;
+        text-align: center;
+    }
+    #social-media {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #social-media a {
+        font-size: 2rem;
+        margin: 0 0.5rem;
+        color: #ffffff;
+        transition: color 0.3s;
+    }
+    #social-media a:hover {
+        color: #add8e6;
+    }
+    a {
+        color: #add8e6;
+        text-decoration: none;
+    }
+    a:hover {
+        color: #87ceeb;
+    }
+    #contact a:hover {
+        text-decoration: underline;
+    }
+    /* Responsive Design */
+    @media (min-width: 600px) {
         main {
-            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
         }
         #contact, #social-media {
-            margin-bottom: 1rem;
-            background-color: #fff;
-            padding: 1rem;
-            border-radius: 5px;
-            text-align: center;
+            width: 45%;
         }
-        #social-media {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+    }
+    @media (max-width: 400px) {
+        body {
+            font-size: 14px;
         }
         #social-media a {
-            font-size: 2rem;
-            margin: 0 0.5rem;
-            color: #333;
-            transition: color 0.3s;
+            font-size: 1.5rem;
         }
-        #social-media a:hover {
-            color: #007bff;
+    }
+    @media (max-width: 600px) {
+        header {
+            padding: 0.5rem;
         }
-        #contact a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        #contact a:hover {
-            text-decoration: underline;
-        }
-        /* Responsive Design */
-        @media (min-width: 600px) {
-            main {
-                display: flex;
-                justify-content: space-around;
-            }
-            #contact, #social-media {
-                width: 45%;
-            }
-        }
-        @media (max-width: 400px) {
-            body {
-                font-size: 14px;
-            }
-            #social-media a {
-                font-size: 1.5rem;
-            }
-        }
-        @media (max-width: 600px) {
-            header {
-                padding: 0.5rem;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <header>
