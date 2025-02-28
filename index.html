@@ -3,47 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact details and social media links for My Name.">
     <title>Contact and Social Media</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Font Awesome for social media icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        main {
+            padding: 1rem;
+        }
+        #contact, #social-media {
+            margin-bottom: 1rem;
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+        }
+        #social-media {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #social-media a {
+            font-size: 2rem;
+            margin: 0 0.5rem;
+            color: #333;
+            transition: color 0.3s;
+        }
+        #social-media a:hover {
+            color: #007bff;
+        }
+        #contact a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        #contact a:hover {
+            text-decoration: underline;
+        }
+        /* Responsive Design */
+        @media (min-width: 600px) {
+            main {
+                display: flex;
+                justify-content: space-around;
+            }
+            #contact, #social-media {
+                width: 45%;
+            }
+        }
+        @media (max-width: 400px) {
+            body {
+                font-size: 14px;
+            }
+            #social-media a {
+                font-size: 1.5rem;
+            }
+        }
+        @media (max-width: 600px) {
+            header {
+                padding: 0.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>poid-za</h1>
-        <p>Do good, expect nothing in return</p>
+        <h1>Contact Details and Social Media</h1>
     </header>
-
-    <main class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <section id="contact">
-                    <h2>Contact Information</h2>
-                    <p>Email: <a href="mailto:example@example.com">example@example.com</a></p>
-                    <p>Phone: <a href="tel:+1234567890">+1234567890</a></p>
-                    <p>Address: 123 Street Name, City, Country</p>
-                </section>
-            </div>
-            <div class="col-md-6">
-                <section id="social-media">
-                    <h2>Social Media</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="https://twitter.com/example" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                        <li><a href="https://facebook.com/example" target="_blank"><i class="fab fa-facebook"></i></a></li>
-                        <li><a href="https://linkedin.com/in/example" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-                        <li><a href="https://instagram.com/example" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                    </ul>
-                </section>
-            </div>
-        </div>
+    <main>
+        <section id="contact">
+            <h2>Contact Information</h2>
+            <p>Email: <a href="mailto:example@example.com">example@example.com</a></p>
+            <p>Phone: <a href="tel:+1234567890">+1234567890</a></p>
+            <p>Address: 123 Main St, City, Country</p>
+        </section>
+        <section id="social-media">
+            <h2>Social Media</h2>
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        </section>
     </main>
-
-    <footer>
-        <p>&copy; 2025 poid-za</p>
-    </footer>
 </body>
 </html>
