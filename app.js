@@ -1,10 +1,25 @@
 /* Transpiled from src/app.jsx using @babel/preset-react */
 (function () {
+  // Check if dependencies exist
+  if (!window.React || !window.ReactDOM) {
+    console.error("React or ReactDOM not available. Rendering static fallback.");
+    document.getElementById("root").innerHTML = `
+      <div class="text-center text-white p-8">
+        <h1 class="text-5xl font-bold mb-4">I AM CAN</h1>
+        <p class="text-xl mb-6">Coding Anything Now - Your Expert Coding Assistant</p>
+        <p class="text-lg">JavaScript failed to load. Please check your connection or try again later.</p>
+      </div>
+    `;
+    return;
+  }
+
+  var React = window.React;
+  var ReactDOM = window.ReactDOM;
+
   // Explicitly access motion from Framer Motion
   var motion = (window.framerMotion && window.framerMotion.motion) || null;
   if (!motion) {
-    console.error("Framer Motion's motion object not available. Animations will be disabled.");
-    // Fallback: Create a mock motion component
+    console.error("Framer Motion's motion object not available. Animations disabled.");
     motion = {
       section: function (props) { return React.createElement("section", props, props.children); },
       h1: function (props) { return React.createElement("h1", props, props.children); },
