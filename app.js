@@ -1,6 +1,17 @@
 /* Transpiled from src/app.jsx using @babel/preset-react */
 (function () {
-  var motion = window.framerMotion && window.framerMotion.motion;
+  // Explicitly access motion from Framer Motion
+  var motion = (window.framerMotion && window.framerMotion.motion) || null;
+  if (!motion) {
+    console.error("Framer Motion's motion object not available. Animations will be disabled.");
+    // Fallback: Create a mock motion component
+    motion = {
+      section: function (props) { return React.createElement("section", props, props.children); },
+      h1: function (props) { return React.createElement("h1", props, props.children); },
+      button: function (props) { return React.createElement("button", props, props.children); },
+      div: function (props) { return React.createElement("div", props, props.children); }
+    };
+  }
 
   // Theme Context for Light/Dark Mode
   var ThemeContext = React.createContext();
