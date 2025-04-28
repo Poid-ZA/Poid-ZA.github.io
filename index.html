@@ -4,25 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CAN - Coding Anything Now</title>
-  
   <meta name="description" content="CAN: Your expert coding assistant for building scalable, secure, and creative solutions." />
-  <meta name="keywords" content="coding, programming, AI, web development, xAI" />
-  
-  <meta property="og:title" content="CAN - Coding Anything Now" />
-  <meta property="og:description" content="Discover CAN, your expert coding assistant for building amazing projects." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://poid-za.github.io/website/" />
-  
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="CAN - Coding Anything Now" />
-  <meta name="twitter:description" content="Discover CAN, your expert coding assistant for building amazing projects." />
-  
-  <link rel="icon" href="/favicon.ico" />
-  
-  <!-- TailwindCSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Babel Compiler for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-
 <body class="bg-black text-white" role="document">
   <div id="root">
     <div class="flex justify-center items-center h-screen">
@@ -30,7 +17,7 @@
     </div>
   </div>
 
-  <!-- Load React App -->
-  <script type="module" src="/src/index.jsx"></script>
+  <!-- Load React App with Babel -->
+  <script type="text/babel" src="./src/index.jsx"></script>
 </body>
 </html>
