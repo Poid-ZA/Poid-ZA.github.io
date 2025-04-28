@@ -1,5 +1,4 @@
-import React from "https://cdn.skypack.dev/react@18.2.0";
-import ReactDOM from "https://cdn.skypack.dev/react-dom@18.2.0";
-import App from "./components/App.jsx";
+// No import needed
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
