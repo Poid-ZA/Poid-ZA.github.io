@@ -1,30 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CAN - Coding Anything Now</title>
-  <meta name="description" content="CAN: Your expert coding assistant for building scalable, secure, and creative solutions.">
-  <meta name="keywords" content="coding, programming, AI, web development, xAI">
-  <meta property="og:title" content="CAN - Coding Anything Now">
-  <meta property="og:description" content="Discover CAN, your expert coding assistant for building amazing projects.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://poid-za.github.io/website/">
-  <script defer src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/framer-motion@10.18.0/dist/framer-motion.min.js" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.tailwindcss.com"></script>
+  
+  <meta name="description" content="CAN: Your expert coding assistant for building scalable, secure, and creative solutions." />
+  <meta name="keywords" content="coding, programming, AI, web development, xAI" />
+  
+  <meta property="og:title" content="CAN - Coding Anything Now" />
+  <meta property="og:description" content="Discover CAN, your expert coding assistant for building amazing projects." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://poid-za.github.io/website/" />
+  
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CAN - Coding Anything Now" />
+  <meta name="twitter:description" content="Discover CAN, your expert coding assistant for building amazing projects." />
+  
+  <link rel="icon" href="/favicon.ico" />
+  
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body className="bg-black text-white">
-  <div id="root"></div>
-  <script>
-    // Check if dependencies loaded
-    window.addEventListener('load', () => {
-      if (!window.React) console.error("React not loaded.");
-      if (!window.ReactDOM) console.error("ReactDOM not loaded.");
-      if (!window.framerMotion) console.error("Framer Motion not loaded.");
-    });
-  </script>
-  <script defer src="app.js"></script>
+
+<body class="bg-black text-white" role="document">
+  <div id="root">
+    <div class="flex justify-center items-center h-screen">
+      <span class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></span>
+    </div>
+  </div>
+
+  <!-- Load React App -->
+  <script type="module" src="/src/index.jsx"></script>
 </body>
 </html>
