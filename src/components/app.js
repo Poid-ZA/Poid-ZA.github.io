@@ -1,6 +1,6 @@
-import React from "https://cdn.skypack.dev/react@18.2.0";
+// No import needed
 
-export default function App() {
+function App() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="text-5xl font-bold mb-6">
