@@ -1,33 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CAN - Coding Anything Now</title>
-
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="CAN: Your expert coding assistant for building scalable, secure, and creative solutions." />
-  <meta name="keywords" content="coding, programming, AI, web development, xAI" />
-  <meta property="og:title" content="CAN - Coding Anything Now" />
-  <meta property="og:description" content="Discover CAN, your expert coding assistant for building amazing projects." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://your-username.github.io/can-website/" />
 
   <!-- TailwindCSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- Load React and ReactDOM UMD builds -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
   <!-- Babel Compiler -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-
-<body class="bg-black text-white" role="document">
+<body class="bg-black text-white">
   <div id="root">
     <div class="flex justify-center items-center h-screen">
       <span class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></span>
     </div>
   </div>
 
-  <!-- Load React App (through Babel compiling JSX inside JS) -->
+  <!-- Load your React code -->
   <script type="text/babel" src="./src/index.js"></script>
 </body>
 </html>
