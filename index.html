@@ -292,6 +292,28 @@
       max-height: 80vh;
       aspect-ratio: 16/9;
       border-radius: 5px;
+      object-fit: cover; /* Ensure videos scale consistently */
+    }
+    .modal-video-controls {
+      margin-top: 0.5rem;
+      text-align: center;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .modal-video-controls button {
+      background: #FF3333;
+      color: #FFFFFF;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .modal-video-controls button:hover {
+      background: #CC0000;
+      transform: translateY(-2px);
     }
     .modal-close {
       position: absolute;
@@ -427,7 +449,8 @@
       .modal-content {
         max-width: 90%;
       }
-      .watch-video-btn button {
+      .watch-video-btn button,
+      .modal-video-controls button {
         padding: 0.4rem 0.8rem;
         font-size: 0.9rem;
       }
@@ -451,7 +474,8 @@
       .modal-content video {
         max-height: 60vh;
       }
-      .watch-video-btn button {
+      .watch-video-btn button,
+      .modal-video-controls button {
         padding: 0.3rem 0.6rem;
         font-size: 0.8rem;
       }
@@ -512,11 +536,11 @@
         </div>
         <div class="service-card">
           <h3>Elite Training</h3>
-          <p>Programs for military, government, and private security forces.</p>
+          <p>Thor Defense offers elite training programs tailored for military, government, and private security forces, enhancing tactical skills and operational readiness in high-threat scenarios.</p>
         </div>
         <div class="service-card">
           <h3>Strategic Advisory</h3>
-          <p>Consulting for operational readiness in multi-domain environments.</p>
+          <p>Thor Defense provides strategic advisory services, delivering expert consulting to ensure operational readiness and resilience in multi-domain environments.</p>
         </div>
       </div>
     </section>
@@ -542,11 +566,15 @@
   <a href="#" class="back-to-top" id="back-to-top">Back to Top</a>
   <div id="video-modal" class="modal">
     <div class="modal-content">
-      <span class="modal-close" onclick="closeModal()">&times;</span>
-      <video id="modal-video" controls>
+      <span class="modal-close" onclick="closeModal()">×</span>
+      <video id="modal-video" muted>
         <source id="modal-video-source" src="" type="video/mp4">
         Your browser does not support the video tag.
       </video>
+      <div class="modal-video-controls">
+        <button id="modal-play-pause">Play</button>
+        <button id="modal-fullscreen">Fullscreen</button>
+      </div>
     </div>
   </div>
   <script>
@@ -554,19 +582,45 @@
     const modal = document.getElementById('video-modal');
     const modalVideo = document.getElementById('modal-video');
     const modalVideoSource = document.getElementById('modal-video-source');
+    const modalPlayPauseBtn = document.getElementById('modal-play-pause');
+    const modalFullscreenBtn = document.getElementById('modal-fullscreen');
 
     function openModal(videoSrc) {
       modalVideoSource.src = videoSrc;
       modalVideo.load();
       modal.style.display = 'flex';
       modalVideo.play();
+      modalPlayPauseBtn.textContent = 'Pause';
     }
 
     function closeModal() {
       modal.style.display = 'none';
       modalVideo.pause();
       modalVideoSource.src = ''; // Clear the source to stop loading
+      modalPlayPauseBtn.textContent = 'Play';
     }
+
+    // Play/Pause Functionality
+    modalPlayPauseBtn.addEventListener('click', function() {
+      if (modalVideo.paused) {
+        modalVideo.play();
+        modalPlayPauseBtn.textContent = 'Pause';
+      } else {
+        modalVideo.pause();
+        modalPlayPauseBtn.textContent = 'Play';
+      }
+    });
+
+    // Fullscreen Functionality
+    modalFullscreenBtn.addEventListener('click', function() {
+      if (modalVideo.requestFullscreen) {
+        modalVideo.requestFullscreen();
+      } else if (modalVideo.webkitRequestFullscreen) { /* Safari */
+        modalVideo.webkitRequestFullscreen();
+      } else if (modalVideo.mozRequestFullScreen) { /* Firefox */
+        modalVideo.mozRequestFullScreen();
+      }
+    });
 
     // Close modal when clicking outside the video
     modal.addEventListener('click', function(e) {
