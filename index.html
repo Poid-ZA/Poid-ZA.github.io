@@ -180,18 +180,6 @@
       max-width: 800px;
       margin: 0 auto;
     }
-    .hero a {
-      background: #FF3333;
-      color: #FFFFFF;
-      padding: 0.75rem 1.5rem;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-    .hero a:hover {
-      background: #CC0000;
-    }
     main {
       flex: 1; /* Grow to fill available space, pushing footer to bottom */
     }
@@ -218,6 +206,22 @@
       margin: 0 auto 1rem;
       color: #B0B0B0;
       font-size: 1rem;
+    }
+    .mission-contact-btn-wrapper {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+    .mission-contact-btn {
+      background: #FF3333;
+      color: #FFFFFF;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .mission-contact-btn:hover {
+      background: #CC0000;
     }
     .services-container {
       display: flex;
@@ -322,15 +326,13 @@
       transform: translateY(-2px);
     }
     .modal-close {
-      position: absolute;
-      top: 15px;
-      right: 15px;
       color: #FF3333;
-      font-size: 1.5rem;
+      font-size: 0.9rem;
       font-weight: bold;
       cursor: pointer;
       transition: color 0.3s;
       z-index: 1001; /* Ensure clickable above other elements */
+      padding: 0.5rem;
     }
     .modal-close:hover {
       color: #CC0000;
@@ -457,9 +459,8 @@
         min-width: 250px;
       }
       .modal-close {
-        font-size: 1.3rem;
-        top: 10px;
-        right: 10px;
+        font-size: 0.8rem;
+        padding: 0.4rem;
       }
       .modal-video-controls {
         bottom: 10px;
@@ -470,6 +471,10 @@
       }
       .watch-video-btn button {
         padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+      .mission-contact-btn {
+        padding: 0.6rem 1.2rem;
         font-size: 0.9rem;
       }
       .back-to-top {
@@ -493,9 +498,8 @@
         transform: scale(1.05); /* Minimal zoom on mobile */
       }
       .modal-close {
-        font-size: 1.2rem;
-        top: 8px;
-        right: 8px;
+        font-size: 0.7rem;
+        padding: 0.3rem;
       }
       .modal-video-controls {
         bottom: 8px;
@@ -506,6 +510,10 @@
       }
       .watch-video-btn button {
         padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+      }
+      .mission-contact-btn {
+        padding: 0.5rem 1rem;
         font-size: 0.8rem;
       }
     }
@@ -531,7 +539,6 @@
         Your browser does not support the video tag.
       </video>
       <div class="hero-content">
-        <a href="#contact" onclick="focusContactForm()">Contact Us</a>
       </div>
     </section>
     <section id="mission">
@@ -541,6 +548,9 @@
       <p>Our capabilities extend beyond technology. Thor Defense provides elite-level training programs and strategic advisory services designed to enhance the operational readiness of military units, government agencies, private security forces, and high-net-worth clientele operating in complex threat environments.</p>
       <p>Driven by a clear mission—to redefine modern defense through innovation, precision, and unwavering reliability—Thor Defense stands as a trusted force multiplier in today’s multi-domain operational landscape.</p>
       <p>Operational dominance starts here.</p>
+      <div class="mission-contact-btn-wrapper">
+        <a href="#contact" class="mission-contact-btn" onclick="focusContactForm()">Contact Us</a>
+      </div>
     </section>
     <section id="services">
       <h2>Our Services</h2>
@@ -595,13 +605,13 @@
   <a href="#" class="back-to-top" id="back-to-top">Back to Top</a>
   <div id="video-modal" class="modal">
     <div class="modal-content">
-      <span class="modal-close" onclick="closeModal()">×</span>
       <video id="modal-video" muted>
         <source id="modal-video-source" src="" type="video/mp4">
         Your browser does not support the video tag.
       </video>
       <div class="modal-video-controls">
         <button id="modal-play-pause">Play</button>
+        <span class="modal-close" onclick="closeModal()">×</span>
       </div>
     </div>
   </div>
