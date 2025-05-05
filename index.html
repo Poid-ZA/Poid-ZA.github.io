@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paddle Game</title>
+  <title>Tetris Game</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- React and ReactDOM CDN -->
@@ -12,157 +12,197 @@
   <!-- Babel for JSX -->
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.9/babel.min.js"></script>
 </head>
-<body class="min-h-screen flex items-center justify-center bg-gray-100">
+<body class="min-h-screen flex items-center justify-center bg-gray-900 text-white">
   <div id="root"></div>
   <script type="text/babel">
-    function GameCanvas() {
+    function TetrisCanvas() {
       const canvasRef = React.useRef(null);
       const [score, setScore] = React.useState(0);
-      const [gameState, setGameState] = React.useState('playing'); // 'playing', 'won', 'lost'
+      const [gameState, setGameState] = React.useState('playing'); // 'playing', 'gameover'
 
       React.useEffect(() => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
-        const paddleWidth = 100;
-        const paddleHeight = 10;
-        const ballRadius = 10;
-        let paddleX = (canvas.width - paddleWidth) / 2;
-        let ballX = canvas.width / 2;
-        let ballY = canvas.height - 30;
-        let ballDX = 4;
-        let ballDY = -4;
-        const brickRowCount = 5;
-        const brickColumnCount = 8;
-        const brickWidth = 75;
-        const brickHeight = 20;
-        const brickPadding = 10;
-        const brickOffsetTop = 30;
-        const brickOffsetLeft = 30;
-        let bricks = [];
-        for (let c = 0; c < brickColumnCount; c++) {
-          bricks[c] = [];
-          for (let r = 0; r < brickRowCount; r++) {
-            bricks[c][r] = { x: 0, y: 0, status: 1 };
-          }
-        }
+        const gridSize = 30;
+        const cols = 10;
+        const rows = 20;
+        canvas.width = cols * gridSize;
+        canvas.height = rows * gridSize;
 
-        const drawPaddle = () => {
-          ctx.beginPath();
-          ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-          ctx.fillStyle = '#1E90FF';
-          ctx.fill();
-          ctx.closePath();
+        const colors = [
+          null,
+          '#FF0D72', // I
+          '#0DC2FF', // O
+          '#0DFF72', // T
+          '#F538FF', // S
+          '#FF8E0D', // Z
+          '#FFE138', // J
+          '#3877FF', // L
+        ];
+
+        const tetrominoes = {
+          I: [[1, 1, 1, 1]],
+          O: [[1, 1], [1, 1]],
+          T: [[0, 1, 0], [1, 1, 1]],
+          S: [[0, 1, 1], [1, 1, 0]],
+          Z: [[1, 1, 0], [0, 1, 1]],
+          J: [[1, 0, 0], [1, 1, 1]],
+          L: [[0, 0, 1], [1, 1, 1]],
         };
 
-        const drawBall = () => {
-          ctx.beginPath();
-          ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
-          ctx.fillStyle = '#FF4500';
-          ctx.fill();
-          ctx.closePath();
+        let board = Array(rows).fill().map(() => Array(cols).fill(0));
+        let currentPiece = null;
+        let pieceX = 0;
+        let pieceY = 0;
+
+        const createPiece = () => {
+          const types = Object.keys(tetrominoes);
+          const type = types[Math.floor(Math.random() * types.length)];
+          return { shape: tetrominoes[type], color: colors[types.indexOf(type) + 1] };
         };
 
-        const drawBricks = () => {
-          for (let c = 0; c < brickColumnCount; c++) {
-            for (let r = 0; r < brickRowCount; r++) {
-              if (bricks[c][r].status === 1) {
-                const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
-                const brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
-                bricks[c][r].x = brickX;
-                bricks[c][r].y = brickY;
-                ctx.beginPath();
-                ctx.rect(brickX, brickY, brickWidth, brickHeight);
-                ctx.fillStyle = '#228B22';
-                ctx.fill();
-                ctx.closePath();
-              }
+        const drawSquare = (x, y, color) => {
+          ctx.fillStyle = color || '#333';
+          ctx.fillRect(x * gridSize, y * gridSize, gridSize - 2, gridSize - 2);
+          ctx.strokeStyle = '#555';
+          ctx.strokeRect(x * gridSize, y * gridSize, gridSize, gridSize);
+        };
+
+        const drawBoard = () => {
+          for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+              drawSquare(c, r, board[r][c] ? colors[board[r][c]] : null);
             }
           }
         };
 
-        const collisionDetection = () => {
-          for (let c = 0; c < brickColumnCount; c++) {
-            for (let r = 0; r < brickRowCount; r++) {
-              const b = bricks[c][r];
-              if (b.status === 1) {
-                if (
-                  ballX > b.x &&
-                  ballX < b.x + brickWidth &&
-                  ballY > b.y &&
-                  ballY < b.y + brickHeight
-                ) {
-                  ballDY = -ballDY;
-                  b.status = 0;
-                  setScore((prev) => prev + 1);
-                  if (score + 1 === brickRowCount * brickColumnCount) {
-                    setGameState('won');
-                  }
+        const drawPiece = () => {
+          if (currentPiece) {
+            currentPiece.shape.forEach((row, y) => {
+              row.forEach((value, x) => {
+                if (value) {
+                  drawSquare(pieceX + x, pieceY + y, currentPiece.color);
                 }
+              });
+            });
+          }
+        };
+
+        const collision = (x, y, piece) => {
+          for (let r = 0; r < piece.shape.length; r++) {
+            for (let c = 0; c < piece.shape[r].length; c++) {
+              if (!piece.shape[r][c]) continue;
+              const newX = x + c;
+              const newY = y + r;
+              if (newX < 0 || newX >= cols || newY >= rows) return true;
+              if (newY < 0) continue;
+              if (board[newY][newX]) return true;
+            }
+          }
+          return false;
+        };
+
+        const mergePiece = () => {
+          currentPiece.shape.forEach((row, y) => {
+            row.forEach((value, x) => {
+              if (value) {
+                board[pieceY + y][pieceX + x] = colors.indexOf(currentPiece.color);
               }
+            });
+          });
+        };
+
+        const clearLines = () => {
+          let linesCleared = 0;
+          for (let r = rows - 1; r >= 0; r--) {
+            if (board[r].every(cell => cell)) {
+              board.splice(r, 1);
+              board.unshift(Array(cols).fill(0));
+              linesCleared++;
+              r++;
+            }
+          }
+          if (linesCleared > 0) {
+            setScore(prev => prev + linesCleared * 100);
+          }
+        };
+
+        const rotatePiece = () => {
+          const newShape = currentPiece.shape[0].map((_, i) =>
+            currentPiece.shape.map(row => row[i]).reverse()
+          );
+          const tempPiece = { ...currentPiece, shape: newShape };
+          if (!collision(pieceX, pieceY, tempPiece)) {
+            currentPiece.shape = newShape;
+          }
+        };
+
+        const movePiece = (dir) => {
+          if (!collision(pieceX + dir, pieceY, currentPiece)) {
+            pieceX += dir;
+          }
+        };
+
+        const dropPiece = () => {
+          if (!collision(pieceX, pieceY + 1, currentPiece)) {
+            pieceY++;
+          } else {
+            mergePiece();
+            clearLines();
+            currentPiece = createPiece();
+            pieceX = Math.floor(cols / 2) - Math.floor(currentPiece.shape[0].length / 2);
+            pieceY = 0;
+            if (collision(pieceX, pieceY, currentPiece)) {
+              setGameState('gameover');
             }
           }
         };
 
-        const moveBall = () => {
-          ballX += ballDX;
-          ballY += ballDY;
-
-          if (ballX + ballRadius > canvas.width || ballX - ballRadius < 0) {
-            ballDX = -ballDX;
+        const hardDrop = () => {
+          while (!collision(pieceX, pieceY + 1, currentPiece)) {
+            pieceY++;
           }
-          if (ballY - ballRadius < 0) {
-            ballDY = -ballDY;
-          } else if (ballY + ballRadius > canvas.height - paddleHeight) {
-            if (ballX > paddleX && ballX < paddleX + paddleWidth) {
-              ballDY = -ballDY;
-            } else if (ballY + ballRadius > canvas.height) {
-              setGameState('lost');
-            }
-          }
+          dropPiece();
         };
 
-        const draw = () => {
+        const keyHandler = (e) => {
+          if (gameState !== 'playing') return;
+          if (e.key === 'ArrowLeft') movePiece(-1);
+          if (e.key === 'ArrowRight') movePiece(1);
+          if (e.key === 'ArrowDown') dropPiece();
+          if (e.key === 'ArrowUp') rotatePiece();
+          if (e.key === ' ') hardDrop();
+        };
+
+        document.addEventListener('keydown', keyHandler);
+
+        let lastTime = 0;
+        const dropInterval = 1000; // Drop every 1 second
+        const gameLoop = (time) => {
+          if (gameState !== 'playing') return;
+          if (time - lastTime > dropInterval) {
+            dropPiece();
+            lastTime = time;
+          }
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-          drawBricks();
-          drawBall();
-          drawPaddle();
-          collisionDetection();
-          moveBall();
+          drawBoard();
+          drawPiece();
+          requestAnimationFrame(gameLoop);
         };
 
-        const mouseMoveHandler = (e) => {
-          const relativeX = e.clientX - canvas.offsetLeft;
-          if (relativeX > 0 && relativeX < canvas.width) {
-            paddleX = relativeX - paddleWidth / 2;
-            if (paddleX < 0) paddleX = 0;
-            if (paddleX + paddleWidth > canvas.width) paddleX = canvas.width - paddleWidth;
-          }
-        };
-
-        canvas.addEventListener('mousemove', mouseMoveHandler);
-
-        let animationFrameId;
-        const gameLoop = () => {
-          if (gameState === 'playing') {
-            draw();
-            animationFrameId = requestAnimationFrame(gameLoop);
-          }
-        };
-        gameLoop();
+        currentPiece = createPiece();
+        pieceX = Math.floor(cols / 2) - Math.floor(currentPiece.shape[0].length / 2);
+        pieceY = 0;
+        requestAnimationFrame(gameLoop);
 
         return () => {
-          canvas.removeEventListener('mousemove', mouseMoveHandler);
-          cancelAnimationFrame(animationFrameId);
+          document.removeEventListener('keydown', keyHandler);
         };
-      }, [gameState, score]);
+      }, [gameState]);
 
       const restartGame = () => {
         setScore(0);
         setGameState('playing');
-        ballX = canvasRef.current.width / 2;
-        ballY = canvasRef.current.height - 30;
-        ballDX = 4;
-        ballDY = -4;
       };
 
       return (
@@ -170,15 +210,11 @@
           <h2 className="text-2xl font-bold">Score: {score}</h2>
           <canvas
             ref={canvasRef}
-            width="800"
-            height="400"
             className="border-2 border-gray-500"
           />
-          {gameState !== 'playing' && (
+          {gameState === 'gameover' && (
             <div className="absolute flex flex-col items-center justify-center bg-black bg-opacity-50 w-full h-full">
-              <h2 className="text-4xl font-bold text-white">
-                {gameState === 'won' ? 'You Won!' : 'Game Over'}
-              </h2>
+              <h2 className="text-4xl font-bold text-white">Game Over</h2>
               <button
                 className="mt-4 px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
                 onClick={restartGame}
@@ -194,8 +230,12 @@
     function App() {
       return (
         <div className="flex flex-col items-center p-6">
-          <h1 className="text-4xl font-bold mb-6">Paddle Game</h1>
-          <GameCanvas />
+          <h1 className="text-4xl font-bold mb-6">Tetris</h1>
+          <div className="text-center mb-4">
+            <p>Controls:</p>
+            <p>←/→: Move | ↑: Rotate | ↓: Drop | Space: Hard Drop</p>
+          </div>
+          <TetrisCanvas />
         </div>
       );
     }
