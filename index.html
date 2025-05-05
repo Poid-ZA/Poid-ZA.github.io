@@ -37,6 +37,45 @@
         }
         return gk_fileData[filename] || "";
         }
+        </script><script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
         </script><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -159,8 +198,9 @@
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover; /* Scale video to cover the section */
+      object-fit: contain; /* Changed to contain to show full video */
       object-position: center; /* Center the video */
+      transform: scale(1.2); /* Zoom in slightly to show more details */
       z-index: 0; /* Place video behind overlay and content */
     }
     .hero::before {
@@ -324,6 +364,7 @@
       font-weight: bold;
       cursor: pointer;
       transition: color 0.3s;
+      z-index: 1001; /* Ensure clickable above other elements */
     }
     .modal-close:hover {
       color: #CC0000;
@@ -433,6 +474,9 @@
         padding: 1rem 1rem;
         min-height: 35vh; /* Adjusted for video */
       }
+      .hero video {
+        transform: scale(1.1); /* Slightly less zoom on tablet */
+      }
       section {
         padding: 1rem 1rem;
       }
@@ -470,6 +514,9 @@
       }
       .hero {
         min-height: 50vh; /* Adjusted for video on mobile */
+      }
+      .hero video {
+        transform: scale(1.05); /* Minimal zoom on mobile */
       }
       .modal-content video {
         max-height: 60vh;
@@ -584,6 +631,7 @@
     const modalVideoSource = document.getElementById('modal-video-source');
     const modalPlayPauseBtn = document.getElementById('modal-play-pause');
     const modalFullscreenBtn = document.getElementById('modal-fullscreen');
+    const modalClose = document.querySelector('.modal-close');
 
     function openModal(videoSrc) {
       modalVideoSource.src = videoSrc;
@@ -591,6 +639,8 @@
       modal.style.display = 'flex';
       modalVideo.play();
       modalPlayPauseBtn.textContent = 'Pause';
+      // Add event listener for when the video ends
+      modalVideo.addEventListener('ended', closeModal);
     }
 
     function closeModal() {
@@ -598,6 +648,8 @@
       modalVideo.pause();
       modalVideoSource.src = ''; // Clear the source to stop loading
       modalPlayPauseBtn.textContent = 'Play';
+      // Remove the ended event listener to avoid duplicates
+      modalVideo.removeEventListener('ended', closeModal);
     }
 
     // Play/Pause Functionality
@@ -621,6 +673,9 @@
         modalVideo.mozRequestFullScreen();
       }
     });
+
+    // Close modal when clicking the close button (redundant event listener for reliability)
+    modalClose.addEventListener('click', closeModal);
 
     // Close modal when clicking outside the video
     modal.addEventListener('click', function(e) {
