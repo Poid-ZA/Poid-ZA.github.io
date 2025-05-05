@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spinning Globe with Signals</title>
+  <title>Spinning Globe with Ticking Clock</title>
   <style>
     body {
       margin: 0;
@@ -18,7 +18,12 @@
     }
     h1 {
       font-size: 2.5rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .clock {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      font-family: monospace;
     }
     canvas {
       width: 100%;
@@ -40,7 +45,38 @@
   <script type="module">
     import * as THREE from 'three';
     import { createRoot } from 'https://cdn.jsdelivr.net/npm/react-dom@18.2.0/client.js';
-    import { useRef, useEffect } from 'https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js';
+    import { useRef, useEffect, useState } from 'https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js';
+
+    function Clock() {
+      const [time, setTime] = useState(new Date().toLocaleString('en-US', { 
+        weekday: 'short', 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit', 
+        hour12: false 
+      }));
+
+      useEffect(() => {
+        const interval = setInterval(() => {
+          setTime(new Date().toLocaleString('en-US', { 
+            weekday: 'short', 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit', 
+            second: '2-digit', 
+            hour12: false 
+          }));
+        }, 1000);
+        return () => clearInterval(interval);
+      }, []);
+
+      return React.createElement('div', { className: 'clock' }, time);
+    }
 
     function GlobeCanvas() {
       const canvasRef = useRef(null);
@@ -150,7 +186,8 @@
 
     function App() {
       return React.createElement('div', { className: 'container' },
-        React.createElement('h1', null, 'Spinning Globe with Signals'),
+        React.createElement('h1', null, 'Spinning Globe with Ticking Clock'),
+        React.createElement(Clock),
         React.createElement(GlobeCanvas)
       );
     }
