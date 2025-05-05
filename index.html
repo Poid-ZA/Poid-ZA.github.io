@@ -3,479 +3,204 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Thor Defense provides next-generation defense solutions, including AI-based systems, drones, and elite training programs for security and combat operations.">
-  <meta name="keywords" content="defense, AI, drones, cybersecurity, military training, facial recognition, LPR, VTOL, ISR, tactical hardware, Thor Defense">
-  <meta name="author" content="Thor Defense">
-  <meta name="robots" content="index, follow">
-  <!-- Open Graph Tags -->
-  <meta property="og:title" content="Thor Defense - Next-Gen Defense Solutions">
-  <meta property="og:description" content="Delivering AI-based systems, drones, and elite training for security, intelligence, and combat operations.">
-  <meta property="og:image" content="./hero-drone.jpg">
-  <meta property="og:url" content="https://www.thordefense.com">
-  <meta property="og:type" content="website">
-  <!-- Twitter Card Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Thor Defense - Next-Gen Defense Solutions">
-  <meta name="twitter:description" content="Delivering AI-based systems, drones, and elite training for security, intelligence, and combat operations.">
-  <meta name="twitter:image" content="./hero-drone.jpg">
-  <!-- Placeholder for Matomo Analytics (to be implemented on your server) -->
-  <!-- <script src="/matomo/matomo.js" async></script> -->
-  <title>Thor Defense - Next-Gen Defense Solutions</title>
-  <link rel="icon" type="image/x-icon" href="https://cdn.jsdelivr.net/favicon.ico">
-  <style>
-    html {
-      scroll-behavior: smooth; /* Enable smooth scrolling for navigation links */
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      background: #000000;
-      color: #FFFFFF;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.5;
-      display: flex; /* Use flexbox for sticky footer */
-      flex-direction: column; /* Stack children vertically */
-      min-height: 100vh; /* Ensure body takes full viewport height */
-      opacity: 0; /* Start with transparent */
-      animation: fadeIn 1s ease-in forwards; /* Apply fade-in animation */
-    }
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-    nav {
-      background: #000000;
-      padding: 1rem;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 2rem;
-    }
-    nav ul li a {
-      color: #FFFFFF;
-      text-decoration: none;
-      font-size: 1rem;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-    nav ul li a:hover {
-      color: #FF3333;
-    }
-    .nav-link.flash {
-      animation: flash 0.5s ease-in-out;
-    }
-    @keyframes flash {
-      0% { background-color: transparent; }
-      50% { background-color: #FF3333; }
-      100% { background-color: transparent; }
-    }
-    #branding {
-      text-align: center;
-      padding: 1rem 1rem;
-      background: #000000;
-    }
-    #branding h1 {
-      font-size: 3rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-      transition: text-shadow 0.3s ease;
-    }
-    #branding:hover h1 {
-      text-shadow: 0 0 8px rgba(255, 51, 51, 0.7);
-    }
-    #branding p {
-      font-size: 1rem;
-      color: #B0B0B0;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .hero {
-      position: relative;
-      text-align: center;
-      padding: 1.5rem 1rem;
-      background: linear-gradient(135deg, #000000, #1A1A1A, #1F0A0A), url('./hero-drone.jpg');
-      background-size: cover;
-      background-position: center;
-      background-blend-mode: overlay;
-      min-height: 30vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 0;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .hero a {
-      background: #FF3333;
-      color: #FFFFFF;
-      padding: 0.75rem 1.5rem;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-    .hero a:hover {
-      background: #CC0000;
-    }
-    main {
-      flex: 1; /* Grow to fill available space, pushing footer to bottom */
-    }
-    section {
-      padding: 1.5rem 1rem;
-      text-align: center;
-    }
-    #mission {
-      background: #1A1A1A;
-    }
-    #contact {
-      background: #1A1A1A;
-    }
-    #services {
-      background: #000000;
-    }
-    h2 {
-      font-size: 1.8rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-    }
-    #mission p {
-      max-width: 800px;
-      margin: 0 auto 1rem;
-      color: #B0B0B0;
-      font-size: 1rem;
-    }
-    .services-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-    .service-card {
-      background: #222222;
-      padding: 1.5rem;
-      border-radius: 5px;
-      transition: background 0.3s;
-      flex: 1;
-      min-width: 250px;
-      max-width: 300px;
-    }
-    .service-card:hover {
-      background: #333333;
-    }
-    .service-card h3 {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
-    .service-card p {
-      color: #B0B0B0;
-      font-size: 0.9rem;
-    }
-    .contact-form {
-      max-width: 400px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .contact-form label {
-      position: absolute;
-      left: -9999px; /* Hide labels visually but keep them for screen readers */
-    }
-    .contact-form input,
-    .contact-form textarea {
-      width: 100%;
-      padding: 0.75rem;
-      background: #333333;
-      border: none;
-      border-radius: 5px;
-      color: #FFFFFF;
-      font-size: 0.9rem;
-    }
-    .contact-form input.honeypot {
-      display: none; /* Hide honeypot field */
-    }
-    .contact-form textarea {
-      resize: none;
-      height: 100px;
-    }
-    .contact-form input:focus,
-    .contact-form textarea:focus {
-      outline: none;
-      box-shadow: 0 0 5px rgba(255, 51, 51, 0.5);
-    }
-    .contact-form button {
-      background: #FF3333;
-      color: #FFFFFF;
-      padding: 0.75rem;
-      border: none;
-      border-radius: 5px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.3s;
-    }
-    .contact-form button:hover {
-      background: #CC0000;
-      transform: translateY(-2px);
-    }
-    #form-status {
-      font-size: 0.9rem;
-      color: #B0B0B0;
-      margin-top: 0.5rem;
-    }
-    footer {
-      background: #000000;
-      color: #FFFFFF;
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-    }
-    .back-to-top {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #FF3333;
-      color: #FFFFFF;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: bold;
-      display: none; /* Hidden by default */
-      z-index: 100;
-      transition: background 0.3s, transform 0.3s;
-    }
-    .back-to-top:hover {
-      background: #CC0000;
-      transform: translateY(-2px);
-    }
-    @media (max-width: 768px) {
-      nav {
-        flex-direction: column;
-        gap: 0.75rem;
-        padding: 1rem;
-      }
-      nav ul {
-        flex-direction: column;
-        gap: 0.75rem;
-        text-align: center;
-      }
-      nav ul li a {
-        font-size: 0.9rem;
-      }
-      #branding {
-        padding: 1rem 1rem;
-      }
-      #branding h1 {
-        font-size: 2.5rem;
-      }
-      #branding p {
-        font-size: 0.9rem;
-      }
-      .hero {
-        padding: 1rem 1rem;
-        min-height: 25vh;
-      }
-      section {
-        padding: 1rem 1rem;
-      }
-      h2 {
-        font-size: 1.5rem;
-        margin-bottom: 0.75rem;
-      }
-      .contact-form {
-        max-width: 300px;
-      }
-      .service-card {
-        min-width: 200px;
-      }
-      .back-to-top {
-        bottom: 15px;
-        right: 15px;
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
-      }
-    }
-    @media (max-width: 576px) {
-      #branding h1 {
-        font-size: 2rem;
-      }
-      #branding p {
-        font-size: 0.85rem;
-      }
-      .hero {
-        background: linear-gradient(135deg, #000000, #1A1A1A, #1F0A0A);
-        min-height: 20vh;
-      }
-    }
-  </style>
+  <title>Paddle Game</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- React and ReactDOM CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <!-- Babel for JSX -->
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.9/babel.min.js"></script>
 </head>
-<body>
-  <!--
-    To run locally:
-    1. Ensure 'hero-drone.jpg' is in the same directory as this file.
-    2. Recommended: Use a local web server to avoid CORS issues with images:
-       - Python: Run `python -m http.server 8000` in the directory, then visit `http://localhost:8000`.
-       - Node.js: Install `http-server` (`npm install -g http-server`), run `http-server`, then visit `http://localhost:8080`.
-    3. Alternatively, open this file directly in a browser, but images may not load due to CORS restrictions.
-    4. If images are missing, replace with placeholders (e.g., src="https://via.placeholder.com/150").
-  -->
-  <nav>
-    <ul>
-      <li><a class="nav-link" href="#home" aria-label="Go to Home section">Home</a></li>
-      <li><a class="nav-link" href="#mission" aria-label="Go to Mission section">Mission</a></li>
-      <li><a class="nav-link" href="#services" aria-label="Go to Services section">Services</a></li>
-      <li><a class="nav-link" href="#contact" onclick="focusContactForm()" aria-label="Go to Contact section">Contact</a></li>
-    </ul>
-  </nav>
-  <section id="branding">
-    <h1>Thor Defense</h1>
-    <p>Thor Defense delivers next-generation defense solutions, specializing in AI-based systems, high-performance drones, elite training, and strategic advisory services for security, intelligence, and combat operations in complex threat environments.</p>
-  </section>
-  <main>
-    <section id="home" class="hero">
-      <div class="hero-content">
-        <a href="#contact" onclick="focusContactForm()">Contact Us</a>
-      </div>
-    </section>
-    <section id="mission">
-      <h2>Our Mission</h2>
-      <p>Mission-focused, technologically advanced defense company committed to delivering next-generation solutions for security, intelligence, and combat operations.</p>
-      <p>We operate at the forefront of AI integration and tactical hardware development, specializing in battlefield-proven systems such as AI-based facial recognition, personnel tracking, object detection, License Plate Recognition (LPR), and high-performance drone platforms—including quadcopters and VTOLs engineered for ISR and tactical deployment.</p>
-      <p>Our capabilities extend beyond technology. Thor Defense provides elite-level training programs and strategic advisory services designed to enhance the operational readiness of military units, government agencies, private security forces, and high-net-worth clientele operating in complex threat environments.</p>
-      <p>Driven by a clear mission—to redefine modern defense through innovation, precision, and unwavering reliability—Thor Defense stands as a trusted force multiplier in today’s multi-domain operational landscape.</p>
-      <p>Operational dominance starts here.</p>
-    </section>
-    <section id="contact">
-      <h2>Contact Us</h2>
-      <div class="contact-form">
-        <label for="name">Name</label>
-        <input type="text" id="name" placeholder="Name" required>
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="Email" required>
-        <label for="message">Message</label>
-        <textarea id="message" placeholder="Message" required></textarea>
-        <label for="honeypot">Leave this field empty</label>
-        <input type="text" id="honeypot" name="honeypot" class="honeypot">
-        <button onclick="handleSubmit()">Send</button>
-        <p id="form-status"></p>
-      </div>
-    </section>
-    <section id="services">
-      <h2>Our Services</h2>
-      <div class="services-container">
-        <div class="service-card">
-          <h3>AI-Based Systems</h3>
-          <p>Facial recognition, personnel tracking, object detection, and License Plate Recognition (LPR).</p>
-        </div>
-        <div class="service-card">
-          <h3>Drone Platforms</h3>
-          <p>High-performance quadcopters and VTOLs for ISR and tactical deployment.</p>
-        </div>
-        <div class="service-card">
-          <h3>Elite Training</h3>
-          <p>Programs for military, government, and private security forces.</p>
-        </div>
-        <div class="service-card">
-          <h3>Strategic Advisory</h3>
-          <p>Consulting for operational readiness in multi-domain environments.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-  <footer>
-    <p>© 2025 Thor Defense. All rights reserved.</p>
-  </footer>
-  <a href="#" class="back-to-top" id="back-to-top">Back to Top</a>
-  <script>
-    // Add flashing effect to navigation links on click
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', function() {
-        this.classList.remove('flash'); // Reset animation
-        this.classList.add('flash'); // Trigger animation
-      });
-    });
+<body class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div id="root"></div>
+  <script type="text/babel">
+    function GameCanvas() {
+      const canvasRef = React.useRef(null);
+      const [score, setScore] = React.useState(0);
+      const [gameState, setGameState] = React.useState('playing'); // 'playing', 'won', 'lost'
 
-    // Focus on the Name input field after scrolling to the Contact section
-    function focusContactForm() {
-      setTimeout(() => {
-        document.getElementById('name').focus();
-      }, 500); // Delay to allow smooth scrolling to complete
+      React.useEffect(() => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        const paddleWidth = 100;
+        const paddleHeight = 10;
+        const ballRadius = 10;
+        let paddleX = (canvas.width - paddleWidth) / 2;
+        let ballX = canvas.width / 2;
+        let ballY = canvas.height - 30;
+        let ballDX = 4;
+        let ballDY = -4;
+        const brickRowCount = 5;
+        const brickColumnCount = 8;
+        const brickWidth = 75;
+        const brickHeight = 20;
+        const brickPadding = 10;
+        const brickOffsetTop = 30;
+        const brickOffsetLeft = 30;
+        let bricks = [];
+        for (let c = 0; c < brickColumnCount; c++) {
+          bricks[c] = [];
+          for (let r = 0; r < brickRowCount; r++) {
+            bricks[c][r] = { x: 0, y: 0, status: 1 };
+          }
+        }
+
+        const drawPaddle = () => {
+          ctx.beginPath();
+          ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+          ctx.fillStyle = '#1E90FF';
+          ctx.fill();
+          ctx.closePath();
+        };
+
+        const drawBall = () => {
+          ctx.beginPath();
+          ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
+          ctx.fillStyle = '#FF4500';
+          ctx.fill();
+          ctx.closePath();
+        };
+
+        const drawBricks = () => {
+          for (let c = 0; c < brickColumnCount; c++) {
+            for (let r = 0; r < brickRowCount; r++) {
+              if (bricks[c][r].status === 1) {
+                const brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
+                const brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
+                bricks[c][r].x = brickX;
+                bricks[c][r].y = brickY;
+                ctx.beginPath();
+                ctx.rect(brickX, brickY, brickWidth, brickHeight);
+                ctx.fillStyle = '#228B22';
+                ctx.fill();
+                ctx.closePath();
+              }
+            }
+          }
+        };
+
+        const collisionDetection = () => {
+          for (let c = 0; c < brickColumnCount; c++) {
+            for (let r = 0; r < brickRowCount; r++) {
+              const b = bricks[c][r];
+              if (b.status === 1) {
+                if (
+                  ballX > b.x &&
+                  ballX < b.x + brickWidth &&
+                  ballY > b.y &&
+                  ballY < b.y + brickHeight
+                ) {
+                  ballDY = -ballDY;
+                  b.status = 0;
+                  setScore((prev) => prev + 1);
+                  if (score + 1 === brickRowCount * brickColumnCount) {
+                    setGameState('won');
+                  }
+                }
+              }
+            }
+          }
+        };
+
+        const moveBall = () => {
+          ballX += ballDX;
+          ballY += ballDY;
+
+          if (ballX + ballRadius > canvas.width || ballX - ballRadius < 0) {
+            ballDX = -ballDX;
+          }
+          if (ballY - ballRadius < 0) {
+            ballDY = -ballDY;
+          } else if (ballY + ballRadius > canvas.height - paddleHeight) {
+            if (ballX > paddleX && ballX < paddleX + paddleWidth) {
+              ballDY = -ballDY;
+            } else if (ballY + ballRadius > canvas.height) {
+              setGameState('lost');
+            }
+          }
+        };
+
+        const draw = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          drawBricks();
+          drawBall();
+          drawPaddle();
+          collisionDetection();
+          moveBall();
+        };
+
+        const mouseMoveHandler = (e) => {
+          const relativeX = e.clientX - canvas.offsetLeft;
+          if (relativeX > 0 && relativeX < canvas.width) {
+            paddleX = relativeX - paddleWidth / 2;
+            if (paddleX < 0) paddleX = 0;
+            if (paddleX + paddleWidth > canvas.width) paddleX = canvas.width - paddleWidth;
+          }
+        };
+
+        canvas.addEventListener('mousemove', mouseMoveHandler);
+
+        let animationFrameId;
+        const gameLoop = () => {
+          if (gameState === 'playing') {
+            draw();
+            animationFrameId = requestAnimationFrame(gameLoop);
+          }
+        };
+        gameLoop();
+
+        return () => {
+          canvas.removeEventListener('mousemove', mouseMoveHandler);
+          cancelAnimationFrame(animationFrameId);
+        };
+      }, [gameState, score]);
+
+      const restartGame = () => {
+        setScore(0);
+        setGameState('playing');
+        ballX = canvasRef.current.width / 2;
+        ballY = canvasRef.current.height - 30;
+        ballDX = 4;
+        ballDY = -4;
+      };
+
+      return (
+        <div className="flex flex-col items-center space-y-4">
+          <h2 className="text-2xl font-bold">Score: {score}</h2>
+          <canvas
+            ref={canvasRef}
+            width="800"
+            height="400"
+            className="border-2 border-gray-500"
+          />
+          {gameState !== 'playing' && (
+            <div className="absolute flex flex-col items-center justify-center bg-black bg-opacity-50 w-full h-full">
+              <h2 className="text-4xl font-bold text-white">
+                {gameState === 'won' ? 'You Won!' : 'Game Over'}
+              </h2>
+              <button
+                className="mt-4 px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                onClick={restartGame}
+              >
+                Restart
+              </button>
+            </div>
+          )}
+        </div>
+      );
     }
 
-    // Back-to-top button visibility
-    const backToTopButton = document.getElementById('back-to-top');
-    window.addEventListener('scroll', function() {
-      if (window.scrollY > 300) {
-        backToTopButton.style.display = 'block';
-      } else {
-        backToTopButton.style.display = 'none';
-      }
-    });
-
-    function handleSubmit() {
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const message = document.getElementById('message').value;
-      const honeypot = document.getElementById('honeypot').value;
-      const status = document.getElementById('form-status');
-
-      // Check honeypot field for spam
-      if (honeypot) {
-        status.textContent = 'Spam detected. Please try again.';
-        return;
-      }
-
-      if (!name || !email || !message) {
-        status.textContent = 'Please fill all fields.';
-        return;
-      }
-
-      status.textContent = 'Sending...';
-      // Placeholder for backend API or third-party service (e.g., Formspree)
-      setTimeout(() => {
-        status.textContent = 'Message sent successfully!';
-        document.getElementById('name').value = '';
-        document.getElementById('email').value = '';
-        document.getElementById('message').value = '';
-        document.getElementById('honeypot').value = ''; // Reset honeypot field
-      }, 1000);
+    function App() {
+      return (
+        <div className="flex flex-col items-center p-6">
+          <h1 className="text-4xl font-bold mb-6">Paddle Game</h1>
+          <GameCanvas />
+        </div>
+      );
     }
 
-    // Block right-click
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-      alert('Right-clicking is disabled ;-)');
-    });
+    ReactDOM.render(<App />, document.getElementById('root'));
   </script>
-  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93aaaa668b771383',t:'MTc0NjM4OTY3OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93ab6b730b56b043',t:'MTc0NjM5NzU4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
