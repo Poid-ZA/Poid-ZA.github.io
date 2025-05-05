@@ -143,10 +143,7 @@
       position: relative;
       text-align: center;
       padding: 1.5rem 1rem;
-      background: linear-gradient(135deg, #000000, #1A1A1A, #1F0A0A);
-      background-size: cover;
-      background-position: center;
-      background-blend-mode: overlay;
+      background: transparent; /* Remove gradient */
       min-height: 40vh; /* Increased to accommodate video */
       display: flex;
       align-items: center;
@@ -159,24 +156,14 @@
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain; /* Changed to contain to show full video */
+      object-fit: contain; /* Show full video */
       object-position: center; /* Center the video */
-      transform: scale(1.2); /* Zoom in slightly to show more details */
-      z-index: 0; /* Place video behind overlay and content */
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 1; /* Place overlay above video but below content */
+      transform: scale(1); /* Remove zoom */
+      z-index: 1; /* Bring video to forefront */
     }
     .hero-content {
       position: relative;
-      z-index: 1; /* Ensure content is above video and overlay */
+      z-index: 0; /* Below video */
       max-width: 800px;
       margin: 0 auto;
     }
@@ -446,7 +433,7 @@
         min-height: 35vh; /* Adjusted for video */
       }
       .hero video {
-        transform: scale(1.1); /* Slightly less zoom on tablet */
+        transform: scale(1); /* Remove zoom */
       }
       section {
         padding: 1rem 1rem;
@@ -498,7 +485,7 @@
         min-height: 50vh; /* Adjusted for video on mobile */
       }
       .hero video {
-        transform: scale(1.05); /* Minimal zoom on mobile */
+        transform: scale(1); /* Remove zoom */
       }
       .modal-close {
         padding: 0.3rem 0.6rem;
