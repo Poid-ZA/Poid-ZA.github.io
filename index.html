@@ -581,7 +581,6 @@
       </video>
       <div class="modal-video-controls">
         <button id="modal-play-pause">Play</button>
-        <button id="modal-fullscreen">Fullscreen</button>
       </div>
     </div>
   </div>
@@ -591,7 +590,6 @@
     const modalVideo = document.getElementById('modal-video');
     const modalVideoSource = document.getElementById('modal-video-source');
     const modalPlayPauseBtn = document.getElementById('modal-play-pause');
-    const modalFullscreenBtn = document.getElementById('modal-fullscreen');
     const modalClose = document.querySelector('.modal-close');
 
     async function openModal(videoSrc) {
@@ -632,17 +630,6 @@
       } else {
         modalVideo.pause();
         modalPlayPauseBtn.textContent = 'Play';
-      }
-    });
-
-    // Fullscreen Functionality
-    modalFullscreenBtn.addEventListener('click', function() {
-      if (modalVideo.requestFullscreen) {
-        modalVideo.requestFullscreen();
-      } else if (modalVideo.webkitRequestFullscreen) { /* Safari */
-        modalVideo.webkitRequestFullscreen();
-      } else if (modalVideo.mozRequestFullScreen) { /* Firefox */
-        modalVideo.mozRequestFullScreen();
       }
     });
 
