@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spinning Globe with Ticking Clock</title>
+  <title>Digital Date and Time</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -12,44 +13,67 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background-color: #1a1a1a;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #0a1e3b 100%);
+      color: #cccccc;
+      font-family: 'Orbitron', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+    .container {
+      text-align: center;
+      padding: 2rem;
+      z-index: 1;
     }
     h1 {
       font-size: 2.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 5px #00cc99, 0 0 10px #00cc99;
+      animation: glow 3s ease-in-out infinite alternate;
     }
     .clock {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      font-family: monospace;
+      font-size: 2rem;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 204, 153, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    canvas {
+    .clock:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 204, 153, 0.3);
+    }
+    .time-span {
+      display: inline-block;
+      opacity: 0;
+      animation: fadeIn 0.5s forwards;
+    hotspot: pointer;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #00cc99, 0 0 10px #00cc99; }
+      to { text-shadow: 0 0 10px #00cc99, 0 0 15px #00cc99; }
+    }
+    #matrix-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      max-width: 800px;
-      height: 400px;
-      display: block;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.3;
     }
   </style>
 </head>
 <body>
+  <canvas id="matrix-canvas"></canvas>
   <div id="root"></div>
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.module.js",
-        "react-dom/client": "https://unpkg.com/react-dom@18.2.0/client.js"
-      }
-    }
-  </script>
-  <script type="module">
-    import * as THREE from 'three';
-    import { createRoot } from 'react-dom/client';
-    import { useRef, useEffect, useState } from 'https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js';
-
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <script>
     function Clock() {
-      const [time, setTime] = useState(new Date().toLocaleString('en-US', { 
+      const [time, setTime] = React.useState(new Date().toLocaleString('en-US', { 
         weekday: 'short', 
         year: 'numeric', 
         month: 'short', 
@@ -60,7 +84,7 @@
         hour12: false 
       }));
 
-      useEffect(() => {
+      React.useEffect(() => {
         const interval = setInterval(() => {
           setTime(new Date().toLocaleString('en-US', { 
             weekday: 'short', 
@@ -76,124 +100,65 @@
         return () => clearInterval(interval);
       }, []);
 
-      return React.createElement('div', { className: 'clock' }, time);
-    }
+      const timeParts = time.split(' ').map((part, index) => 
+        React.createElement('span', { 
+          key: index, 
+          className: 'time-span', 
+          style: { animationDelay: `${index * 0.1}s` }
+        }, part + ' ')
+      );
 
-    function GlobeCanvas() {
-      const canvasRef = useRef(null);
-
-      useEffect(() => {
-        const canvas = canvasRef.current;
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-        renderer.setSize(canvas.width, canvas.height);
-
-        // Globe
-        const geometry = new THREE.SphereGeometry(1, 32, 32);
-        const material = new THREE.MeshBasicMaterial({
-          color: 0x1E90FF,
-          wireframe: true,
-        });
-        const globe = new THREE.Mesh(geometry, material);
-        scene.add(globe);
-
-        // Signals
-        const signals = [];
-        const signalGeometry = new THREE.SphereGeometry(0.02, 16, 16);
-        const signalMaterial = new THREE.MeshBasicMaterial({ color: 0xFFFF00 });
-
-        // Continental coordinates (approx. lat/lon in degrees)
-        const continents = [
-          { name: 'North America', lat: 40, lon: -100 },
-          { name: 'South America', lat: -10, lon: -60 },
-          { name: 'Europe', lat: 50, lon: 10 },
-          { name: 'Africa', lat: 0, lon: 20 },
-          { name: 'Asia', lat: 30, lon: 100 },
-          { name: 'Australia', lat: -25, lon: 135 },
-        ];
-
-        const latLonToVector3 = (lat, lon, radius) => {
-          const phi = (90 - lat) * (Math.PI / 180);
-          const theta = (lon + 180) * (Math.PI / 180);
-          return new THREE.Vector3(
-            -radius * Math.sin(phi) * Math.cos(theta),
-            radius * Math.cos(phi),
-            radius * Math.sin(phi) * Math.sin(theta)
-          );
-        };
-
-        const createSignal = () => {
-          const startContinent = continents[Math.floor(Math.random() * continents.length)];
-          let endContinent = continents[Math.floor(Math.random() * continents.length)];
-          if (startContinent === endContinent) {
-            endContinent = continents[(continents.indexOf(startContinent) + 1) % continents.length];
-          }
-
-          const startPos = latLonToVector3(startContinent.lat, startContinent.lon, 1.05);
-          const endPos = latLonToVector3(endContinent.lat, endContinent.lon, 1.05);
-          const signal = new THREE.Mesh(signalGeometry, signalMaterial);
-          signal.position.copy(startPos);
-          scene.add(signal);
-
-          return { mesh: signal, startPos, endPos, t: 0 };
-        };
-
-        for (let i = 0; i < 5; i++) {
-          signals.push(createSignal());
-        }
-
-        camera.position.z = 2.5;
-
-        const animate = () => {
-          globe.rotation.y += 0.005;
-
-          signals.forEach((signal, index) => {
-            signal.t += 0.02;
-            if (signal.t >= 1) {
-              scene.remove(signal.mesh);
-              signals.splice(index, 1);
-              signals.push(createSignal());
-            } else {
-              signal.mesh.position.lerpVectors(signal.startPos, signal.endPos, signal.t);
-            }
-          });
-
-          renderer.render(scene, camera);
-          requestAnimationFrame(animate);
-        };
-        animate();
-
-        const handleResize = () => {
-          const width = canvas.clientWidth;
-          const height = canvas.clientHeight;
-          renderer.setSize(width, height);
-          camera.aspect = width / height;
-          camera.updateProjectionMatrix();
-        };
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-          window.removeEventListener('resize', handleResize);
-          renderer.dispose();
-        };
-      }, []);
-
-      return React.createElement('canvas', {
-        ref: canvasRef,
-        className: 'canvas'
-      });
+      return React.createElement('div', { className: 'clock' }, timeParts);
     }
 
     function App() {
       return React.createElement('div', { className: 'container' },
-        React.createElement('h1', null, 'Spinning Globe with Ticking Clock'),
-        React.createElement(Clock),
-        React.createElement(GlobeCanvas)
+        React.createElement('h1', null, 'What time is it'),
+        React.createElement(Clock)
       );
     }
 
-    const root = createRoot(document.getElementById('root'));
+    // Matrix-style background
+    document.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.getElementById('matrix-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const fontSize = 12;
+      const columns = canvas.width / fontSize;
+      const drops = [];
+
+      for (let x = 0; x < columns; x++) {
+        drops[x] = Math.random() * canvas.height;
+      }
+
+      function draw() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#00cc99';
+        ctx.font = `${fontSize}px monospace`;
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars.charAt(Math.floor(Math.random() * chars.length));
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+
+      setInterval(draw, 50);
+
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    });
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(React.createElement(App));
   </script>
 </body>
