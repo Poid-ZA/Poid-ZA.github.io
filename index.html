@@ -37,45 +37,6 @@
         }
         return gk_fileData[filename] || "";
         }
-        </script><script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
         </script><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -633,19 +594,26 @@
     const modalFullscreenBtn = document.getElementById('modal-fullscreen');
     const modalClose = document.querySelector('.modal-close');
 
-    function openModal(videoSrc) {
+    async function openModal(videoSrc) {
       modalVideoSource.src = videoSrc;
       modalVideo.load();
       modal.style.display = 'flex';
-      modalVideo.play();
-      modalPlayPauseBtn.textContent = 'Pause';
+      try {
+        await modalVideo.play();
+        modalPlayPauseBtn.textContent = 'Pause';
+      } catch (err) {
+        console.error('Failed to play video:', err);
+        modalPlayPauseBtn.textContent = 'Play';
+      }
       // Add event listener for when the video ends
       modalVideo.addEventListener('ended', closeModal);
     }
 
     function closeModal() {
       modal.style.display = 'none';
-      modalVideo.pause();
+      if (!modalVideo.paused) {
+        modalVideo.pause();
+      }
       modalVideoSource.src = ''; // Clear the source to stop loading
       modalPlayPauseBtn.textContent = 'Play';
       // Remove the ended event listener to avoid duplicates
@@ -653,10 +621,14 @@
     }
 
     // Play/Pause Functionality
-    modalPlayPauseBtn.addEventListener('click', function() {
+    modalPlayPauseBtn.addEventListener('click', async function() {
       if (modalVideo.paused) {
-        modalVideo.play();
-        modalPlayPauseBtn.textContent = 'Pause';
+        try {
+          await modalVideo.play();
+          modalPlayPauseBtn.textContent = 'Pause';
+        } catch (err) {
+          console.error('Failed to play video:', err);
+        }
       } else {
         modalVideo.pause();
         modalPlayPauseBtn.textContent = 'Play';
