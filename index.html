@@ -38,13 +38,14 @@
   <script type="importmap">
     {
       "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.module.js"
+        "three": "https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.module.js",
+        "react-dom/client": "https://unpkg.com/react-dom@18.2.0/client.js"
       }
     }
   </script>
   <script type="module">
     import * as THREE from 'three';
-    import { createRoot } from 'https://cdn.jsdelivr.net/npm/react-dom@18.2.0/client.js';
+    import { createRoot } from 'react-dom/client';
     import { useRef, useEffect, useState } from 'https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js';
 
     function Clock() {
