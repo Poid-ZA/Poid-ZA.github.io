@@ -4,23 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spinning Globe with Signals</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- React and ReactDOM CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-  <!-- Babel for JSX -->
-  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.9/babel.min.js"></script>
-  <!-- Three.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #1a1a1a;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    canvas {
+      width: 100%;
+      max-width: 800px;
+      height: 400px;
+      display: block;
+    }
+  </style>
 </head>
-<body class="min-h-screen bg-gray-900 text-white flex items-center justify-center">
+<body>
   <div id="root"></div>
-  <script type="text/babel">
-    function GlobeCanvas() {
-      const canvasRef = React.useRef(null);
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.module.js"
+      }
+    }
+  </script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { createRoot } from 'https://cdn.jsdelivr.net/npm/react-dom@18.2.0/client.js';
+    import { useRef, useEffect } from 'https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js';
 
-      React.useEffect(() => {
+    function GlobeCanvas() {
+      const canvasRef = useRef(null);
+
+      useEffect(() => {
         const canvas = canvasRef.current;
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
@@ -36,7 +61,7 @@
         const globe = new THREE.Mesh(geometry, material);
         scene.add(globe);
 
-        // Stars/Signals
+        // Signals
         const signals = [];
         const signalGeometry = new THREE.SphereGeometry(0.02, 16, 16);
         const signalMaterial = new THREE.MeshBasicMaterial({ color: 0xFFFF00 });
@@ -63,11 +88,13 @@
 
         const createSignal = () => {
           const startContinent = continents[Math.floor(Math.random() * continents.length)];
-          const endContinent = continents[Math.floor(Math.random() * continents.length)];
-          if (startContinent === endContinent) return null;
+          let endContinent = continents[Math.floor(Math.random() * continents.length)];
+          if (startContinent === endContinent) {
+            endContinent = continents[(continents.indexOf(startContinent) + 1) % continents.length];
+          }
 
           const startPos = latLonToVector3(startContinent.lat, startContinent.lon, 1.05);
-          const endPos = latLonToVector3(endContinent.lat, endContin", startPos, endPos, 1.05);
+          const endPos = latLonToVector3(endContinent.lat, endContinent.lon, 1.05);
           const signal = new THREE.Mesh(signalGeometry, signalMaterial);
           signal.position.copy(startPos);
           scene.add(signal);
@@ -76,8 +103,7 @@
         };
 
         for (let i = 0; i < 5; i++) {
-          const signal = createSignal();
-          if (signal) signals.push(signal);
+          signals.push(createSignal());
         }
 
         camera.position.z = 2.5;
@@ -90,8 +116,7 @@
             if (signal.t >= 1) {
               scene.remove(signal.mesh);
               signals.splice(index, 1);
-              const newSignal = createSignal();
-              if (newSignal) signals.push(newSignal);
+              signals.push(createSignal());
             } else {
               signal.mesh.position.lerpVectors(signal.startPos, signal.endPos, signal.t);
             }
@@ -117,24 +142,21 @@
         };
       }, []);
 
-      return (
-        <canvas
-          ref={canvasRef}
-          className="w-full max-w-4xl h-96"
-        />
-      );
+      return React.createElement('canvas', {
+        ref: canvasRef,
+        className: 'canvas'
+      });
     }
 
     function App() {
-      return (
-        <div className="flex flex-col items-center p-6">
-          <h1 className="text-4xl font-bold mb-6">Spinning Globe with Signals</h1>
-          <GlobeCanvas />
-        </div>
+      return React.createElement('div', { className: 'container' },
+        React.createElement('h1', null, 'Spinning Globe with Signals'),
+        React.createElement(GlobeCanvas)
       );
     }
 
-    ReactDOM.render(<App />, document.getElementById('root'));
+    const root = createRoot(document.getElementById('root'));
+    root.render(React.createElement(App));
   </script>
 </body>
 </html>
