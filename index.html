@@ -326,16 +326,19 @@
       transform: translateY(-2px);
     }
     .modal-close {
-      color: #FF3333;
-      font-size: 0.9rem;
+      background: #FF3333;
+      color: #FFFFFF;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
       font-weight: bold;
       cursor: pointer;
-      transition: color 0.3s;
+      transition: background 0.3s, transform 0.3s;
       z-index: 1001; /* Ensure clickable above other elements */
-      padding: 0.5rem;
     }
     .modal-close:hover {
-      color: #CC0000;
+      background: #CC0000;
+      transform: translateY(-2px);
     }
     .contact-form {
       max-width: 400px;
@@ -459,8 +462,8 @@
         min-width: 250px;
       }
       .modal-close {
-        font-size: 0.8rem;
-        padding: 0.4rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
       }
       .modal-video-controls {
         bottom: 10px;
@@ -498,8 +501,8 @@
         transform: scale(1.05); /* Minimal zoom on mobile */
       }
       .modal-close {
-        font-size: 0.7rem;
-        padding: 0.3rem;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
       }
       .modal-video-controls {
         bottom: 8px;
@@ -611,7 +614,7 @@
       </video>
       <div class="modal-video-controls">
         <button id="modal-play-pause">Play</button>
-        <span class="modal-close" onclick="closeModal()">×</span>
+        <span class="modal-close" onclick="closeModal()">Close</span>
       </div>
     </div>
   </div>
