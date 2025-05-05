@@ -1,1 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spinning Globe with Signals</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- React and ReactDOM CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <!-- Babel for JSX -->
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.22.9/babel.min.js"></script>
+  <!-- Three.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+</head>
+<body class="min-h-screen bg-gray-900 text-white flex items-center justify-center">
+  <div id="root"></div>
+  <script type="text/babel">
+    function GlobeCanvas() {
+      const canvasRef = React.useRef(null);
 
+      React.useEffect(() => {
+        const canvas = canvasRef.current;
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+        renderer.setSize(canvas.width, canvas.height);
+
+        // Globe
+        const geometry = new THREE.SphereGeometry(1, 32, 32);
+        const material = new THREE.MeshBasicMaterial({
+          color: 0x1E90FF,
+          wireframe: true,
+        });
+        const globe = new THREE.Mesh(geometry, material);
+        scene.add(globe);
+
+        // Stars/Signals
+        const signals = [];
+        const signalGeometry = new THREE.SphereGeometry(0.02, 16, 16);
+        const signalMaterial = new THREE.MeshBasicMaterial({ color: 0xFFFF00 });
+
+        // Continental coordinates (approx. lat/lon in degrees)
+        const continents = [
+          { name: 'North America', lat: 40, lon: -100 },
+          { name: 'South America', lat: -10, lon: -60 },
+          { name: 'Europe', lat: 50, lon: 10 },
+          { name: 'Africa', lat: 0, lon: 20 },
+          { name: 'Asia', lat: 30, lon: 100 },
+          { name: 'Australia', lat: -25, lon: 135 },
+        ];
+
+        const latLonToVector3 = (lat, lon, radius) => {
+          const phi = (90 - lat) * (Math.PI / 180);
+          const theta = (lon + 180) * (Math.PI / 180);
+          return new THREE.Vector3(
+            -radius * Math.sin(phi) * Math.cos(theta),
+            radius * Math.cos(phi),
+            radius * Math.sin(phi) * Math.sin(theta)
+          );
+        };
+
+        const createSignal = () => {
+          const startContinent = continents[Math.floor(Math.random() * continents.length)];
+          const endContinent = continents[Math.floor(Math.random() * continents.length)];
+          if (startContinent === endContinent) return null;
+
+          const startPos = latLonToVector3(startContinent.lat, startContinent.lon, 1.05);
+          const endPos = latLonToVector3(endContinent.lat, endContin", startPos, endPos, 1.05);
+          const signal = new THREE.Mesh(signalGeometry, signalMaterial);
+          signal.position.copy(startPos);
+          scene.add(signal);
+
+          return { mesh: signal, startPos, endPos, t: 0 };
+        };
+
+        for (let i = 0; i < 5; i++) {
+          const signal = createSignal();
+          if (signal) signals.push(signal);
+        }
+
+        camera.position.z = 2.5;
+
+        const animate = () => {
+          globe.rotation.y += 0.005;
+
+          signals.forEach((signal, index) => {
+            signal.t += 0.02;
+            if (signal.t >= 1) {
+              scene.remove(signal.mesh);
+              signals.splice(index, 1);
+              const newSignal = createSignal();
+              if (newSignal) signals.push(newSignal);
+            } else {
+              signal.mesh.position.lerpVectors(signal.startPos, signal.endPos, signal.t);
+            }
+          });
+
+          renderer.render(scene, camera);
+          requestAnimationFrame(animate);
+        };
+        animate();
+
+        const handleResize = () => {
+          const width = canvas.clientWidth;
+          const height = canvas.clientHeight;
+          renderer.setSize(width, height);
+          camera.aspect = width / height;
+          camera.updateProjectionMatrix();
+        };
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+          window.removeEventListener('resize', handleResize);
+          renderer.dispose();
+        };
+      }, []);
+
+      return (
+        <canvas
+          ref={canvasRef}
+          className="w-full max-w-4xl h-96"
+        />
+      );
+    }
+
+    function App() {
+      return (
+        <div className="flex flex-col items-center p-6">
+          <h1 className="text-4xl font-bold mb-6">Spinning Globe with Signals</h1>
+          <GlobeCanvas />
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
