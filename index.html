@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Date and Time</title>
+  <title>Matrix Clock</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -12,48 +12,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #0a1e3b 100%);
-      color: #cccccc;
+      justify-content: space-between;
+      background: #0a0a0a;
+      color: #b3e6d9;
       font-family: 'Orbitron', sans-serif;
       overflow: hidden;
       position: relative;
-    }
-    .container {
-      text-align: center;
-      padding: 2rem;
-      z-index: 1;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-      text-shadow: 0 0 5px #00cc99, 0 0 10px #00cc99;
-      animation: glow 3s ease-in-out infinite alternate;
-    }
-    .clock {
-      font-size: 2rem;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 1rem 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 204, 153, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .clock:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 204, 153, 0.3);
-    }
-    .time-span {
-      display: inline-block;
-      opacity: 0;
-      animation: fadeIn 0.5s forwards;
-    hotspot: pointer;
-    }
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-    @keyframes glow {
-      from { text-shadow: 0 0 5px #00cc99, 0 0 10px #00cc99; }
-      to { text-shadow: 0 0 10px #00cc99, 0 0 15px #00cc99; }
     }
     #matrix-canvas {
       position: fixed;
@@ -62,61 +26,124 @@
       width: 100%;
       height: 100%;
       z-index: -1;
-      opacity: 0.3;
+      opacity: 0.4;
+    }
+    .container {
+      text-align: center;
+      padding: 2rem;
+      z-index: 1;
+      max-width: 90%;
+      box-sizing: border-box;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .clock {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+      background: rgba(0, 0, 0, 0.85);
+      padding: 1.5rem 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 179, 179, 0.3);
+      border: 1px solid #00b3b3;
+    }
+    .time-part {
+      margin: 0.3rem 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .seconds {
+      animation: pulseSeconds 1s ease-in-out infinite;
+    }
+    @keyframes pulseSeconds {
+      0% { text-shadow: 0 0 5px #00b3b3, 0 0 10px #00b3b3; transform: scale(1); }
+      50% { text-shadow: 0 0 10px #00b3b3, 0 0 20px #00b3b3; transform: scale(1.05); }
+      100% { text-shadow: 0 0 5px #00b3b3, 0 0 10px #00b3b3; transform: scale(1); }
+    }
+    .toggle-button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: rgba(0, 179, 179, 0.2);
+      border: 1px solid #00b3b3;
+      color: #b3e6d9;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(0.8rem, 2.5vw, 1rem);
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .toggle-button:hover {
+      background: rgba(0, 179, 179, 0.4);
+      box-shadow: 0 0 10px rgba(0, 179, 179, 0.5);
+    }
+    .visitor-counter {
+      text-align: center;
+      padding: 1rem;
+      z-index: 1;
+      font-size: clamp(0.8rem, 2.5vw, 1rem);
+      background: rgba(0, 0, 0, 0.85);
+      width: 100%;
+      box-sizing: border-box;
+      text-shadow: 0 0 5px #00b3b3;
+      position: relative;
+      bottom: 0;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 1rem;
+      }
+      .clock {
+        padding: 1rem 1.5rem;
+      }
+      .visitor-counter {
+        padding: 0.5rem;
+      }
     }
   </style>
 </head>
 <body>
   <canvas id="matrix-canvas"></canvas>
-  <div id="root"></div>
-  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <div class="container">
+    <div class="clock">
+      <div class="time-part" id="weekday"></div>
+      <div class="time-part" id="monthDay"></div>
+      <div class="time-part" id="year"></div>
+      <div class="time-part seconds" id="time"></div>
+    </div>
+    <button class="toggle-button" onclick="toggleFormat()">Toggle 12/24-Hour</button>
+  </div>
+  <div class="visitor-counter" id="visitor-counter">Visitors: 0</div>
   <script>
-    function Clock() {
-      const [time, setTime] = React.useState(new Date().toLocaleString('en-US', { 
-        weekday: 'short', 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric', 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit', 
-        hour12: false 
-      }));
+    let is24Hour = true;
 
-      React.useEffect(() => {
-        const interval = setInterval(() => {
-          setTime(new Date().toLocaleString('en-US', { 
-            weekday: 'short', 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric', 
-            hour: '2-digit', 
-            minute: '2-digit', 
-            second: '2-digit', 
-            hour12: false 
-          }));
-        }, 1000);
-        return () => clearInterval(interval);
-      }, []);
-
-      const timeParts = time.split(' ').map((part, index) => 
-        React.createElement('span', { 
-          key: index, 
-          className: 'time-span', 
-          style: { animationDelay: `${index * 0.1}s` }
-        }, part + ' ')
-      );
-
-      return React.createElement('div', { className: 'clock' }, timeParts);
+    function updateTime() {
+      const date = new Date();
+      document.getElementById('weekday').textContent = date.toLocaleString('en-US', { weekday: 'long' });
+      document.getElementById('monthDay').textContent = date.toLocaleString('en-US', { month: 'short', day: 'numeric' });
+      document.getElementById('year').textContent = date.toLocaleString('en-US', { year: 'numeric' });
+      document.getElementById('time').textContent = date.toLocaleString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: !is24Hour
+      });
     }
 
-    function App() {
-      return React.createElement('div', { className: 'container' },
-        React.createElement('h1', null, 'What time is it'),
-        React.createElement(Clock)
-      );
+    function toggleFormat() {
+      is24Hour = !is24Hour;
+      updateTime();
     }
+
+    // Update time immediately and every second
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    // Visitor counter
+    let visitorCount = localStorage.getItem('visitorCount') ? parseInt(localStorage.getItem('visitorCount')) + 1 : 1;
+    localStorage.setItem('visitorCount', visitorCount);
+    document.getElementById('visitor-counter').textContent = `Visitors: ${visitorCount}`;
 
     // Matrix-style background
     document.addEventListener('DOMContentLoaded', () => {
@@ -125,28 +152,32 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
-      const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      const fontSize = 12;
-      const columns = canvas.width / fontSize;
+      const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZあいうえお漢字';
+      const fontSize = 14;
+      const columns = Math.floor(canvas.width / fontSize);
       const drops = [];
+      const speeds = [];
 
       for (let x = 0; x < columns; x++) {
-        drops[x] = Math.random() * canvas.height;
+        drops[x] = Math.random() * canvas.height / fontSize;
+        speeds[x] = Math.random() * 0.5 + 0.5;
       }
 
       function draw() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#00cc99';
         ctx.font = `${fontSize}px monospace`;
 
         for (let i = 0; i < drops.length; i++) {
           const text = chars.charAt(Math.floor(Math.random() * chars.length));
+          const alpha = Math.min(1, drops[i] / 20);
+          ctx.fillStyle = `rgba(0, 179, 179, ${alpha})`;
           ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] += speeds[i];
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
             drops[i] = 0;
+            speeds[i] = Math.random() * 0.5 + 0.5;
           }
-          drops[i]++;
         }
       }
 
@@ -155,11 +186,15 @@
       window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        drops.length = Math.floor(canvas.width / fontSize);
+        for (let x = 0; x < drops.length; x++) {
+          if (!drops[x]) {
+            drops[x] = Math.random() * canvas.height / fontSize;
+            speeds[x] = Math.random() * 0.5 + 0.5;
+          }
+        }
       });
     });
-
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(React.createElement(App));
   </script>
 </body>
 </html>
