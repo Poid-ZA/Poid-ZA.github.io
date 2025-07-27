@@ -1,130 +1,175 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FitPlanr - Enhanced Planner</title>
+  <title>FitPlanr</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="logo.png" type="image/png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --orange: #F39C12;
-      --dark-orange: #D35400;
-      --charcoal: #2C3E50;
-      --light: #f5f5f5;
-    }
-
-    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-    body { margin: 0; background: var(--light); color: var(--charcoal); padding: 1rem; }
-    h1, h2 { color: var(--dark-orange); }
-    header { text-align: center; margin-bottom: 2rem; }
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 1rem; color: #2C3E50; }
+    header { text-align: center; background: #D35400; color: white; padding: 1rem; }
+    h1 { margin: 0.5rem 0; }
     .container { max-width: 800px; margin: auto; }
-    .form-group { margin-bottom: 1rem; }
-    .form-group input { padding: 0.5rem; width: 100%; }
-    button { padding: 0.6rem 1rem; background: var(--orange); color: white; border: none; border-radius: 6px; cursor: pointer; }
-    ul { list-style: none; padding: 0; }
-    li { background: white; margin-bottom: 0.5rem; padding: 0.75rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 0.5rem; }
-    .actions { margin-top: 1.5rem; text-align: center; }
+    .form-group { margin: 0.5rem 0; }
+    .form-group input, select { width: 100%; padding: 0.5rem; }
+    .plan-list { list-style: none; padding: 0; }
+    .plan-item { background: white; margin: 0.5rem 0; padding: 0.5rem; border-radius: 8px; display: flex; gap: 0.5rem; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
     .icon { font-size: 1.5rem; }
+    .actions { text-align: center; margin-top: 1rem; }
+    button { background: #F39C12; color: white; padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; margin: 0.25rem; }
   </style>
 </head>
 <body>
   <header>
+    <img src="logo.png" alt="FitPlanr Logo" width="120" />
     <h1>FitPlanr</h1>
-    <p>Build your workout routine</p>
+    <p>Plan. Track. Share.</p>
   </header>
   <div class="container">
     <div class="form-group">
-      <input type="text" id="exercise" placeholder="Exercise Name (e.g. Push Ups)" />
+      <input type="text" id="exercise" placeholder="Exercise Name" />
     </div>
     <div class="form-group">
-      <input type="number" id="sets" placeholder="Sets" min="1" />
+      <select id="category">
+        <option value="push">Push</option>
+        <option value="pull">Pull</option>
+        <option value="squat">Squat</option>
+        <option value="cardio">Cardio</option>
+        <option value="core">Core</option>
+        <option value="other">Other</option>
+      </select>
     </div>
     <div class="form-group">
-      <input type="number" id="reps" placeholder="Reps per Set" min="1" />
+      <input type="number" id="sets" placeholder="Sets" />
+    </div>
+    <div class="form-group">
+      <input type="number" id="reps" placeholder="Reps" />
     </div>
     <div class="form-group">
       <input type="text" id="rest" placeholder="Rest Time (e.g. 60s)" />
     </div>
+    <button onclick="addExercise()">Add Exercise</button>
+
     <div class="form-group">
-      <button onclick="addExercise()">Add Exercise</button>
+      <label>Filter by Category:</label>
+      <select id="filter" onchange="filterList()">
+        <option value="all">All</option>
+        <option value="push">Push</option>
+        <option value="pull">Pull</option>
+        <option value="squat">Squat</option>
+        <option value="cardio">Cardio</option>
+        <option value="core">Core</option>
+        <option value="other">Other</option>
+      </select>
     </div>
-    <ul id="planList"></ul>
+
+    <ul id="planList" class="plan-list"></ul>
+
     <div class="actions">
-      <button onclick="downloadPlan()">Download TXT</button>
+      <button onclick="downloadTXT()">Download TXT</button>
       <button onclick="downloadPDF()">Download PDF</button>
+      <button onclick="generateLink()">Copy Shareable Link</button>
     </div>
   </div>
 
   <script>
     const plan = [];
 
-    function getIconForExercise(name) {
-      const n = name.toLowerCase();
-      if (n.includes('push')) return '💪';
-      if (n.includes('pull')) return '🏋️';
-      if (n.includes('squat')) return '🦵';
-      if (n.includes('run') || n.includes('cardio')) return '🏃';
-      if (n.includes('core') || n.includes('plank') || n.includes('abs')) return '🤸';
-      return '🧘';
-    }
+    const icons = {
+      push: '💪', pull: '🏋️', squat: '🦵', cardio: '🏃', core: '🤸', other: '🧘'
+    };
 
     function addExercise() {
       const exercise = document.getElementById('exercise').value.trim();
+      const category = document.getElementById('category').value;
       const sets = document.getElementById('sets').value;
       const reps = document.getElementById('reps').value;
       const rest = document.getElementById('rest').value.trim();
+      if (!exercise || !sets || !reps) return alert('Please fill in all fields');
 
-      if (!exercise || !sets || !reps) {
-        alert('Please fill in all fields');
-        return;
-      }
-
-      const item = `${exercise} - ${sets} sets x ${reps} reps (Rest: ${rest})`;
+      const item = { exercise, category, sets, reps, rest };
       plan.push(item);
-
-      const li = document.createElement('li');
-      const icon = document.createElement('span');
-      icon.className = 'icon';
-      icon.textContent = getIconForExercise(exercise);
-
-      const txt = document.createElement('span');
-      txt.textContent = item;
-
-      li.appendChild(icon);
-      li.appendChild(txt);
-      document.getElementById('planList').appendChild(li);
-
-      document.getElementById('exercise').value = '';
-      document.getElementById('sets').value = '';
-      document.getElementById('reps').value = '';
-      document.getElementById('rest').value = '';
+      renderPlan();
+      updateURL();
     }
 
-    function downloadPlan() {
-      const content = plan.join('\n');
-      const blob = new Blob([content], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
+    function renderPlan() {
+      const filter = document.getElementById('filter').value;
+      const list = document.getElementById('planList');
+      list.innerHTML = '';
+      plan.forEach((p, i) => {
+        if (filter !== 'all' && p.category !== filter) return;
+        const li = document.createElement('li');
+        li.className = 'plan-item';
+        li.innerHTML = `<span class="icon">${icons[p.category]}</span><span>${p.exercise} - ${p.sets} sets x ${p.reps} reps (Rest: ${p.rest})</span>`;
+        list.appendChild(li);
+      });
+    }
+
+    function filterList() {
+      renderPlan();
+    }
+
+    function downloadTXT() {
+      const lines = plan.map(p => `${p.exercise} - ${p.sets} x ${p.reps} (Rest: ${p.rest})`);
+      const blob = new Blob([lines.join('\n')], {{ type: 'text/plain' }});
       const a = document.createElement('a');
-      a.href = url;
-      a.download = 'my-workout-plan.txt';
+      a.href = URL.createObjectURL(blob);
+      a.download = 'workout-plan.txt';
       a.click();
-      URL.revokeObjectURL(url);
     }
 
     function downloadPDF() {
-      const { jsPDF } = window.jspdf;
+      const {{ jsPDF }} = window.jspdf;
       const doc = new jsPDF();
-      doc.setFont('helvetica', 'normal');
       doc.setFontSize(16);
-      doc.text('My Workout Plan', 20, 20);
-      doc.setFontSize(12);
-      plan.forEach((line, i) => {
-        doc.text(`- ${line}`, 20, 30 + i * 10);
-      });
-      doc.save('my-workout-plan.pdf');
+      doc.text('FitPlanr - Workout Plan', 20, 20);
+      const logo = new Image();
+      logo.src = 'logo.png';
+      logo.onload = () => {
+        doc.addImage(logo, 'PNG', 150, 10, 40, 20);
+        doc.setFontSize(12);
+        plan.forEach((p, i) => {
+          doc.text(`- ${p.exercise} (${p.category}) - ${p.sets} x ${p.reps} rest ${p.rest}`, 20, 40 + i * 10);
+        });
+        doc.save('fitplanr-plan.pdf');
+      };
     }
+
+    function generateLink() {
+      const encoded = encodeURIComponent(JSON.stringify(plan));
+      const url = `${location.origin}${location.pathname}?plan=${encoded}`;
+      navigator.clipboard.writeText(url);
+      alert('Shareable link copied to clipboard!');
+    }
+
+    function updateURL() {
+      const encoded = encodeURIComponent(JSON.stringify(plan));
+      const url = `${location.pathname}?plan=${encoded}`;
+      history.replaceState(null, '', url);
+    }
+
+    function loadFromURL() {
+      const params = new URLSearchParams(location.search);
+      if (params.has('plan')) {
+        try {
+          const decoded = JSON.parse(decodeURIComponent(params.get('plan')));
+          decoded.forEach(p => plan.push(p));
+          renderPlan();
+        } catch(e) { console.error('Failed to parse shared plan'); }
+      }
+    }
+
+    loadFromURL();
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {{
+      navigator.serviceWorker.register('service-worker.js');
+    }}
   </script>
 </body>
 </html>
