@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FitPlanr - Workout Builder</title>
+  <title>FitPlanr - Enhanced Planner</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -23,14 +24,15 @@
     .form-group input { padding: 0.5rem; width: 100%; }
     button { padding: 0.6rem 1rem; background: var(--orange); color: white; border: none; border-radius: 6px; cursor: pointer; }
     ul { list-style: none; padding: 0; }
-    li { background: white; margin-bottom: 0.5rem; padding: 0.75rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    li { background: white; margin-bottom: 0.5rem; padding: 0.75rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 0.5rem; }
     .actions { margin-top: 1.5rem; text-align: center; }
+    .icon { font-size: 1.5rem; }
   </style>
 </head>
 <body>
   <header>
     <h1>FitPlanr</h1>
-    <p>Build your workout routine below</p>
+    <p>Build your workout routine</p>
   </header>
   <div class="container">
     <div class="form-group">
@@ -50,12 +52,23 @@
     </div>
     <ul id="planList"></ul>
     <div class="actions">
-      <button onclick="downloadPlan()">Download as TXT</button>
+      <button onclick="downloadPlan()">Download TXT</button>
+      <button onclick="downloadPDF()">Download PDF</button>
     </div>
   </div>
 
   <script>
-    let plan = [];
+    const plan = [];
+
+    function getIconForExercise(name) {
+      const n = name.toLowerCase();
+      if (n.includes('push')) return '💪';
+      if (n.includes('pull')) return '🏋️';
+      if (n.includes('squat')) return '🦵';
+      if (n.includes('run') || n.includes('cardio')) return '🏃';
+      if (n.includes('core') || n.includes('plank') || n.includes('abs')) return '🤸';
+      return '🧘';
+    }
 
     function addExercise() {
       const exercise = document.getElementById('exercise').value.trim();
@@ -72,10 +85,17 @@
       plan.push(item);
 
       const li = document.createElement('li');
-      li.textContent = item;
+      const icon = document.createElement('span');
+      icon.className = 'icon';
+      icon.textContent = getIconForExercise(exercise);
+
+      const txt = document.createElement('span');
+      txt.textContent = item;
+
+      li.appendChild(icon);
+      li.appendChild(txt);
       document.getElementById('planList').appendChild(li);
 
-      // Clear inputs
       document.getElementById('exercise').value = '';
       document.getElementById('sets').value = '';
       document.getElementById('reps').value = '';
@@ -86,13 +106,24 @@
       const content = plan.join('\n');
       const blob = new Blob([content], { type: 'text/plain' });
       const url = URL.createObjectURL(blob);
-
       const a = document.createElement('a');
       a.href = url;
       a.download = 'my-workout-plan.txt';
       a.click();
-
       URL.revokeObjectURL(url);
+    }
+
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(16);
+      doc.text('My Workout Plan', 20, 20);
+      doc.setFontSize(12);
+      plan.forEach((line, i) => {
+        doc.text(`- ${line}`, 20, 30 + i * 10);
+      });
+      doc.save('my-workout-plan.pdf');
     }
   </script>
 </body>
