@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FitPlanr - Your Custom Workout Planner</title>
-  <meta name="description" content="Create and share custom workout plans with FitPlanr. No sign-up required. Fast, intuitive, and free!">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FitPlanr - Workout Builder</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -15,59 +14,86 @@
       --light: #f5f5f5;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
-    body { background: var(--light); color: var(--charcoal); line-height: 1.6; }
-    header { background: var(--dark-orange); color: white; padding: 2rem 1rem; text-align: center; }
-    header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    header p { font-size: 1.2rem; }
-    .cta { margin-top: 1.5rem; }
-    .cta a { background: var(--orange); color: white; padding: 0.8rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; }
-
-    section.features { padding: 2rem 1rem; max-width: 1000px; margin: auto; }
-    .feature { background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
-    .feature h2 { color: var(--dark-orange); margin-bottom: 0.5rem; }
-
-    footer { background: var(--charcoal); color: white; text-align: center; padding: 1.5rem 1rem; font-size: 0.9rem; }
-    footer a { color: var(--orange); text-decoration: none; margin: 0 0.5rem; }
-
-    @media (min-width: 768px) {
-      header h1 { font-size: 3rem; }
-      .cta a { font-size: 1.1rem; }
-    }
+    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body { margin: 0; background: var(--light); color: var(--charcoal); padding: 1rem; }
+    h1, h2 { color: var(--dark-orange); }
+    header { text-align: center; margin-bottom: 2rem; }
+    .container { max-width: 800px; margin: auto; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group input { padding: 0.5rem; width: 100%; }
+    button { padding: 0.6rem 1rem; background: var(--orange); color: white; border: none; border-radius: 6px; cursor: pointer; }
+    ul { list-style: none; padding: 0; }
+    li { background: white; margin-bottom: 0.5rem; padding: 0.75rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .actions { margin-top: 1.5rem; text-align: center; }
   </style>
 </head>
 <body>
   <header>
     <h1>FitPlanr</h1>
-    <p>Create and share custom workout plans effortlessly – no sign-up required.</p>
-    <div class="cta">
-      <a href="#planner">Start Planning</a>
-    </div>
+    <p>Build your workout routine below</p>
   </header>
+  <div class="container">
+    <div class="form-group">
+      <input type="text" id="exercise" placeholder="Exercise Name (e.g. Push Ups)" />
+    </div>
+    <div class="form-group">
+      <input type="number" id="sets" placeholder="Sets" min="1" />
+    </div>
+    <div class="form-group">
+      <input type="number" id="reps" placeholder="Reps per Set" min="1" />
+    </div>
+    <div class="form-group">
+      <input type="text" id="rest" placeholder="Rest Time (e.g. 60s)" />
+    </div>
+    <div class="form-group">
+      <button onclick="addExercise()">Add Exercise</button>
+    </div>
+    <ul id="planList"></ul>
+    <div class="actions">
+      <button onclick="downloadPlan()">Download as TXT</button>
+    </div>
+  </div>
 
-  <section class="features">
-    <div class="feature">
-      <h2><i class="fa-solid fa-dumbbell"></i> Build Your Routine</h2>
-      <p>Select exercises, reps, sets, and rest time to customize your plan with ease.</p>
-    </div>
-    <div class="feature">
-      <h2><i class="fa-solid fa-share"></i> Share Instantly</h2>
-      <p>Generate a link or download your plan as a PDF – no login needed.</p>
-    </div>
-    <div class="feature">
-      <h2><i class="fa-solid fa-bolt"></i> Fast & Client-Side</h2>
-      <p>Everything runs in your browser. No servers. No delays.</p>
-    </div>
-  </section>
+  <script>
+    let plan = [];
 
-  <footer>
-    <p>Contact us at <a href="mailto:contact@fitplanr.com">contact@fitplanr.com</a></p>
-    <p>
-      Follow us:
-      <a href="https://instagram.com/fitplanr" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="https://facebook.com/FitPlanr" target="_blank"><i class="fab fa-facebook"></i></a>
-    </p>
-    <p>&copy; 2025 FitPlanr. All rights reserved.</p>
-  </footer>
+    function addExercise() {
+      const exercise = document.getElementById('exercise').value.trim();
+      const sets = document.getElementById('sets').value;
+      const reps = document.getElementById('reps').value;
+      const rest = document.getElementById('rest').value.trim();
+
+      if (!exercise || !sets || !reps) {
+        alert('Please fill in all fields');
+        return;
+      }
+
+      const item = `${exercise} - ${sets} sets x ${reps} reps (Rest: ${rest})`;
+      plan.push(item);
+
+      const li = document.createElement('li');
+      li.textContent = item;
+      document.getElementById('planList').appendChild(li);
+
+      // Clear inputs
+      document.getElementById('exercise').value = '';
+      document.getElementById('sets').value = '';
+      document.getElementById('reps').value = '';
+      document.getElementById('rest').value = '';
+    }
+
+    function downloadPlan() {
+      const content = plan.join('\n');
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'my-workout-plan.txt';
+      a.click();
+
+      URL.revokeObjectURL(url);
+    }
+  </script>
 </body>
 </html>
