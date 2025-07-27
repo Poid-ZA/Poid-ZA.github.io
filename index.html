@@ -1,200 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matrix Clock</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      background: #0a0a0a;
-      color: #b3e6d9;
-      font-family: 'Orbitron', sans-serif;
-      overflow: hidden;
-      position: relative;
-    }
-    #matrix-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      opacity: 0.4;
-    }
-    .container {
-      text-align: center;
-      padding: 2rem;
-      z-index: 1;
-      max-width: 90%;
-      box-sizing: border-box;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .clock {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: clamp(1.2rem, 3.5vw, 1.6rem);
-      background: rgba(0, 0, 0, 0.85);
-      padding: 1.5rem 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 179, 179, 0.3);
-      border: 1px solid #00b3b3;
-    }
-    .time-part {
-      margin: 0.3rem 0;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-    .seconds {
-      animation: pulseSeconds 1s ease-in-out infinite;
-    }
-    @keyframes pulseSeconds {
-      0% { text-shadow: 0 0 5px #00b3b3, 0 0 10px #00b3b3; transform: scale(1); }
-      50% { text-shadow: 0 0 10px #00b3b3, 0 0 20px #00b3b3; transform: scale(1.05); }
-      100% { text-shadow: 0 0 5px #00b3b3, 0 0 10px #00b3b3; transform: scale(1); }
-    }
-    .toggle-button {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background: rgba(0, 179, 179, 0.2);
-      border: 1px solid #00b3b3;
-      color: #b3e6d9;
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(0.8rem, 2.5vw, 1rem);
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-    }
-    .toggle-button:hover {
-      background: rgba(0, 179, 179, 0.4);
-      box-shadow: 0 0 10px rgba(0, 179, 179, 0.5);
-    }
-    .visitor-counter {
-      text-align: center;
-      padding: 1rem;
-      z-index: 1;
-      font-size: clamp(0.8rem, 2.5vw, 1rem);
-      background: rgba(0, 0, 0, 0.85);
-      width: 100%;
-      box-sizing: border-box;
-      text-shadow: 0 0 5px #00b3b3;
-      position: relative;
-      bottom: 0;
-    }
-    @media (max-width: 600px) {
-      .container {
-        padding: 1rem;
-      }
-      .clock {
-        padding: 1rem 1.5rem;
-      }
-      .visitor-counter {
-        padding: 0.5rem;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A sleek dark-mode AI-powered search experience inspired by the cosmos. Fast, responsive, and beautiful.">
+  <title>Cosmic Search</title>
+  <link rel="icon" type="image/png" sizes="512x512" href="favicon-512x512.png">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://poid-za.github.io/cosmic-search-site/">
+  <meta property="og:title" content="Cosmic Search – Explore Anything">
+  <meta property="og:description" content="A sleek dark-mode AI-powered search experience inspired by the cosmos. Fast, responsive, and beautiful.">
+  <meta property="og:image" content="https://poid-za.github.io/cosmic-search-site/favicon-512x512.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://poid-za.github.io/cosmic-search-site/">
+  <meta name="twitter:title" content="Cosmic Search – Explore Anything">
+  <meta name="twitter:description" content="A sleek dark-mode AI-powered search experience inspired by the cosmos. Fast, responsive, and beautiful.">
+  <meta name="twitter:image" content="https://poid-za.github.io/cosmic-search-site/favicon-512x512.png">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Cosmic Search",
+    "url": "https://poid-za.github.io/cosmic-search-site/",
+    "description": "A sleek dark-mode AI-powered search experience inspired by the cosmos. Fast, responsive, and beautiful.",
+    "inLanguage": "en-ZA",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Cosmic Search",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://poid-za.github.io/cosmic-search-site/favicon-512x512.png"
       }
     }
-  </style>
+  }
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <canvas id="matrix-canvas"></canvas>
-  <div class="container">
-    <div class="clock">
-      <div class="time-part" id="weekday"></div>
-      <div class="time-part" id="monthDay"></div>
-      <div class="time-part" id="year"></div>
-      <div class="time-part seconds" id="time"></div>
-    </div>
-    <button class="toggle-button" onclick="toggleFormat()">Toggle 12/24-Hour</button>
-  </div>
-  <div class="visitor-counter" id="visitor-counter">Visitors: 0</div>
+  <header class="site-header">
+    <div class="logo">Cosmic Search</div>
+    <button class="menu-toggle">&#9776;</button>
+    <nav class="site-nav">
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" id="hero">
+      <h1>Explore the Universe of Knowledge</h1>
+      <p>Ask intelligent questions. Get instant answers. Inspired by Grok, powered by simplicity.</p>
+      <form class="search-box" onsubmit="event.preventDefault(); document.getElementById('search-frame').src='https://duckduckgo.com/?q=' + encodeURIComponent(document.getElementById('query').value);">
+        <input type="search" id="query" placeholder="Search the cosmos..." required />
+        <button type="submit">Search</button>
+      </form>
+    <iframe id="search-frame" style="width: 100%; height: 70vh; border: none; margin-top: 2rem;"></iframe>
+    </section>
+    <section id="features"><h2>Features</h2><p>Smart queries. Dark theme. Responsive layout.</p></section>
+    <section id="ai-results">
+      <h2>AI Results</h2>
+      <div id="ai-answer" style="border: 1px solid #444; padding: 1rem; background: #111; min-height: 100px;">Ask a question to see the AI's response here.</div>
+    </section>
+    <section id="about"><h2>About</h2><p>Built as a sleek frontend clone inspired by Grok.</p></section>
+    <section id="contact"><h2>Contact</h2><p>Email: <a href="mailto:info@cosmicsearch.io">info@cosmicsearch.io</a></p></section>
+  </main>
   <script>
-    let is24Hour = true;
+  const form = document.querySelector('.search-box');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const q = document.getElementById('query').value;
+    document.getElementById('search-frame').src = 'https://duckduckgo.com/?q=' + encodeURIComponent(q);
 
-    function updateTime() {
-      const date = new Date();
-      document.getElementById('weekday').textContent = date.toLocaleString('en-US', { weekday: 'long' });
-      document.getElementById('monthDay').textContent = date.toLocaleString('en-US', { month: 'short', day: 'numeric' });
-      document.getElementById('year').textContent = date.toLocaleString('en-US', { year: 'numeric' });
-      document.getElementById('time').textContent = date.toLocaleString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: !is24Hour
-      });
-    }
-
-    function toggleFormat() {
-      is24Hour = !is24Hour;
-      updateTime();
-    }
-
-    // Update time immediately and every second
-    updateTime();
-    setInterval(updateTime, 1000);
-
-    // Visitor counter
-    let visitorCount = localStorage.getItem('visitorCount') ? parseInt(localStorage.getItem('visitorCount')) + 1 : 1;
-    localStorage.setItem('visitorCount', visitorCount);
-    document.getElementById('visitor-counter').textContent = `Visitors: ${visitorCount}`;
-
-    // Matrix-style background
-    document.addEventListener('DOMContentLoaded', () => {
-      const canvas = document.getElementById('matrix-canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZあいうえお漢字';
-      const fontSize = 14;
-      const columns = Math.floor(canvas.width / fontSize);
-      const drops = [];
-      const speeds = [];
-
-      for (let x = 0; x < columns; x++) {
-        drops[x] = Math.random() * canvas.height / fontSize;
-        speeds[x] = Math.random() * 0.5 + 0.5;
-      }
-
-      function draw() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.font = `${fontSize}px monospace`;
-
-        for (let i = 0; i < drops.length; i++) {
-          const text = chars.charAt(Math.floor(Math.random() * chars.length));
-          const alpha = Math.min(1, drops[i] / 20);
-          ctx.fillStyle = `rgba(0, 179, 179, ${alpha})`;
-          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-          drops[i] += speeds[i];
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
-            drops[i] = 0;
-            speeds[i] = Math.random() * 0.5 + 0.5;
-          }
-        }
-      }
-
-      setInterval(draw, 50);
-
-      window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        drops.length = Math.floor(canvas.width / fontSize);
-        for (let x = 0; x < drops.length; x++) {
-          if (!drops[x]) {
-            drops[x] = Math.random() * canvas.height / fontSize;
-            speeds[x] = Math.random() * 0.5 + 0.5;
-          }
-        }
-      });
-    });
-  </script>
+    // Simulated AI result (placeholder)
+    const aiDiv = document.getElementById('ai-answer');
+    aiDiv.textContent = 'Thinking...';
+    setTimeout(() => {
+      aiDiv.textContent = '🤖 AI: I don’t have real-time capabilities here yet, but I’d guess you’re searching about "' + q + '".';
+    }, 1200);
+  });
+</script>
 </body>
 </html>
