@@ -6,47 +6,35 @@
   <title>Cosmic Search</title>
   <link rel="icon" type="image/png" sizes="512x512" href="favicon-512x512.png">
   <style>
-    :root {
-      --bg: #000;
-      --text: #fff;
-      --user-bg: #222;
-      --ai-bg: #111;
-      --accent: #7f5af0;
-    }
-    body {
+    html, body {
       margin: 0;
-      background: var(--bg);
-      color: var(--text);
+      padding: 0;
+      height: 100%;
+      background: #000;
+      color: #fff;
       font-family: 'Segoe UI', sans-serif;
-      transition: background 0.3s ease, color 0.3s ease;
+      overflow: hidden;
+    }
+    canvas#bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
     }
     header {
       text-align: center;
       padding: 1rem;
-      background: var(--ai-bg);
-      color: var(--accent);
       font-size: 1.5rem;
-      font-weight: bold;
-    }
-    .theme-toggle {
-      margin-top: 1rem;
-      text-align: center;
-    }
-    .theme-toggle select {
-      padding: 0.5rem;
-      font-size: 1rem;
-      border-radius: 5px;
-      background: #111;
-      color: #fff;
-      border: 1px solid #444;
+      color: #7f5af0;
     }
     main {
+      position: relative;
       max-width: 600px;
-      margin: 2rem auto;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
+      margin: 5rem auto;
+      padding: 2rem;
+      z-index: 1;
     }
     .search-box {
       display: flex;
@@ -57,16 +45,16 @@
       padding: 1rem;
       font-size: 1rem;
       border-radius: 5px;
-      background: var(--user-bg);
-      color: var(--text);
+      background: #111;
+      color: #fff;
       border: 1px solid #333;
     }
     button {
       padding: 0.8rem;
       font-size: 1rem;
-      background: var(--accent);
-      color: #fff;
       border: none;
+      background: #7f5af0;
+      color: #fff;
       border-radius: 5px;
       cursor: pointer;
     }
@@ -74,6 +62,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
+      margin-top: 2rem;
     }
     .chat-message {
       padding: 0.8rem 1rem;
@@ -83,12 +72,12 @@
     }
     .ai {
       align-self: flex-start;
-      background: var(--ai-bg);
-      border-left: 3px solid var(--accent);
+      background: #111;
+      border-left: 3px solid #7f5af0;
     }
     .user {
       align-self: flex-end;
-      background: var(--user-bg);
+      background: #222;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
@@ -97,62 +86,69 @@
   </style>
 </head>
 <body>
-  <header>Cosmic Search</header>
-  <div class="theme-toggle">
-    <label for="theme">Theme: </label>
-    <select id="theme">
-      <option value="default">Dark</option>
-      <option value="solarized">Solarized</option>
-      <option value="night">Night Vision</option>
-    </select>
-  </div>
-  <main>
-    <form class="search-box" id="cosmic-form">
-      <input type="text" id="query" placeholder="Ask me anything..." required />
-      <button type="submit">Search</button>
-    </form>
-    <section id="ai-results">
-      <h2>AI Results</h2>
-      <div id="ai-answer" class="chat-box"></div>
-    </section>
-  </main>
-  <script>
-    const themes = {
-      default: {
-        "--bg": "#000", "--text": "#fff", "--user-bg": "#222", "--ai-bg": "#111", "--accent": "#7f5af0"
-      },
-      solarized: {
-        "--bg": "#fdf6e3", "--text": "#073642", "--user-bg": "#eee8d5", "--ai-bg": "#ddd6c4", "--accent": "#b58900"
-      },
-      night: {
-        "--bg": "#001100", "--text": "#33ff33", "--user-bg": "#003300", "--ai-bg": "#002200", "--accent": "#00ff00"
-      }
-    };
-    document.getElementById('theme').addEventListener('change', function() {
-      const theme = themes[this.value];
-      for (let key in theme) {
-        document.documentElement.style.setProperty(key, theme[key]);
-      }
-    });
+<canvas id="bg"></canvas>
+<header>Cosmic Search</header>
+<main>
+  <form class="search-box" id="cosmic-form">
+    <input type="text" id="query" placeholder="Ask me anything..." required />
+    <button type="submit">Search</button>
+  </form>
+  <section id="ai-results">
+    <h2>AI Results</h2>
+    <div id="ai-answer" class="chat-box"></div>
+  </section>
+</main>
 
-    document.getElementById('cosmic-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const q = document.getElementById('query').value;
-      const aiDiv = document.getElementById('ai-answer');
-      const msgUser = document.createElement('div');
-      msgUser.className = 'chat-message user';
-      msgUser.textContent = q;
-      aiDiv.appendChild(msgUser);
+<script>
+  const canvas = document.getElementById('bg');
+  const ctx = canvas.getContext('2d');
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
 
-      const msgAI = document.createElement('div');
-      msgAI.className = 'chat-message ai';
-      msgAI.textContent = '🤖 Thinking...';
-      aiDiv.appendChild(msgAI);
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
 
-      setTimeout(() => {
-        msgAI.textContent = '🤖 Cosmic AI: "' + q + '" sounds stellar. (Simulated reply)';
-      }, 1200);
-    });
-  </script>
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  function drawBackground(t) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const radius = 250 + 50 * Math.sin(t * 0.001);
+    const grad = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, radius);
+    grad.addColorStop(0, "#7f5af0");
+    grad.addColorStop(1, "#000");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    requestAnimationFrame(drawBackground);
+  }
+
+  drawBackground(0);
+
+  document.getElementById('cosmic-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const q = document.getElementById('query').value;
+    const aiDiv = document.getElementById('ai-answer');
+    const msgUser = document.createElement('div');
+    msgUser.className = 'chat-message user';
+    msgUser.textContent = q;
+    aiDiv.appendChild(msgUser);
+
+    const msgAI = document.createElement('div');
+    msgAI.className = 'chat-message ai';
+    msgAI.textContent = '🤖 Thinking...';
+    aiDiv.appendChild(msgAI);
+
+    setTimeout(() => {
+      msgAI.textContent = '🤖 Cosmic AI: "' + q + '" is a stellar inquiry. (Simulated reply)';
+    }, 1200);
+  });
+</script>
 </body>
 </html>
