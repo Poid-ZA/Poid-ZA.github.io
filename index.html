@@ -1,175 +1,219 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FitPlanr</title>
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="logo.png" type="image/png">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillSwap - Learn, Teach, Connect</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 1rem; color: #2C3E50; }
-    header { text-align: center; background: #D35400; color: white; padding: 1rem; }
-    h1 { margin: 0.5rem 0; }
-    .container { max-width: 800px; margin: auto; }
-    .form-group { margin: 0.5rem 0; }
-    .form-group input, select { width: 100%; padding: 0.5rem; }
-    .plan-list { list-style: none; padding: 0; }
-    .plan-item { background: white; margin: 0.5rem 0; padding: 0.5rem; border-radius: 8px; display: flex; gap: 0.5rem; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    .icon { font-size: 1.5rem; }
-    .actions { text-align: center; margin-top: 1rem; }
-    button { background: #F39C12; color: white; padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; margin: 0.25rem; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #1a0b2e;
+      color: #fff;
+    }
+    .parallax {
+      height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      perspective: 1px;
+    }
+    .layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+    }
+    .layer-1 {
+      transform: translateZ(-2px) scale(3);
+      z-index: 1;
+      background-image: url('https://source.unsplash.com/1600x900/?abstract');
+    }
+    .layer-2 {
+      transform: translateZ(-1px) scale(2);
+      z-index: 2;
+      background-image: url('https://source.unsplash.com/1600x900/?learning');
+    }
+    .content {
+      position: relative;
+      z-index: 3;
+      padding: 50px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 1.2em;
+      max-width: 600px;
+      margin: 0 auto 20px;
+    }
+    .skills, .profiles, .match-form {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 800px;
+      border-radius: 10px;
+    }
+    .skill-card, .profile-card {
+      display: inline-block;
+      background: #ff6200;
+      color: #fff;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+    }
+    .badge {
+      background: #ffd700;
+      color: #1a0b2e;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.9em;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      background: #ff6200;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #e55a00;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #0f071a;
+    }
+    a {
+      color: #ff6200;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 2em; }
+      p { font-size: 1em; }
+      .content { padding: 20px; }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="FitPlanr Logo" width="120" />
-    <h1>FitPlanr</h1>
-    <p>Plan. Track. Share.</p>
-  </header>
-  <div class="container">
-    <div class="form-group">
-      <input type="text" id="exercise" placeholder="Exercise Name" />
-    </div>
-    <div class="form-group">
-      <select id="category">
-        <option value="push">Push</option>
-        <option value="pull">Pull</option>
-        <option value="squat">Squat</option>
-        <option value="cardio">Cardio</option>
-        <option value="core">Core</option>
-        <option value="other">Other</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <input type="number" id="sets" placeholder="Sets" />
-    </div>
-    <div class="form-group">
-      <input type="number" id="reps" placeholder="Reps" />
-    </div>
-    <div class="form-group">
-      <input type="text" id="rest" placeholder="Rest Time (e.g. 60s)" />
-    </div>
-    <button onclick="addExercise()">Add Exercise</button>
-
-    <div class="form-group">
-      <label>Filter by Category:</label>
-      <select id="filter" onchange="filterList()">
-        <option value="all">All</option>
-        <option value="push">Push</option>
-        <option value="pull">Pull</option>
-        <option value="squat">Squat</option>
-        <option value="cardio">Cardio</option>
-        <option value="core">Core</option>
-        <option value="other">Other</option>
-      </select>
-    </div>
-
-    <ul id="planList" class="plan-list"></ul>
-
-    <div class="actions">
-      <button onclick="downloadTXT()">Download TXT</button>
-      <button onclick="downloadPDF()">Download PDF</button>
-      <button onclick="generateLink()">Copy Shareable Link</button>
+  <div class="parallax">
+    <div class="layer layer-1"></div>
+    <div class="layer layer-2"></div>
+    <div class="content">
+      <h1>Welcome to SkillSwap</h1>
+      <p>Learn new skills, teach what you know, and connect with others. Earn points and badges while building your expertise!</p>
+      
+      <div class="skills">
+        <h2>Explore Skills</h2>
+        <div id="skill-list">
+          <div class="skill-card">Cooking: Italian Cuisine</div>
+          <div class="skill-card">Coding: JavaScript Basics</div>
+          <div class="skill-card">Photography: Portrait Tips</div>
+        </div>
+      </div>
+      
+      <div class="profiles">
+        <h2>Top Swappers</h2>
+        <div id="profile-list">
+          <div class="profile-card">
+            Alex: Coding, Guitar <br>
+            Points: <span id="alex-points">100</span> <span class="badge">Mentor</span>
+          </div>
+          <div class="profile-card">
+            Sam: Cooking, Yoga <br>
+            Points: <span id="sam-points">80</span> <span class="badge">Rising Star</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="match-form">
+        <h2>Find Your Skill Match</h2>
+        <input type="text" id="skill-input" placeholder="Enter skill (e.g., Coding)">
+        <input type="text" id="location-input" placeholder="Enter location (e.g., New York)">
+        <button onclick="findMatch()">Find Match</button>
+        <div id="match-result"></div>
+      </div>
     </div>
   </div>
+  
+  <footer>
+    <p>Contact: <a href="mailto:info@skillswap.com">info@skillswap.com</a></p>
+    <p>
+      <a href="https://instagram.com/skillswap">Instagram</a> |
+      <a href="https://facebook.com/SkillSwap">Facebook</a>
+    </p>
+  </footer>
 
   <script>
-    const plan = [];
+    // Parallax effect
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      console.log(`Scroll position: ${scrollY}`); // 🔧 Log scroll position for performance
+      document.querySelector('.layer-1').style.transform = `translateZ(-2px) scale(3) translateY(${scrollY * 0.5}px)`;
+      document.querySelector('.layer-2').style.transform = `translateZ(-1px) scale(2) translateY(${scrollY * 0.3}px)`;
+    });
 
-    const icons = {
-      push: '💪', pull: '🏋️', squat: '🦵', cardio: '🏃', core: '🤸', other: '🧘'
-    };
-
-    function addExercise() {
-      const exercise = document.getElementById('exercise').value.trim();
-      const category = document.getElementById('category').value;
-      const sets = document.getElementById('sets').value;
-      const reps = document.getElementById('reps').value;
-      const rest = document.getElementById('rest').value.trim();
-      if (!exercise || !sets || !reps) return alert('Please fill in all fields');
-
-      const item = { exercise, category, sets, reps, rest };
-      plan.push(item);
-      renderPlan();
-      updateURL();
-    }
-
-    function renderPlan() {
-      const filter = document.getElementById('filter').value;
-      const list = document.getElementById('planList');
-      list.innerHTML = '';
-      plan.forEach((p, i) => {
-        if (filter !== 'all' && p.category !== filter) return;
-        const li = document.createElement('li');
-        li.className = 'plan-item';
-        li.innerHTML = `<span class="icon">${icons[p.category]}</span><span>${p.exercise} - ${p.sets} sets x ${p.reps} reps (Rest: ${p.rest})</span>`;
-        list.appendChild(li);
+    // Image load monitoring
+    const images = document.querySelectorAll('.layer');
+    images.forEach(img => {
+      img.addEventListener('load', () => console.log(`Image loaded: ${img.style.backgroundImage}`)); // 🔧 Log image load
+      img.addEventListener('error', () => {
+        console.error(`Image failed to load: ${img.style.backgroundImage}`);
+        img.style.background = '#1a0b2e'; // Fallback color
       });
-    }
+    });
 
-    function filterList() {
-      renderPlan();
-    }
+    // Simulated AI skill matching
+    const skillsDB = [
+      { skill: 'Coding', location: 'New York', user: 'Alex' },
+      { skill: 'Cooking', location: 'London', user: 'Sam' },
+      { skill: 'Photography', location: 'New York', user: 'Taylor' }
+    ];
 
-    function downloadTXT() {
-      const lines = plan.map(p => `${p.exercise} - ${p.sets} x ${p.reps} (Rest: ${p.rest})`);
-      const blob = new Blob([lines.join('\n')], {{ type: 'text/plain' }});
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'workout-plan.txt';
-      a.click();
-    }
-
-    function downloadPDF() {
-      const {{ jsPDF }} = window.jspdf;
-      const doc = new jsPDF();
-      doc.setFontSize(16);
-      doc.text('FitPlanr - Workout Plan', 20, 20);
-      const logo = new Image();
-      logo.src = 'logo.png';
-      logo.onload = () => {
-        doc.addImage(logo, 'PNG', 150, 10, 40, 20);
-        doc.setFontSize(12);
-        plan.forEach((p, i) => {
-          doc.text(`- ${p.exercise} (${p.category}) - ${p.sets} x ${p.reps} rest ${p.rest}`, 20, 40 + i * 10);
-        });
-        doc.save('fitplanr-plan.pdf');
-      };
-    }
-
-    function generateLink() {
-      const encoded = encodeURIComponent(JSON.stringify(plan));
-      const url = `${location.origin}${location.pathname}?plan=${encoded}`;
-      navigator.clipboard.writeText(url);
-      alert('Shareable link copied to clipboard!');
-    }
-
-    function updateURL() {
-      const encoded = encodeURIComponent(JSON.stringify(plan));
-      const url = `${location.pathname}?plan=${encoded}`;
-      history.replaceState(null, '', url);
-    }
-
-    function loadFromURL() {
-      const params = new URLSearchParams(location.search);
-      if (params.has('plan')) {
-        try {
-          const decoded = JSON.parse(decodeURIComponent(params.get('plan')));
-          decoded.forEach(p => plan.push(p));
-          renderPlan();
-        } catch(e) { console.error('Failed to parse shared plan'); }
+    function findMatch() {
+      const skill = document.getElementById('skill-input').value.toLowerCase();
+      const location = document.getElementById('location-input').value.toLowerCase();
+      const resultDiv = document.getElementById('match-result');
+      
+      console.log(`Matching skill: ${skill}, location: ${location}`); // 🔧 Log matching criteria
+      
+      const matches = skillsDB.filter(item => 
+        item.skill.toLowerCase().includes(skill) && 
+        (location === '' || item.location.toLowerCase().includes(location))
+      );
+      
+      if (matches.length > 0) {
+        resultDiv.innerHTML = `Found ${matches.length} match(es):<br>` + 
+          matches.map(m => `${m.user} can teach ${m.skill} in ${m.location}`).join('<br>');
+      } else {
+        resultDiv.innerHTML = 'No matches found. Try a different skill or location.';
       }
+      
+      // Save to localStorage
+      localStorage.setItem('lastSearch', JSON.stringify({ skill, location }));
+      console.log('Search saved to localStorage'); // 🔧 Log storage
     }
 
-    loadFromURL();
-  </script>
-
-  <script>
-    if ('serviceWorker' in navigator) {{
-      navigator.serviceWorker.register('service-worker.js');
-    }}
+    // Gamification: Simulate point updates
+    function updatePoints() {
+      const alexPoints = document.getElementById('alex-points');
+      const samPoints = document.getElementById('sam-points');
+      alexPoints.textContent = parseInt(alexPoints.textContent) + Math.floor(Math.random() * 10);
+      samPoints.textContent = parseInt(samPoints.textContent) + Math.floor(Math.random() * 10);
+      console.log('Points updated'); // 🔧 Log points update
+    }
+    setInterval(updatePoints, 5000); // Update points every 5 seconds
   </script>
 </body>
 </html>
