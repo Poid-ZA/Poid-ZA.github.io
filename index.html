@@ -3,90 +3,156 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="A sleek dark-mode AI-powered search experience inspired by the cosmos. Fast, responsive, and beautiful.">
   <title>Cosmic Search</title>
   <link rel="icon" type="image/png" sizes="512x512" href="favicon-512x512.png">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://poid-za.github.io/cosmic-search-site/">
-  <meta property="og:title" content="Cosmic Search – Explore Anything">
-  <meta property="og:description" content="A sleek dark-mode AI-powered search experience inspired by the cosmos. Fast, responsive, and beautiful.">
-  <meta property="og:image" content="https://poid-za.github.io/cosmic-search-site/favicon-512x512.png">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://poid-za.github.io/cosmic-search-site/">
-  <meta name="twitter:title" content="Cosmic Search – Explore Anything">
-  <meta name="twitter:description" content="A sleek dark-mode AI-powered search experience inspired by the cosmos. Fast, responsive, and beautiful.">
-  <meta name="twitter:image" content="https://poid-za.github.io/cosmic-search-site/favicon-512x512.png">
-
-  <!-- JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Cosmic Search",
-    "url": "https://poid-za.github.io/cosmic-search-site/",
-    "description": "A sleek dark-mode AI-powered search experience inspired by the cosmos. Fast, responsive, and beautiful.",
-    "inLanguage": "en-ZA",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Cosmic Search",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://poid-za.github.io/cosmic-search-site/favicon-512x512.png"
-      }
+  <style>
+    :root {
+      --bg: #000;
+      --text: #fff;
+      --user-bg: #222;
+      --ai-bg: #111;
+      --accent: #7f5af0;
     }
-  }
-  </script>
-
-  <link rel="stylesheet" href="style.css" />
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', sans-serif;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    header {
+      text-align: center;
+      padding: 1rem;
+      background: var(--ai-bg);
+      color: var(--accent);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .theme-toggle {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .theme-toggle select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      background: #111;
+      color: #fff;
+      border: 1px solid #444;
+    }
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .search-box {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input[type="text"] {
+      padding: 1rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      background: var(--user-bg);
+      color: var(--text);
+      border: 1px solid #333;
+    }
+    button {
+      padding: 0.8rem;
+      font-size: 1rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .chat-box {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .chat-message {
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      max-width: 90%;
+      animation: fadeIn 0.5s ease-in;
+    }
+    .ai {
+      align-self: flex-start;
+      background: var(--ai-bg);
+      border-left: 3px solid var(--accent);
+    }
+    .user {
+      align-self: flex-end;
+      background: var(--user-bg);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="logo">Cosmic Search</div>
-    <button class="menu-toggle">&#9776;</button>
-    <nav class="site-nav">
-      <ul>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  <header>Cosmic Search</header>
+  <div class="theme-toggle">
+    <label for="theme">Theme: </label>
+    <select id="theme">
+      <option value="default">Dark</option>
+      <option value="solarized">Solarized</option>
+      <option value="night">Night Vision</option>
+    </select>
+  </div>
   <main>
-    <section class="hero" id="hero">
-      <h1>Explore the Universe of Knowledge</h1>
-      <p>Ask intelligent questions. Get instant answers. Inspired by Grok, powered by simplicity.</p>
-      <form class="search-box" onsubmit="event.preventDefault(); document.getElementById('search-frame').src='https://duckduckgo.com/?q=' + encodeURIComponent(document.getElementById('query').value);">
-        <input type="search" id="query" placeholder="Search the cosmos..." required />
-        <button type="submit">Search</button>
-      </form>
-    <iframe id="search-frame" style="width: 100%; height: 70vh; border: none; margin-top: 2rem;"></iframe>
-    </section>
-    <section id="features"><h2>Features</h2><p>Smart queries. Dark theme. Responsive layout.</p></section>
+    <form class="search-box" id="cosmic-form">
+      <input type="text" id="query" placeholder="Ask me anything..." required />
+      <button type="submit">Search</button>
+    </form>
     <section id="ai-results">
       <h2>AI Results</h2>
-      <div id="ai-answer" style="border: 1px solid #444; padding: 1rem; background: #111; min-height: 100px;">Ask a question to see the AI's response here.</div>
+      <div id="ai-answer" class="chat-box"></div>
     </section>
-    <section id="about"><h2>About</h2><p>Built as a sleek frontend clone inspired by Grok.</p></section>
-    <section id="contact"><h2>Contact</h2><p>Email: <a href="mailto:info@cosmicsearch.io">info@cosmicsearch.io</a></p></section>
   </main>
   <script>
-  const form = document.querySelector('.search-box');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const q = document.getElementById('query').value;
-    document.getElementById('search-frame').src = 'https://duckduckgo.com/?q=' + encodeURIComponent(q);
+    const themes = {
+      default: {
+        "--bg": "#000", "--text": "#fff", "--user-bg": "#222", "--ai-bg": "#111", "--accent": "#7f5af0"
+      },
+      solarized: {
+        "--bg": "#fdf6e3", "--text": "#073642", "--user-bg": "#eee8d5", "--ai-bg": "#ddd6c4", "--accent": "#b58900"
+      },
+      night: {
+        "--bg": "#001100", "--text": "#33ff33", "--user-bg": "#003300", "--ai-bg": "#002200", "--accent": "#00ff00"
+      }
+    };
+    document.getElementById('theme').addEventListener('change', function() {
+      const theme = themes[this.value];
+      for (let key in theme) {
+        document.documentElement.style.setProperty(key, theme[key]);
+      }
+    });
 
-    // Simulated AI result (placeholder)
-    const aiDiv = document.getElementById('ai-answer');
-    aiDiv.textContent = 'Thinking...';
-    setTimeout(() => {
-      aiDiv.textContent = '🤖 AI: I don’t have real-time capabilities here yet, but I’d guess you’re searching about "' + q + '".';
-    }, 1200);
-  });
-</script>
+    document.getElementById('cosmic-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const q = document.getElementById('query').value;
+      const aiDiv = document.getElementById('ai-answer');
+      const msgUser = document.createElement('div');
+      msgUser.className = 'chat-message user';
+      msgUser.textContent = q;
+      aiDiv.appendChild(msgUser);
+
+      const msgAI = document.createElement('div');
+      msgAI.className = 'chat-message ai';
+      msgAI.textContent = '🤖 Thinking...';
+      aiDiv.appendChild(msgAI);
+
+      setTimeout(() => {
+        msgAI.textContent = '🤖 Cosmic AI: "' + q + '" sounds stellar. (Simulated reply)';
+      }, 1200);
+    });
+  </script>
 </body>
 </html>

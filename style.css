@@ -1,0 +1,310 @@
+/*
+ * Main Stylesheet for the Grok‑Inspired Search Site
+ *
+ * This file defines a dark aesthetic reminiscent of the Grok website. It
+ * includes responsive layouts, typography choices and subtle animations.
+ * All styles are scoped globally for simplicity but can be refactored
+ * into modules for larger projects. When editing, keep accessibility in
+ * mind—ensure sufficient contrast and maintain semantic heading
+ * hierarchy.
+ */
+
+/* Google Fonts import for the Inter typeface. This import will
+   automatically swap to system fonts if Inter fails to load. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+/* CSS Custom properties for easy theme tweaking */
+:root {
+  --color-bg: #010a1e;
+  --color-bg-alt: #021b36;
+  --color-primary: #7f5af0;
+  --color-primary-dark: #5e3abf;
+  --color-text: #e5e7eb;
+  --color-text-muted: #94a3b8;
+  --max-width: 1200px;
+}
+
+/* Global resets and typography */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover, a:focus {
+  color: var(--color-primary-dark);
+}
+
+/* Header and navigation */
+.site-header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: rgba(3, 27, 52, 0.85);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Mobile menu toggle button */
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.site-nav a {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 0.5rem;
+  border-radius: 4px;
+  color: var(--color-text);
+  position: relative;
+}
+
+.site-nav a.active,
+.site-nav a:hover {
+  color: var(--color-primary);
+}
+
+/* Hero section */
+.hero {
+  background: linear-gradient(135deg, var(--color-bg), var(--color-bg-alt));
+  padding: 6rem 1rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  max-width: var(--max-width);
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+  color: var(--color-text-muted);
+}
+
+/* Search form */
+.search-box {
+  display: flex;
+  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-box input[type="search"] {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 4px 0 0 4px;
+  font-size: 1rem;
+  background: #02101d;
+  color: var(--color-text);
+}
+
+.search-box button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.search-box button:hover {
+  background: var(--color-primary-dark);
+}
+
+/* Sections */
+section {
+  padding: 4rem 1rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: var(--color-primary);
+  border-radius: 2px;
+}
+
+/* Features */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.feature {
+  background: #02101d;
+  padding: 1.5rem;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature h3 {
+  margin-bottom: 0.5rem;
+  color: var(--color-primary);
+}
+
+.feature p {
+  color: var(--color-text-muted);
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* About & Contact sections */
+.about, .contact {
+  background: var(--color-bg-alt);
+  text-align: center;
+  border-radius: 8px;
+}
+
+.about p, .contact p {
+  max-width: 700px;
+  margin: 0 auto 1rem;
+  color: var(--color-text-muted);
+}
+
+.mail-link {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.mail-link:hover {
+  background: var(--color-primary-dark);
+}
+
+/* Footer */
+.site-footer {
+  background: #02101d;
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+/* Reveal animations for sections */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .site-nav ul {
+    gap: 1rem;
+  }
+  .search-box input[type="search"], .search-box button {
+    font-size: 0.9rem;
+  }
+
+  /* Show the mobile toggle button */
+  .menu-toggle {
+    display: block;
+  }
+
+  /* Hide navigation links by default on mobile */
+  .site-nav {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: rgba(3, 27, 52, 0.95);
+    width: 200px;
+    border-radius: 0 0 0 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    display: none;
+  }
+  .site-nav ul {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  .site-nav li {
+    margin-bottom: 0.75rem;
+  }
+  .site-nav li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Show nav when open class is added via JS */
+  .site-nav.open {
+    display: block;
+  }
+}
