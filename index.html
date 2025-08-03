@@ -3,217 +3,104 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SkillSwap - Learn, Teach, Connect</title>
+  <title>FlowAI - Unleash Your Workflow</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #1a0b2e;
-      color: #fff;
+    @keyframes neonGlow {
+      0%, 100% { text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc; }
+      50% { text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc; }
     }
-    .parallax {
-      height: 100vh;
-      overflow-x: hidden;
-      overflow-y: auto;
-      perspective: 1px;
+    .neon-text { animation: neonGlow 2s ease-in-out infinite; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .layer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background-size: cover;
-      background-position: center;
+    .animate-fadeIn { animation: fadeIn 1s ease-out forwards; }
+    @keyframes scalePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
-    .layer-1 {
-      transform: translateZ(-2px) scale(3);
-      z-index: 1;
-      background-image: url('https://source.unsplash.com/1600x900/?abstract');
+    .animate-pulse { animation: scalePulse 2s ease-in-out infinite; }
+    .bg-grid {
+      background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
-    .layer-2 {
-      transform: translateZ(-1px) scale(2);
-      z-index: 2;
-      background-image: url('https://source.unsplash.com/1600x900/?learning');
+    .clip-path-poly {
+      clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
     }
-    .content {
-      position: relative;
-      z-index: 3;
-      padding: 50px;
-      text-align: center;
-    }
-    h1 {
-      font-size: 3em;
-      margin-bottom: 20px;
-    }
-    p {
-      font-size: 1.2em;
-      max-width: 600px;
-      margin: 0 auto 20px;
-    }
-    .skills, .profiles, .match-form {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      margin: 20px auto;
-      max-width: 800px;
-      border-radius: 10px;
-    }
-    .skill-card, .profile-card {
-      display: inline-block;
-      background: #ff6200;
-      color: #fff;
-      padding: 10px;
-      margin: 10px;
-      border-radius: 5px;
-    }
-    .badge {
-      background: #ffd700;
-      color: #1a0b2e;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 0.9em;
-    }
-    input, button {
-      padding: 10px;
-      margin: 5px;
-      border-radius: 5px;
-      border: none;
-    }
-    button {
-      background: #ff6200;
-      color: #fff;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #e55a00;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #0f071a;
-    }
-    a {
-      color: #ff6200;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    @media (max-width: 600px) {
-      h1 { font-size: 2em; }
-      p { font-size: 1em; }
-      .content { padding: 20px; }
+    .feature-card:hover {
+      transform: rotate(3deg) scale(1.05);
+      transition: transform 0.3s ease;
     }
   </style>
 </head>
-<body>
-  <div class="parallax">
-    <div class="layer layer-1"></div>
-    <div class="layer layer-2"></div>
-    <div class="content">
-      <h1>Welcome to SkillSwap</h1>
-      <p>Learn new skills, teach what you know, and connect with others. Earn points and badges while building your expertise!</p>
-      
-      <div class="skills">
-        <h2>Explore Skills</h2>
-        <div id="skill-list">
-          <div class="skill-card">Cooking: Italian Cuisine</div>
-          <div class="skill-card">Coding: JavaScript Basics</div>
-          <div class="skill-card">Photography: Portrait Tips</div>
-        </div>
+<body class="bg-black text-white font-sans overflow-x-hidden">
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center justify-start px-8 md:px-16 bg-grid relative">
+    <div class="max-w-lg">
+      <h1 class="text-5xl md:text-7xl font-extrabold neon-text animate-fadeIn">FlowAI: Redefine Your Workflow</h1>
+      <p class="text-lg md:text-xl mt-4 text-gray-300 animate-fadeIn" style="animation-delay: 0.2s;">
+        An AI that doesn’t just assist—it amplifies your creativity and efficiency.
+      </p>
+      <a
+        href="#signup"
+        class="mt-6 inline-block bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 px-8 rounded-full font-semibold hover:from-pink-600 hover:to-purple-600 transition animate-pulse"
+      >
+        Dive In
+      </a>
+    </div>
+    <div class="absolute right-0 bottom-0 w-1/2 h-1/2 bg-gradient-to-t from-purple-500 to-transparent opacity-30 clip-path-poly animate-pulse"></div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-20 px-8 md:px-16 bg-black">
+    <h2 class="text-4xl font-extrabold text-center neon-text mb-12 animate-fadeIn">What Makes FlowAI Unique</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div class="bg-gray-900 p-8 rounded-xl shadow-2xl feature-card animate-fadeIn" style="animation-delay: 0.3s;">
+        <h3 class="text-2xl font-bold text-pink-400 mb-4">Hyper-Intelligent Automation</h3>
+        <p class="text-gray-300">Predicts and automates tasks before you even think of them.</p>
       </div>
-      
-      <div class="profiles">
-        <h2>Top Swappers</h2>
-        <div id="profile-list">
-          <div class="profile-card">
-            Alex: Coding, Guitar <br>
-            Points: <span id="alex-points">100</span> <span class="badge">Mentor</span>
-          </div>
-          <div class="profile-card">
-            Sam: Cooking, Yoga <br>
-            Points: <span id="sam-points">80</span> <span class="badge">Rising Star</span>
-          </div>
-        </div>
+      <div class="bg-gray-900 p-8 rounded-xl shadow-2xl feature-card animate-fadeIn" style="animation-delay: 0.5s;">
+        <h3 class="text-2xl font-bold text-pink-400 mb-4">Ecosystem Sync</h3>
+        <p class="text-gray-300">Integrates with your tools in ways you didn’t know were possible.</p>
       </div>
-      
-      <div class="match-form">
-        <h2>Find Your Skill Match</h2>
-        <input type="text" id="skill-input" placeholder="Enter skill (e.g., Coding)">
-        <input type="text" id="location-input" placeholder="Enter location (e.g., New York)">
-        <button onclick="findMatch()">Find Match</button>
-        <div id="match-result"></div>
+      <div class="bg-gray-900 p-8 rounded-xl shadow-2xl feature-card animate-fadeIn" style="animation-delay: 0.7s;">
+        <h3 class="text-2xl font-bold text-pink-400 mb-4">Creative Insights</h3>
+        <p class="text-gray-300">Unlocks data-driven ideas to spark your next big project.</p>
       </div>
     </div>
-  </div>
-  
-  <footer>
-    <p>Contact: <a href="mailto:info@skillswap.com">info@skillswap.com</a></p>
-    <p>
-      <a href="https://instagram.com/skillswap">Instagram</a> |
-      <a href="https://facebook.com/SkillSwap">Facebook</a>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 px-8 text-center bg-gradient-to-b from-gray-900 to-black clip-path-poly">
+    <h2 class="text-3xl md:text-4xl font-bold neon-text mb-6 animate-fadeIn">Ready to Break the Mold?</h2>
+    <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto animate-fadeIn" style="animation-delay: 0.2s;">
+      FlowAI isn’t just another tool—it’s your unfair advantage. Join the revolution.
     </p>
-  </footer>
+    <a
+      href="#signup"
+      class="bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 px-8 rounded-full font-semibold hover:from-pink-600 hover:to-purple-600 transition animate-pulse"
+    >
+      Start Now
+    </a>
+  </section>
 
   <script>
-    // Parallax effect
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      console.log(`Scroll position: ${scrollY}`); // 🔧 Log scroll position for performance
-      document.querySelector('.layer-1').style.transform = `translateZ(-2px) scale(3) translateY(${scrollY * 0.5}px)`;
-      document.querySelector('.layer-2').style.transform = `translateZ(-1px) scale(2) translateY(${scrollY * 0.3}px)`;
+    // Basic scroll animation trigger for fallback
+    document.addEventListener('DOMContentLoaded', () => {
+      const elements = document.querySelectorAll('.animate-fadeIn');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+
+      elements.forEach(el => observer.observe(el));
     });
-
-    // Image load monitoring
-    const images = document.querySelectorAll('.layer');
-    images.forEach(img => {
-      img.addEventListener('load', () => console.log(`Image loaded: ${img.style.backgroundImage}`)); // 🔧 Log image load
-      img.addEventListener('error', () => {
-        console.error(`Image failed to load: ${img.style.backgroundImage}`);
-        img.style.background = '#1a0b2e'; // Fallback color
-      });
-    });
-
-    // Simulated AI skill matching
-    const skillsDB = [
-      { skill: 'Coding', location: 'New York', user: 'Alex' },
-      { skill: 'Cooking', location: 'London', user: 'Sam' },
-      { skill: 'Photography', location: 'New York', user: 'Taylor' }
-    ];
-
-    function findMatch() {
-      const skill = document.getElementById('skill-input').value.toLowerCase();
-      const location = document.getElementById('location-input').value.toLowerCase();
-      const resultDiv = document.getElementById('match-result');
-      
-      console.log(`Matching skill: ${skill}, location: ${location}`); // 🔧 Log matching criteria
-      
-      const matches = skillsDB.filter(item => 
-        item.skill.toLowerCase().includes(skill) && 
-        (location === '' || item.location.toLowerCase().includes(location))
-      );
-      
-      if (matches.length > 0) {
-        resultDiv.innerHTML = `Found ${matches.length} match(es):<br>` + 
-          matches.map(m => `${m.user} can teach ${m.skill} in ${m.location}`).join('<br>');
-      } else {
-        resultDiv.innerHTML = 'No matches found. Try a different skill or location.';
-      }
-      
-      // Save to localStorage
-      localStorage.setItem('lastSearch', JSON.stringify({ skill, location }));
-      console.log('Search saved to localStorage'); // 🔧 Log storage
-    }
-
-    // Gamification: Simulate point updates
-    function updatePoints() {
-      const alexPoints = document.getElementById('alex-points');
-      const samPoints = document.getElementById('sam-points');
-      alexPoints.textContent = parseInt(alexPoints.textContent) + Math.floor(Math.random() * 10);
-      samPoints.textContent = parseInt(samPoints.textContent) + Math.floor(Math.random() * 10);
-      console.log('Points updated'); // 🔧 Log points update
-    }
-    setInterval(updatePoints, 5000); // Update points every 5 seconds
   </script>
 </body>
 </html>
