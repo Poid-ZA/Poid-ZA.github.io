@@ -6,10 +6,10 @@
     <title>Claude AI - Capabilities Showcase</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -18,682 +18,727 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #ffffff;
-            background: #0a0a0a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Hero Section - Modern Glassmorphism */
         .hero {
             height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            background: radial-gradient(circle at 50% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease infinite;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .capability-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
             overflow: hidden;
         }
 
-        .hero::before {
+        .capability-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .capability-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.05"/><circle cx="75" cy="75" r="0.5" fill="white" opacity="0.03"/><circle cx="50" cy="10" r="0.8" fill="white" opacity="0.04"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
         }
 
-        .hero-content {
-            text-align: center;
-            z-index: 2;
-            backdrop-filter: blur(20px);
-            background: rgba(255, 255, 255, 0.1);
-            padding: 4rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(1deg); }
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
+        .capability-title {
+            font-size: 1.5rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ffffff, #a8edea);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: textShimmer 3s ease-in-out infinite;
+            color: #4ecdc4;
         }
 
-        @keyframes textShimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        /* Navigation - Neumorphism */
-        .nav {
-            position: fixed;
-            top: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border-radius: 50px;
-            padding: 1rem 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 1rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav a:hover {
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-        }
-
-        /* Section Styling */
-        .section {
-            min-height: 100vh;
-            padding: 5rem 2rem;
+        .capability-demo {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            min-height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
         }
 
-        .container {
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        /* AI Chat Section - Material Design */
-        .ai-chat {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-        }
-
-        .chat-container {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 2rem;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .chat-message {
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
-            padding: 1rem 1.5rem;
-            border-radius: 20px;
-            margin: 1rem 0;
-            animation: slideInUp 0.6s ease-out;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        @keyframes slideInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Data Viz Section - Dashboard Theme */
-        .data-viz {
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%);
-        }
-
-        .chart-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .chart-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .chart-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Code Section - Terminal Theme */
-        .code-section {
-            background: #0d1117;
-            color: #e6edf3;
-        }
-
-        .code-container {
-            background: #161b22;
-            border-radius: 12px;
-            padding: 2rem;
-            border: 1px solid #30363d;
-            overflow-x: auto;
-        }
-
-        .code-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #30363d;
-        }
-
-        .code-dots {
-            display: flex;
-            gap: 0.5rem;
-            margin-right: 1rem;
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .dot.red { background: #ff5f56; }
-        .dot.yellow { background: #ffbd2e; }
-        .dot.green { background: #27ca3f; }
-
-        /* 3D Section - Cyberpunk Theme */
-        .threejs-section {
-            background: linear-gradient(135deg, #0c0c0c 0%, #1a0033 100%);
-            position: relative;
-        }
-
-        #threejs-container {
-            width: 100%;
-            height: 500px;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 2px solid #ff00ff;
-            box-shadow: 0 0 50px rgba(255, 0, 255, 0.3);
-        }
-
-        /* Creative Section - Brutalist Design */
-        .creative {
-            background: #000;
-            position: relative;
-        }
-
-        .brutalist-card {
-            background: #fff;
-            color: #000;
-            padding: 3rem;
-            transform: rotate(-2deg);
-            border: 8px solid #000;
-            box-shadow: 15px 15px 0 #ff0000;
-            max-width: 600px;
-            margin: 2rem auto;
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .brutalist-card:hover {
-            transform: rotate(2deg);
-            box-shadow: -15px -15px 0 #00ff00;
-            transition: all 0.3s ease;
-        }
-
-        /* Analysis Section - Minimalist */
-        .analysis {
-            background: #f8f9fa;
-            color: #333;
-        }
-
-        .minimal-card {
-            background: white;
-            padding: 3rem;
-            border-radius: 2px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            margin: 0 auto;
-            border-left: 4px solid #007bff;
-        }
-
-        /* Utility Classes */
-        .section-title {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 2rem;
+        .interactive-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
             border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            color: white;
             font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
+            margin: 0.5rem;
         }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        .interactive-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
         }
 
-        .pulse {
-            animation: pulse 2s infinite;
+        .code-output {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            border-left: 4px solid #4ecdc4;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 200px;
+            position: relative;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #4ecdc4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(78, 205, 196, 0.6);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+            50% { transform: translateY(-100px) rotate(180deg); opacity: 1; }
+        }
+
+        .three-scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .framework-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .demo-output {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            border-left: 3px solid #45b7d1;
+        }
+
+        .neural-network {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 150px;
+        }
+
+        .layer {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .neuron {
+            width: 20px;
+            height: 20px;
+            background: #4ecdc4;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .hero-content { padding: 2rem; }
-            .section-title { font-size: 2rem; }
-            .chart-grid { grid-template-columns: 1fr; }
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+                padding: 2rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <a href="#hero">Home</a>
-        <a href="#chat">Chat</a>
-        <a href="#data">Data</a>
-        <a href="#code">Code</a>
-        <a href="#3d">3D</a>
-        <a href="#creative">Creative</a>
-        <a href="#analysis">Analysis</a>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="hero" class="hero">
+    <div class="floating-particles" id="particles"></div>
+    
+    <section class="hero">
+        <div class="three-scene" id="threeScene"></div>
         <div class="hero-content">
             <h1>Claude AI</h1>
-            <p style="font-size: 1.5rem; margin-bottom: 2rem; opacity: 0.9;">
-                Showcasing Advanced AI Capabilities
-            </p>
-            <a href="#chat" class="btn pulse">Explore Abilities</a>
+            <p>Explore the Future of Artificial Intelligence</p>
+            <button class="cta-button" onclick="scrollToCapabilities()">Discover Capabilities</button>
         </div>
     </section>
 
-    <!-- AI Chat Capability -->
-    <section id="chat" class="section ai-chat">
-        <div class="container">
-            <h2 class="section-title">Conversational AI</h2>
-            <div class="chat-container">
-                <div class="chat-message">
-                    <strong>Human:</strong> Can you help me understand quantum computing?
-                </div>
-                <div class="chat-message" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
-                    <strong>Claude:</strong> Quantum computing harnesses quantum mechanical phenomena like superposition and entanglement to process information differently than classical computers. While classical bits exist as either 0 or 1, quantum bits (qubits) can exist in superposition - simultaneously both 0 and 1 until measured. This allows quantum computers to explore multiple solution paths simultaneously, potentially solving certain complex problems exponentially faster than classical computers.
-                </div>
-                <button class="btn" onclick="simulateChat()" style="margin-top: 1rem;">Ask Another Question</button>
+    <div class="capabilities-grid" id="capabilities">
+        <!-- Code Generation -->
+        <div class="capability-card">
+            <h3 class="capability-title">💻 Code Generation</h3>
+            <div class="framework-badges">
+                <span class="badge">React</span>
+                <span class="badge">Vue.js</span>
+                <span class="badge">JavaScript</span>
             </div>
-        </div>
-    </section>
+            <div class="capability-demo">
+                <div style="width: 100%;">
+                    <button class="interactive-btn" onclick="generateCode()">Generate Function</button>
+                    <div id="codeOutput" class="code-output" style="display: none;">
+                        <pre><code class="language-javascript">// AI-Generated Fibonacci Function
+function fibonacci(n) {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
 
-    <!-- Data Visualization -->
-    <section id="data" class="section data-viz">
-        <div class="container">
-            <h2 class="section-title">Data Analysis & Visualization</h2>
-            <div class="chart-grid">
-                <div class="chart-card">
-                    <h3>Performance Metrics</h3>
-                    <canvas id="performanceChart" width="300" height="200"></canvas>
-                </div>
-                <div class="chart-card">
-                    <h3>Usage Analytics</h3>
-                    <canvas id="usageChart" width="300" height="200"></canvas>
-                </div>
-                <div class="chart-card">
-                    <h3>Capability Distribution</h3>
-                    <canvas id="capabilityChart" width="300" height="200"></canvas>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Code Generation -->
-    <section id="code" class="section code-section">
-        <div class="container">
-            <h2 class="section-title">Code Generation & Analysis</h2>
-            <div class="code-container">
-                <div class="code-header">
-                    <div class="code-dots">
-                        <div class="dot red"></div>
-                        <div class="dot yellow"></div>
-                        <div class="dot green"></div>
+// Usage
+console.log(fibonacci(10)); // 55</code></pre>
                     </div>
-                    <span>advanced_ai_system.py</span>
                 </div>
-                <pre><code class="language-javascript">// Advanced AI Algorithm Implementation
-class NeuralNetwork {
-    constructor(layers) {
-        this.layers = layers;
-        this.weights = this.initializeWeights();
-        this.biases = this.initializeBiases();
-    }
-    
-    forward(input) {
-        let activation = input;
-        for (let i = 0; i < this.layers.length - 1; i++) {
-            activation = this.sigmoid(
-                this.matrixMultiply(activation, this.weights[i])
-                    .map((val, idx) => val + this.biases[i][idx])
-            );
-        }
-        return activation;
-    }
-    
-    sigmoid(x) {
-        return Array.isArray(x) 
-            ? x.map(val => 1 / (1 + Math.exp(-val)))
-            : 1 / (1 + Math.exp(-x));
-    }
-}</code></pre>
             </div>
         </div>
-    </section>
 
-    <!-- 3D Visualization -->
-    <section id="3d" class="section threejs-section">
-        <div class="container">
-            <h2 class="section-title">3D Visualization & Graphics</h2>
-            <div id="threejs-container"></div>
-            <p style="text-align: center; margin-top: 1rem; opacity: 0.8;">
-                Interactive 3D neural network visualization - Click and drag to explore
-            </p>
-        </div>
-    </section>
-
-    <!-- Creative Writing -->
-    <section id="creative" class="section creative">
-        <div class="container">
-            <h2 class="section-title" style="color: #fff;">Creative Content Generation</h2>
-            <div class="brutalist-card">
-                <h3 style="margin-bottom: 1rem;">THE DIGITAL RENAISSANCE</h3>
-                <p>In the sprawling metropolis of tomorrow, where neon lights dance across rain-slicked streets and holographic advertisements flicker like digital ghosts, humanity stands at the precipice of a new age. The boundaries between artificial and authentic blur into obsolescence as consciousness itself becomes the ultimate canvas for creation.</p>
+        <!-- Data Analysis -->
+        <div class="capability-card">
+            <h3 class="capability-title">📊 Data Analysis</h3>
+            <div class="framework-badges">
+                <span class="badge">Chart.js</span>
+                <span class="badge">D3.js</span>
+                <span class="badge">Analytics</span>
+            </div>
+            <div class="capability-demo">
+                <div class="chart-container">
+                    <canvas id="dataChart"></canvas>
+                </div>
+                <button class="interactive-btn" onclick="generateChart()">Generate Insights</button>
             </div>
         </div>
-    </section>
 
-    <!-- Analysis & Research -->
-    <section id="analysis" class="section analysis">
-        <div class="container">
-            <h2 class="section-title">Research & Analysis</h2>
-            <div class="minimal-card">
-                <h3 style="color: #007bff; margin-bottom: 1rem;">Market Trend Analysis</h3>
-                <p><strong>Executive Summary:</strong> Recent data indicates a 340% increase in AI adoption across enterprise sectors, with natural language processing leading the charge. Key findings suggest that organizations implementing AI-driven solutions report 25% improved efficiency and 15% cost reduction within the first quarter.</p>
-                
-                <h4 style="margin: 2rem 0 1rem 0; color: #333;">Key Insights:</h4>
-                <ul style="margin-left: 2rem;">
-                    <li>Healthcare AI applications show highest ROI (156%)</li>
-                    <li>Financial services lead in implementation speed</li>
-                    <li>Manufacturing benefits most from predictive analytics</li>
-                    <li>Retail experiences significant customer satisfaction improvements</li>
-                </ul>
+        <!-- Natural Language Processing -->
+        <div class="capability-card">
+            <h3 class="capability-title">🧠 Language Understanding</h3>
+            <div class="framework-badges">
+                <span class="badge">NLP</span>
+                <span class="badge">Transformers</span>
+                <span class="badge">BERT</span>
+            </div>
+            <div class="capability-demo">
+                <div class="neural-network">
+                    <div class="layer">
+                        <div class="neuron"></div>
+                        <div class="neuron"></div>
+                        <div class="neuron"></div>
+                    </div>
+                    <div class="layer">
+                        <div class="neuron"></div>
+                        <div class="neuron"></div>
+                        <div class="neuron"></div>
+                        <div class="neuron"></div>
+                    </div>
+                    <div class="layer">
+                        <div class="neuron"></div>
+                        <div class="neuron"></div>
+                    </div>
+                </div>
+                <button class="interactive-btn" onclick="analyzeText()">Analyze Sentiment</button>
+                <div id="nlpOutput" class="demo-output" style="display: none;"></div>
             </div>
         </div>
-    </section>
+
+        <!-- Creative Writing -->
+        <div class="capability-card">
+            <h3 class="capability-title">✍️ Creative Writing</h3>
+            <div class="framework-badges">
+                <span class="badge">GPT</span>
+                <span class="badge">Poetry</span>
+                <span class="badge">Storytelling</span>
+            </div>
+            <div class="capability-demo">
+                <button class="interactive-btn" onclick="createPoetry()">Generate Poetry</button>
+                <div id="poetryOutput" class="demo-output" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Problem Solving -->
+        <div class="capability-card">
+            <h3 class="capability-title">🧩 Problem Solving</h3>
+            <div class="framework-badges">
+                <span class="badge">Algorithms</span>
+                <span class="badge">Logic</span>
+                <span class="badge">Math</span>
+            </div>
+            <div class="capability-demo">
+                <button class="interactive-btn" onclick="solveProblem()">Solve Puzzle</button>
+                <div id="puzzleOutput" class="demo-output" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Image Understanding -->
+        <div class="capability-card">
+            <h3 class="capability-title">👁️ Vision & Analysis</h3>
+            <div class="framework-badges">
+                <span class="badge">Computer Vision</span>
+                <span class="badge">CNN</span>
+                <span class="badge">OpenCV</span>
+            </div>
+            <div class="capability-demo">
+                <div style="text-align: center;">
+                    <div style="width: 100px; height: 100px; background: linear-gradient(45deg, #ff6b6b, #4ecdc4); border-radius: 10px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2rem;">🖼️</div>
+                    <button class="interactive-btn" onclick="analyzeImage()">Analyze Image</button>
+                    <div id="visionOutput" class="demo-output" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- API Integration -->
+        <div class="capability-card">
+            <h3 class="capability-title">🔗 API Integration</h3>
+            <div class="framework-badges">
+                <span class="badge">REST</span>
+                <span class="badge">GraphQL</span>
+                <span class="badge">WebSocket</span>
+            </div>
+            <div class="capability-demo">
+                <button class="interactive-btn" onclick="fetchData()">Fetch Data</button>
+                <div id="apiOutput" class="demo-output" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Real-time Processing -->
+        <div class="capability-card">
+            <h3 class="capability-title">⚡ Real-time Processing</h3>
+            <div class="framework-badges">
+                <span class="badge">WebRTC</span>
+                <span class="badge">Socket.io</span>
+                <span class="badge">Streaming</span>
+            </div>
+            <div class="capability-demo">
+                <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                    <div class="loading-spinner" id="processingSpinner" style="display: none;"></div>
+                    <button class="interactive-btn" onclick="processRealtime()">Start Processing</button>
+                    <div id="realtimeOutput" class="demo-output" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Machine Learning -->
+        <div class="capability-card">
+            <h3 class="capability-title">🤖 Machine Learning</h3>
+            <div class="framework-badges">
+                <span class="badge">TensorFlow</span>
+                <span class="badge">PyTorch</span>
+                <span class="badge">Scikit-learn</span>
+            </div>
+            <div class="capability-demo">
+                <button class="interactive-btn" onclick="trainModel()">Train Model</button>
+                <div id="mlOutput" class="demo-output" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Automation -->
+        <div class="capability-card">
+            <h3 class="capability-title">🔄 Task Automation</h3>
+            <div class="framework-badges">
+                <span class="badge">Workflow</span>
+                <span class="badge">RPA</span>
+                <span class="badge">Scripting</span>
+            </div>
+            <div class="capability-demo">
+                <button class="interactive-btn" onclick="automateTask()">Automate Workflow</button>
+                <div id="automationOutput" class="demo-output" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // Smooth scrolling navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+        // Three.js Background Animation
+        function initThreeJS() {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('threeScene').appendChild(renderer.domElement);
+            
+            // Create floating geometric shapes
+            const geometry = new THREE.IcosahedronGeometry(1, 0);
+            const material = new THREE.MeshBasicMaterial({ 
+                color: 0x4ecdc4, 
+                wireframe: true,
+                transparent: true,
+                opacity: 0.3
             });
-        });
-
-        // Chat simulation
-        function simulateChat() {
-            const questions = [
-                "How does machine learning work?",
-                "Explain blockchain technology",
-                "What is the future of renewable energy?",
-                "How can AI help with climate change?"
-            ];
             
-            const answers = [
-                "Machine learning enables computers to learn and improve from experience without explicit programming. It uses algorithms to identify patterns in data and make predictions or decisions.",
-                "Blockchain is a distributed ledger technology that maintains a growing list of records, called blocks, linked using cryptography. Each block contains a cryptographic hash of the previous block, timestamp, and transaction data.",
-                "Renewable energy's future looks promising with advancing solar efficiency, offshore wind expansion, and breakthrough battery storage technologies enabling grid-scale energy storage.",
-                "AI can optimize renewable energy grids, predict weather patterns for better energy planning, develop new materials for solar cells, and create smart systems that reduce energy consumption."
-            ];
-
-            const chatContainer = document.querySelector('.chat-container');
-            const randomIndex = Math.floor(Math.random() * questions.length);
+            const shapes = [];
+            for (let i = 0; i < 50; i++) {
+                const shape = new THREE.Mesh(geometry, material);
+                shape.position.set(
+                    (Math.random() - 0.5) * 100,
+                    (Math.random() - 0.5) * 100,
+                    (Math.random() - 0.5) * 100
+                );
+                shape.rotation.set(
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI
+                );
+                scene.add(shape);
+                shapes.push(shape);
+            }
             
-            // Add new question
-            const questionDiv = document.createElement('div');
-            questionDiv.className = 'chat-message';
-            questionDiv.innerHTML = `<strong>Human:</strong> ${questions[randomIndex]}`;
-            chatContainer.insertBefore(questionDiv, chatContainer.lastElementChild);
+            camera.position.z = 30;
             
-            // Add answer after delay
-            setTimeout(() => {
-                const answerDiv = document.createElement('div');
-                answerDiv.className = 'chat-message';
-                answerDiv.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                answerDiv.style.color = 'white';
-                answerDiv.innerHTML = `<strong>Claude:</strong> ${answers[randomIndex]}`;
-                chatContainer.insertBefore(answerDiv, chatContainer.lastElementChild);
-            }, 1000);
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                shapes.forEach(shape => {
+                    shape.rotation.x += 0.005;
+                    shape.rotation.y += 0.005;
+                });
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
         }
 
-        // Initialize Charts
-        function initCharts() {
-            // Performance Chart
-            const ctx1 = document.getElementById('performanceChart').getContext('2d');
-            new Chart(ctx1, {
+        // Floating Particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Interactive Functions
+        function scrollToCapabilities() {
+            document.getElementById('capabilities').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        function generateCode() {
+            const output = document.getElementById('codeOutput');
+            output.style.display = 'block';
+            gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
+        }
+
+        function generateChart() {
+            const ctx = document.getElementById('dataChart').getContext('2d');
+            new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
                     datasets: [{
                         label: 'AI Performance',
-                        data: [65, 78, 85, 92, 96, 98],
-                        borderColor: '#667eea',
-                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                        fill: true,
+                        data: [65, 78, 85, 92, 88, 95],
+                        borderColor: '#4ecdc4',
+                        backgroundColor: 'rgba(78, 205, 196, 0.1)',
                         tension: 0.4
                     }]
                 },
                 options: {
                     responsive: true,
-                    plugins: { legend: { labels: { color: '#fff' }}},
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
                     scales: {
-                        x: { ticks: { color: '#fff' }},
-                        y: { ticks: { color: '#fff' }}
-                    }
-                }
-            });
-
-            // Usage Chart
-            const ctx2 = document.getElementById('usageChart').getContext('2d');
-            new Chart(ctx2, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Text Analysis', 'Code Gen', 'Creative', 'Research'],
-                    datasets: [{
-                        data: [30, 25, 20, 25],
-                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#f5576c']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { labels: { color: '#fff' }}}
-                }
-            });
-
-            // Capability Chart
-            const ctx3 = document.getElementById('capabilityChart').getContext('2d');
-            new Chart(ctx3, {
-                type: 'radar',
-                data: {
-                    labels: ['Language', 'Logic', 'Creativity', 'Analysis', 'Code', 'Math'],
-                    datasets: [{
-                        label: 'Capability Level',
-                        data: [95, 90, 85, 92, 88, 87],
-                        borderColor: '#764ba2',
-                        backgroundColor: 'rgba(118, 75, 162, 0.2)',
-                        pointBackgroundColor: '#667eea'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { labels: { color: '#fff' }}},
-                    scales: {
-                        r: {
-                            ticks: { color: '#fff' },
-                            grid: { color: 'rgba(255,255,255,0.2)' },
-                            pointLabels: { color: '#fff' }
+                        y: {
+                            ticks: {
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
                         }
                     }
                 }
             });
         }
 
-        // Initialize 3D Scene
-        function init3D() {
-            const container = document.getElementById('threejs-container');
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            renderer.setClearColor(0x000011, 1);
-            container.appendChild(renderer.domElement);
-
-            // Create neural network visualization
-            const nodes = [];
-            const connections = [];
-            
-            // Create nodes in layers
-            for (let layer = 0; layer < 4; layer++) {
-                const nodeCount = layer === 0 || layer === 3 ? 5 : 8;
-                for (let i = 0; i < nodeCount; i++) {
-                    const geometry = new THREE.SphereGeometry(0.1, 16, 16);
-                    const material = new THREE.MeshBasicMaterial({ 
-                        color: new THREE.Color().setHSL(layer * 0.2, 1, 0.6)
-                    });
-                    const node = new THREE.Mesh(geometry, material);
-                    
-                    node.position.x = (layer - 1.5) * 3;
-                    node.position.y = (i - nodeCount/2) * 0.8;
-                    node.position.z = 0;
-                    
-                    scene.add(node);
-                    nodes.push(node);
-                }
-            }
-
-            // Create connections
-            nodes.forEach((node, i) => {
-                nodes.forEach((otherNode, j) => {
-                    if (Math.abs(node.position.x - otherNode.position.x) === 3 && Math.random() > 0.3) {
-                        const geometry = new THREE.BufferGeometry().setFromPoints([
-                            node.position, otherNode.position
-                        ]);
-                        const material = new THREE.LineBasicMaterial({ 
-                            color: 0x666666, 
-                            opacity: 0.6, 
-                            transparent: true 
-                        });
-                        const line = new THREE.Line(geometry, material);
-                        scene.add(line);
-                        connections.push(line);
-                    }
-                });
-            });
-
-            camera.position.z = 8;
-
-            // Animation
-            function animate() {
-                requestAnimationFrame(animate);
-                
-                // Rotate the entire scene
-                scene.rotation.y += 0.005;
-                
-                // Pulse nodes
-                nodes.forEach((node, i) => {
-                    node.scale.setScalar(1 + Math.sin(Date.now() * 0.003 + i) * 0.3);
-                });
-
-                renderer.render(scene, camera);
-            }
-            animate();
-
-            // Mouse interaction
-            let mouseX = 0, mouseY = 0;
-            container.addEventListener('mousemove', (event) => {
-                mouseX = (event.clientX / container.clientWidth) * 2 - 1;
-                mouseY = -(event.clientY / container.clientHeight) * 2 + 1;
-                scene.rotation.x = mouseY * 0.3;
-                scene.rotation.y = mouseX * 0.3;
-            });
+        function analyzeText() {
+            const output = document.getElementById('nlpOutput');
+            output.innerHTML = `
+                <strong>Sentiment Analysis Result:</strong><br>
+                Text: "This AI showcase is amazing!"<br>
+                Sentiment: <span style="color: #4ecdc4;">Positive (96% confidence)</span><br>
+                Emotions: Joy (87%), Excitement (72%), Wonder (65%)
+            `;
+            output.style.display = 'block';
+            gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
         }
 
-        // Parallax scrolling effect
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
+        function createPoetry() {
+            const output = document.getElementById('poetryOutput');
+            output.innerHTML = `
+                <strong>AI-Generated Haiku:</strong><br><br>
+                <em>Silicon thoughts dance,<br>
+                Electric dreams come alive—<br>
+                Future speaks in code.</em>
+            `;
+            output.style.display = 'block';
+            gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
+        }
+
+        function solveProblem() {
+            const output = document.getElementById('puzzleOutput');
+            output.innerHTML = `
+                <strong>Logic Puzzle Solved:</strong><br>
+                Problem: "If A = 1, B = 2, C = 3... what is the sum of CLAUDE?"<br>
+                Solution: C(3) + L(12) + A(1) + U(21) + D(4) + E(5) = <span style="color: #4ecdc4;">46</span>
+            `;
+            output.style.display = 'block';
+            gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
+        }
+
+        function analyzeImage() {
+            const output = document.getElementById('visionOutput');
+            output.innerHTML = `
+                <strong>Image Analysis:</strong><br>
+                Detected: Abstract gradient pattern<br>
+                Colors: Red (#ff6b6b), Teal (#4ecdc4)<br>
+                Confidence: 94%<br>
+                Style: Modern, vibrant, geometric
+            `;
+            output.style.display = 'block';
+            gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
+        }
+
+        function fetchData() {
+            const output = document.getElementById('apiOutput');
+            output.innerHTML = `
+                <strong>API Response:</strong><br>
+                {<br>
+                &nbsp;&nbsp;"status": "success",<br>
+                &nbsp;&nbsp;"data": {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;"users": 1337,<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;"requests": 9001,<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;"uptime": "99.9%"<br>
+                &nbsp;&nbsp;}<br>
+                }
+            `;
+            output.style.display = 'block';
+            gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
+        }
+
+        function processRealtime() {
+            const spinner = document.getElementById('processingSpinner');
+            const output = document.getElementById('realtimeOutput');
             
-            document.querySelectorAll('.hero').forEach(el => {
-                el.style.transform = `translateY(${rate}px)`;
-            });
-        });
+            spinner.style.display = 'block';
+            
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                output.innerHTML = `
+                    <strong>Real-time Processing Complete:</strong><br>
+                    Processed 1,000 events/sec<br>
+                    Latency: 2.3ms average<br>
+                    Throughput: <span style="color: #4ecdc4;">98.7% optimal</span>
+                `;
+                output.style.display = 'block';
+                gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
+            }, 2000);
+        }
+
+        function trainModel() {
+            const output = document.getElementById('mlOutput');
+            output.innerHTML = `
+                <strong>Model Training Results:</strong><br>
+                Algorithm: Neural Network<br>
+                Accuracy: <span style="color: #4ecdc4;">94.2%</span><br>
+                Epochs: 50<br>
+                Loss: 0.0234
+            `;
+            output.style.display = 'block';
+            gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
+        }
+
+        function automateTask() {
+            const output = document.getElementById('automationOutput');
+            output.innerHTML = `
+                <strong>Workflow Automated:</strong><br>
+                ✅ Data collection<br>
+                ✅ Processing & validation<br>
+                ✅ Report generation<br>
+                ⏱️ Time saved: <span style="color: #4ecdc4;">4.5 hours</span>
+            `;
+            output.style.display = 'block';
+            gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
+        }
 
         // Initialize everything
         document.addEventListener('DOMContentLoaded', () => {
-            initCharts();
-            init3D();
+            initThreeJS();
+            createParticles();
             
-            // Animate sections on scroll
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+            // Animate cards on scroll
+            gsap.registerPlugin(ScrollTrigger);
+            
+            gsap.utils.toArray('.capability-card').forEach(card => {
+                gsap.fromTo(card, 
+                    { opacity: 0, y: 50 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top 80%",
+                            end: "bottom 20%",
+                            toggleActions: "play none none reverse"
+                        }
                     }
-                });
-            });
-
-            document.querySelectorAll('.section').forEach(section => {
-                section.style.opacity = '0';
-                section.style.transform = 'translateY(50px)';
-                section.style.transition = 'all 0.8s ease-out';
-                observer.observe(section);
+                );
             });
         });
-
-        // Prism.js code highlighting
-        Prism.highlightAll();
     </script>
 </body>
 </html>
