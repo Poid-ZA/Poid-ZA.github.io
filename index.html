@@ -1,106 +1,699 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FlowAI - Unleash Your Workflow</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @keyframes neonGlow {
-      0%, 100% { text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc; }
-      50% { text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 30px #00ffcc; }
-    }
-    .neon-text { animation: neonGlow 2s ease-in-out infinite; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fadeIn { animation: fadeIn 1s ease-out forwards; }
-    @keyframes scalePulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-    .animate-pulse { animation: scalePulse 2s ease-in-out infinite; }
-    .bg-grid {
-      background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-                        linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
-      background-size: 40px 40px;
-    }
-    .clip-path-poly {
-      clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
-    }
-    .feature-card:hover {
-      transform: rotate(3deg) scale(1.05);
-      transition: transform 0.3s ease;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude AI - Capabilities Showcase</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: #0a0a0a;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section - Modern Glassmorphism */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.05"/><circle cx="75" cy="75" r="0.5" fill="white" opacity="0.03"/><circle cx="50" cy="10" r="0.8" fill="white" opacity="0.04"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, #a8edea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes textShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Navigation - Neumorphism */
+        .nav {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav a:hover {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Section Styling */
+        .section {
+            min-height: 100vh;
+            padding: 5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* AI Chat Section - Material Design */
+        .ai-chat {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        }
+
+        .chat-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .chat-message {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            animation: slideInUp 0.6s ease-out;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Data Viz Section - Dashboard Theme */
+        .data-viz {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%);
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .chart-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Code Section - Terminal Theme */
+        .code-section {
+            background: #0d1117;
+            color: #e6edf3;
+        }
+
+        .code-container {
+            background: #161b22;
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid #30363d;
+            overflow-x: auto;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .code-dots {
+            display: flex;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27ca3f; }
+
+        /* 3D Section - Cyberpunk Theme */
+        .threejs-section {
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a0033 100%);
+            position: relative;
+        }
+
+        #threejs-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid #ff00ff;
+            box-shadow: 0 0 50px rgba(255, 0, 255, 0.3);
+        }
+
+        /* Creative Section - Brutalist Design */
+        .creative {
+            background: #000;
+            position: relative;
+        }
+
+        .brutalist-card {
+            background: #fff;
+            color: #000;
+            padding: 3rem;
+            transform: rotate(-2deg);
+            border: 8px solid #000;
+            box-shadow: 15px 15px 0 #ff0000;
+            max-width: 600px;
+            margin: 2rem auto;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .brutalist-card:hover {
+            transform: rotate(2deg);
+            box-shadow: -15px -15px 0 #00ff00;
+            transition: all 0.3s ease;
+        }
+
+        /* Analysis Section - Minimalist */
+        .analysis {
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .minimal-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+            border-left: 4px solid #007bff;
+        }
+
+        /* Utility Classes */
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero-content { padding: 2rem; }
+            .section-title { font-size: 2rem; }
+            .chart-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
-<body class="bg-black text-white font-sans overflow-x-hidden">
-  <!-- Hero Section -->
-  <section class="min-h-screen flex items-center justify-start px-8 md:px-16 bg-grid relative">
-    <div class="max-w-lg">
-      <h1 class="text-5xl md:text-7xl font-extrabold neon-text animate-fadeIn">FlowAI: Redefine Your Workflow</h1>
-      <p class="text-lg md:text-xl mt-4 text-gray-300 animate-fadeIn" style="animation-delay: 0.2s;">
-        An AI that doesn’t just assist—it amplifies your creativity and efficiency.
-      </p>
-      <a
-        href="#signup"
-        class="mt-6 inline-block bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 px-8 rounded-full font-semibold hover:from-pink-600 hover:to-purple-600 transition animate-pulse"
-      >
-        Dive In
-      </a>
-    </div>
-    <div class="absolute right-0 bottom-0 w-1/2 h-1/2 bg-gradient-to-t from-purple-500 to-transparent opacity-30 clip-path-poly animate-pulse"></div>
-  </section>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#hero">Home</a>
+        <a href="#chat">Chat</a>
+        <a href="#data">Data</a>
+        <a href="#code">Code</a>
+        <a href="#3d">3D</a>
+        <a href="#creative">Creative</a>
+        <a href="#analysis">Analysis</a>
+    </nav>
 
-  <!-- Features Section -->
-  <section class="py-20 px-8 md:px-16 bg-black">
-    <h2 class="text-4xl font-extrabold text-center neon-text mb-12 animate-fadeIn">What Makes FlowAI Unique</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      <div class="bg-gray-900 p-8 rounded-xl shadow-2xl feature-card animate-fadeIn" style="animation-delay: 0.3s;">
-        <h3 class="text-2xl font-bold text-pink-400 mb-4">Hyper-Intelligent Automation</h3>
-        <p class="text-gray-300">Predicts and automates tasks before you even think of them.</p>
-      </div>
-      <div class="bg-gray-900 p-8 rounded-xl shadow-2xl feature-card animate-fadeIn" style="animation-delay: 0.5s;">
-        <h3 class="text-2xl font-bold text-pink-400 mb-4">Ecosystem Sync</h3>
-        <p class="text-gray-300">Integrates with your tools in ways you didn’t know were possible.</p>
-      </div>
-      <div class="bg-gray-900 p-8 rounded-xl shadow-2xl feature-card animate-fadeIn" style="animation-delay: 0.7s;">
-        <h3 class="text-2xl font-bold text-pink-400 mb-4">Creative Insights</h3>
-        <p class="text-gray-300">Unlocks data-driven ideas to spark your next big project.</p>
-      </div>
-    </div>
-  </section>
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>Claude AI</h1>
+            <p style="font-size: 1.5rem; margin-bottom: 2rem; opacity: 0.9;">
+                Showcasing Advanced AI Capabilities
+            </p>
+            <a href="#chat" class="btn pulse">Explore Abilities</a>
+        </div>
+    </section>
 
-  <!-- CTA Section -->
-  <section class="py-20 px-8 text-center bg-gradient-to-b from-gray-900 to-black clip-path-poly">
-    <h2 class="text-3xl md:text-4xl font-bold neon-text mb-6 animate-fadeIn">Ready to Break the Mold?</h2>
-    <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto animate-fadeIn" style="animation-delay: 0.2s;">
-      FlowAI isn’t just another tool—it’s your unfair advantage. Join the revolution.
-    </p>
-    <a
-      href="#signup"
-      class="bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 px-8 rounded-full font-semibold hover:from-pink-600 hover:to-purple-600 transition animate-pulse"
-    >
-      Start Now
-    </a>
-  </section>
+    <!-- AI Chat Capability -->
+    <section id="chat" class="section ai-chat">
+        <div class="container">
+            <h2 class="section-title">Conversational AI</h2>
+            <div class="chat-container">
+                <div class="chat-message">
+                    <strong>Human:</strong> Can you help me understand quantum computing?
+                </div>
+                <div class="chat-message" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    <strong>Claude:</strong> Quantum computing harnesses quantum mechanical phenomena like superposition and entanglement to process information differently than classical computers. While classical bits exist as either 0 or 1, quantum bits (qubits) can exist in superposition - simultaneously both 0 and 1 until measured. This allows quantum computers to explore multiple solution paths simultaneously, potentially solving certain complex problems exponentially faster than classical computers.
+                </div>
+                <button class="btn" onclick="simulateChat()" style="margin-top: 1rem;">Ask Another Question</button>
+            </div>
+        </div>
+    </section>
 
-  <script>
-    // Basic scroll animation trigger for fallback
-    document.addEventListener('DOMContentLoaded', () => {
-      const elements = document.querySelectorAll('.animate-fadeIn');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = 1;
-            entry.target.style.transform = 'translateY(0)';
-          }
+    <!-- Data Visualization -->
+    <section id="data" class="section data-viz">
+        <div class="container">
+            <h2 class="section-title">Data Analysis & Visualization</h2>
+            <div class="chart-grid">
+                <div class="chart-card">
+                    <h3>Performance Metrics</h3>
+                    <canvas id="performanceChart" width="300" height="200"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Usage Analytics</h3>
+                    <canvas id="usageChart" width="300" height="200"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Capability Distribution</h3>
+                    <canvas id="capabilityChart" width="300" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Generation -->
+    <section id="code" class="section code-section">
+        <div class="container">
+            <h2 class="section-title">Code Generation & Analysis</h2>
+            <div class="code-container">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+                    </div>
+                    <span>advanced_ai_system.py</span>
+                </div>
+                <pre><code class="language-javascript">// Advanced AI Algorithm Implementation
+class NeuralNetwork {
+    constructor(layers) {
+        this.layers = layers;
+        this.weights = this.initializeWeights();
+        this.biases = this.initializeBiases();
+    }
+    
+    forward(input) {
+        let activation = input;
+        for (let i = 0; i < this.layers.length - 1; i++) {
+            activation = this.sigmoid(
+                this.matrixMultiply(activation, this.weights[i])
+                    .map((val, idx) => val + this.biases[i][idx])
+            );
+        }
+        return activation;
+    }
+    
+    sigmoid(x) {
+        return Array.isArray(x) 
+            ? x.map(val => 1 / (1 + Math.exp(-val)))
+            : 1 / (1 + Math.exp(-x));
+    }
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D Visualization -->
+    <section id="3d" class="section threejs-section">
+        <div class="container">
+            <h2 class="section-title">3D Visualization & Graphics</h2>
+            <div id="threejs-container"></div>
+            <p style="text-align: center; margin-top: 1rem; opacity: 0.8;">
+                Interactive 3D neural network visualization - Click and drag to explore
+            </p>
+        </div>
+    </section>
+
+    <!-- Creative Writing -->
+    <section id="creative" class="section creative">
+        <div class="container">
+            <h2 class="section-title" style="color: #fff;">Creative Content Generation</h2>
+            <div class="brutalist-card">
+                <h3 style="margin-bottom: 1rem;">THE DIGITAL RENAISSANCE</h3>
+                <p>In the sprawling metropolis of tomorrow, where neon lights dance across rain-slicked streets and holographic advertisements flicker like digital ghosts, humanity stands at the precipice of a new age. The boundaries between artificial and authentic blur into obsolescence as consciousness itself becomes the ultimate canvas for creation.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analysis & Research -->
+    <section id="analysis" class="section analysis">
+        <div class="container">
+            <h2 class="section-title">Research & Analysis</h2>
+            <div class="minimal-card">
+                <h3 style="color: #007bff; margin-bottom: 1rem;">Market Trend Analysis</h3>
+                <p><strong>Executive Summary:</strong> Recent data indicates a 340% increase in AI adoption across enterprise sectors, with natural language processing leading the charge. Key findings suggest that organizations implementing AI-driven solutions report 25% improved efficiency and 15% cost reduction within the first quarter.</p>
+                
+                <h4 style="margin: 2rem 0 1rem 0; color: #333;">Key Insights:</h4>
+                <ul style="margin-left: 2rem;">
+                    <li>Healthcare AI applications show highest ROI (156%)</li>
+                    <li>Financial services lead in implementation speed</li>
+                    <li>Manufacturing benefits most from predictive analytics</li>
+                    <li>Retail experiences significant customer satisfaction improvements</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
-      }, { threshold: 0.1 });
 
-      elements.forEach(el => observer.observe(el));
-    });
-  </script>
+        // Chat simulation
+        function simulateChat() {
+            const questions = [
+                "How does machine learning work?",
+                "Explain blockchain technology",
+                "What is the future of renewable energy?",
+                "How can AI help with climate change?"
+            ];
+            
+            const answers = [
+                "Machine learning enables computers to learn and improve from experience without explicit programming. It uses algorithms to identify patterns in data and make predictions or decisions.",
+                "Blockchain is a distributed ledger technology that maintains a growing list of records, called blocks, linked using cryptography. Each block contains a cryptographic hash of the previous block, timestamp, and transaction data.",
+                "Renewable energy's future looks promising with advancing solar efficiency, offshore wind expansion, and breakthrough battery storage technologies enabling grid-scale energy storage.",
+                "AI can optimize renewable energy grids, predict weather patterns for better energy planning, develop new materials for solar cells, and create smart systems that reduce energy consumption."
+            ];
+
+            const chatContainer = document.querySelector('.chat-container');
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            
+            // Add new question
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'chat-message';
+            questionDiv.innerHTML = `<strong>Human:</strong> ${questions[randomIndex]}`;
+            chatContainer.insertBefore(questionDiv, chatContainer.lastElementChild);
+            
+            // Add answer after delay
+            setTimeout(() => {
+                const answerDiv = document.createElement('div');
+                answerDiv.className = 'chat-message';
+                answerDiv.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                answerDiv.style.color = 'white';
+                answerDiv.innerHTML = `<strong>Claude:</strong> ${answers[randomIndex]}`;
+                chatContainer.insertBefore(answerDiv, chatContainer.lastElementChild);
+            }, 1000);
+        }
+
+        // Initialize Charts
+        function initCharts() {
+            // Performance Chart
+            const ctx1 = document.getElementById('performanceChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'AI Performance',
+                        data: [65, 78, 85, 92, 96, 98],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { labels: { color: '#fff' }}},
+                    scales: {
+                        x: { ticks: { color: '#fff' }},
+                        y: { ticks: { color: '#fff' }}
+                    }
+                }
+            });
+
+            // Usage Chart
+            const ctx2 = document.getElementById('usageChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Text Analysis', 'Code Gen', 'Creative', 'Research'],
+                    datasets: [{
+                        data: [30, 25, 20, 25],
+                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#f5576c']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { labels: { color: '#fff' }}}
+                }
+            });
+
+            // Capability Chart
+            const ctx3 = document.getElementById('capabilityChart').getContext('2d');
+            new Chart(ctx3, {
+                type: 'radar',
+                data: {
+                    labels: ['Language', 'Logic', 'Creativity', 'Analysis', 'Code', 'Math'],
+                    datasets: [{
+                        label: 'Capability Level',
+                        data: [95, 90, 85, 92, 88, 87],
+                        borderColor: '#764ba2',
+                        backgroundColor: 'rgba(118, 75, 162, 0.2)',
+                        pointBackgroundColor: '#667eea'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { labels: { color: '#fff' }}},
+                    scales: {
+                        r: {
+                            ticks: { color: '#fff' },
+                            grid: { color: 'rgba(255,255,255,0.2)' },
+                            pointLabels: { color: '#fff' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize 3D Scene
+        function init3D() {
+            const container = document.getElementById('threejs-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setClearColor(0x000011, 1);
+            container.appendChild(renderer.domElement);
+
+            // Create neural network visualization
+            const nodes = [];
+            const connections = [];
+            
+            // Create nodes in layers
+            for (let layer = 0; layer < 4; layer++) {
+                const nodeCount = layer === 0 || layer === 3 ? 5 : 8;
+                for (let i = 0; i < nodeCount; i++) {
+                    const geometry = new THREE.SphereGeometry(0.1, 16, 16);
+                    const material = new THREE.MeshBasicMaterial({ 
+                        color: new THREE.Color().setHSL(layer * 0.2, 1, 0.6)
+                    });
+                    const node = new THREE.Mesh(geometry, material);
+                    
+                    node.position.x = (layer - 1.5) * 3;
+                    node.position.y = (i - nodeCount/2) * 0.8;
+                    node.position.z = 0;
+                    
+                    scene.add(node);
+                    nodes.push(node);
+                }
+            }
+
+            // Create connections
+            nodes.forEach((node, i) => {
+                nodes.forEach((otherNode, j) => {
+                    if (Math.abs(node.position.x - otherNode.position.x) === 3 && Math.random() > 0.3) {
+                        const geometry = new THREE.BufferGeometry().setFromPoints([
+                            node.position, otherNode.position
+                        ]);
+                        const material = new THREE.LineBasicMaterial({ 
+                            color: 0x666666, 
+                            opacity: 0.6, 
+                            transparent: true 
+                        });
+                        const line = new THREE.Line(geometry, material);
+                        scene.add(line);
+                        connections.push(line);
+                    }
+                });
+            });
+
+            camera.position.z = 8;
+
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                // Rotate the entire scene
+                scene.rotation.y += 0.005;
+                
+                // Pulse nodes
+                nodes.forEach((node, i) => {
+                    node.scale.setScalar(1 + Math.sin(Date.now() * 0.003 + i) * 0.3);
+                });
+
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // Mouse interaction
+            let mouseX = 0, mouseY = 0;
+            container.addEventListener('mousemove', (event) => {
+                mouseX = (event.clientX / container.clientWidth) * 2 - 1;
+                mouseY = -(event.clientY / container.clientHeight) * 2 + 1;
+                scene.rotation.x = mouseY * 0.3;
+                scene.rotation.y = mouseX * 0.3;
+            });
+        }
+
+        // Parallax scrolling effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            document.querySelectorAll('.hero').forEach(el => {
+                el.style.transform = `translateY(${rate}px)`;
+            });
+        });
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            init3D();
+            
+            // Animate sections on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(50px)';
+                section.style.transition = 'all 0.8s ease-out';
+                observer.observe(section);
+            });
+        });
+
+        // Prism.js code highlighting
+        Prism.highlightAll();
+    </script>
 </body>
 </html>
