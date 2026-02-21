@@ -3,7 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claude AI - Capabilities Showcase</title>
+    <meta name="description" content="Poid-ZA Portfolio - Principal Engineer specializing in Trading Bots, DevOps, and AI. Discover CHIMERA and explore my engineering projects.">
+    <meta name="keywords" content="engineer, trading bot, devops, ai, python, javascript, binance">
+    <meta name="author" content="Poid-ZA">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta property="og:title" content="Poid-ZA - Principal Engineer & Builder">
+    <meta property="og:description" content="Crafting production-grade trading bots, DevOps infrastructure, and AI solutions.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://poid-za.github.io/">
+    
+    <title>Poid-ZA - Principal Engineer | Trading Bots & AI Solutions</title>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -12,27 +22,161 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    
     <style>
+        :root {
+            --primary: #4ecdc4;
+            --secondary: #45b7d1;
+            --accent: #ff6b6b;
+            --dark: #0a0a0a;
+            --darker: #1a1a2e;
+            --surface: #16213e;
+            --text: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body.light-mode {
+            --primary: #0099ff;
+            --secondary: #00bfff;
+            --accent: #ff1744;
+            --dark: #f5f5f5;
+            --darker: #ffffff;
+            --surface: #eeeeee;
+            --text: #333333;
+            --text-muted: rgba(51, 51, 51, 0.7);
+            --border: rgba(0, 0, 0, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-            color: white;
-            overflow-x: hidden;
-            line-height: 1.6;
+        html {
+            scroll-behavior: smooth;
         }
 
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 50%, var(--surface) 100%);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background 0.3s ease;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode nav {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(20deg);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--darker);
+                flex-direction: column;
+                gap: 1rem;
+                padding: 2rem;
+                display: none;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        /* Hero Section */
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            margin-top: 70px;
             background: radial-gradient(circle at 50% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%);
         }
 
@@ -44,9 +188,9 @@
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(2.5rem, 8vw, 5rem);
             font-weight: 700;
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background: linear-gradient(135deg, #ff6b6b, var(--primary), var(--secondary), #96ceb4);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -55,19 +199,32 @@
             margin-bottom: 1rem;
         }
 
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
         .hero p {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             opacity: 0.8;
             margin-bottom: 2rem;
         }
 
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
         .cta-button {
             padding: 1rem 2rem;
-            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(45deg, var(--primary) 0%, var(--secondary) 100%);
             border: none;
             border-radius: 50px;
             color: white;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -77,14 +234,245 @@
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.4);
         }
 
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .three-scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* About Section */
+        #about {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--text);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            margin: 1rem auto 0;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .skill-item strong {
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Projects Section */
+        #projects {
+            padding: 6rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid var(--border);
+        }
+
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .project-header {
+            padding: 2rem;
+            position: relative;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .project-body {
+            padding: 2rem;
+        }
+
+        .project-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-features li {
+            padding: 0.5rem 0;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-features li:before {
+            content: '✓ ';
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: gap 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 0.5rem;
+        }
+
+        /* Contact Section */
+        #contact {
+            padding: 6rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-content {
+            text-align: center;
+        }
+
+        .contact-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-link:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        /* Capability Cards */
         .capabilities-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            padding: 4rem 2rem;
+            padding: 2rem;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -92,8 +480,8 @@
         .capability-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+            border: 1px solid var(--border);
+            border-radius: 15px;
             padding: 2rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
@@ -112,14 +500,29 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+            background: linear-gradient(90deg, var(--primary), var(--secondary), #ff6b6b);
         }
 
         .capability-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            color: #4ecdc4;
+            color: var(--primary);
+        }
+
+        .framework-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            border: 1px solid var(--border);
         }
 
         .capability-demo {
@@ -127,15 +530,15 @@
             border-radius: 10px;
             padding: 1rem;
             margin: 1rem 0;
-            min-height: 200px;
+            min-height: 150px;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
+            flex-direction: column;
         }
 
         .interactive-btn {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             border: none;
             padding: 0.8rem 1.5rem;
             border-radius: 25px;
@@ -148,32 +551,24 @@
 
         .interactive-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
         }
 
-        .code-output {
-            background: #1a1a1a;
-            border-radius: 8px;
-            padding: 1rem;
-            font-family: 'Monaco', 'Consolas', monospace;
-            font-size: 0.9rem;
-            margin: 1rem 0;
-            border-left: 4px solid #4ecdc4;
+        /* Animations */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
-        .chart-container {
-            width: 100%;
-            height: 200px;
-            position: relative;
-        }
-
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-top: 3px solid #4ecdc4;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .floating-particles {
@@ -195,563 +590,350 @@
             animation: float 6s ease-in-out infinite;
         }
 
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0; }
             50% { transform: translateY(-100px) rotate(180deg); opacity: 1; }
         }
 
-        .three-scene {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .framework-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-
-        .badge {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .demo-output {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem 0;
-            font-family: monospace;
-            border-left: 3px solid #45b7d1;
-        }
-
-        .neural-network {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 150px;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .layer {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .neuron {
-            width: 20px;
-            height: 20px;
-            background: #4ecdc4;
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .neuron:hover {
-            transform: scale(1.3);
-            box-shadow: 0 0 20px #4ecdc4;
-        }
-
-        .neuron.active {
-            background: #ff6b6b;
-            animation: activePulse 0.5s ease;
-        }
-
-        .connection {
-            position: absolute;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #4ecdc4, transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .connection.active {
-            opacity: 1;
-            animation: connectionFlow 1s ease;
-        }
-
-        .typing-container {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem 0;
-            min-height: 60px;
-            font-family: monospace;
-            border-left: 3px solid #45b7d1;
-            position: relative;
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 2px;
-            height: 20px;
-            background: #4ecdc4;
-            animation: blink 1s infinite;
-            margin-left: 2px;
-        }
-
-        .voice-controls {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            margin: 1rem 0;
-        }
-
-        .voice-btn {
-            background: linear-gradient(45deg, #45b7d1, #4ecdc4);
-            border: none;
-            padding: 0.8rem;
-            border-radius: 50%;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .voice-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(69, 183, 209, 0.4);
-        }
-
-        .voice-btn.recording {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-            animation: recordingPulse 1s ease-in-out infinite;
-        }
-
-        .drag-drop-area {
-            border: 2px dashed rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .drag-drop-area:hover,
-        .drag-drop-area.dragover {
-            border-color: #4ecdc4;
-            background: rgba(78, 205, 196, 0.1);
-            transform: scale(1.02);
-        }
-
-        .file-preview {
-            display: none;
-            margin-top: 1rem;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-        }
-
-        .interactive-slider {
-            width: 100%;
-            margin: 1rem 0;
-        }
-
-        .slider {
-            width: 100%;
-            height: 8px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.2);
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .slider::-webkit-slider-thumb {
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(78, 205, 196, 0.5);
-        }
-
-        .color-picker-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-
-        .color-swatch {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            border: 2px solid transparent;
-        }
-
-        .color-swatch:hover {
-            transform: scale(1.1);
-            border-color: white;
-        }
-
-        .progress-ring {
-            width: 80px;
-            height: 80px;
-            margin: 1rem auto;
-        }
-
-        .progress-ring-circle {
-            transition: stroke-dashoffset 0.35s;
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
-            stroke-linecap: round;
-        }
-
-        .mini-game {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
-            max-width: 150px;
-            margin: 1rem auto;
-        }
-
-        .game-cell {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            transition: all 0.2s ease;
-        }
-
-        .game-cell:hover {
-            background: rgba(78, 205, 196, 0.3);
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
-        @keyframes activePulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.5); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes connectionFlow {
-            0% { background-position: -100% 0; }
-            100% { background-position: 100% 0; }
-        }
-
-        @keyframes recordingPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
         @media (max-width: 768px) {
-            .capabilities-grid {
+            .capabilities-grid,
+            .projects-grid {
                 grid-template-columns: 1fr;
-                padding: 2rem 1rem;
             }
-            
+
+            .hero {
+                margin-top: 70px;
+            }
+
             .hero h1 {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
-            
-            .hero p {
-                font-size: 1.2rem;
+
+            .about-text h3,
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .contact-links {
+                gap: 1rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="nav-logo">
+            <span>🐉</span> POID
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#capabilities">Capabilities</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" id="menuToggle">☰</button>
+    </nav>
+
+    <!-- Floating Particles -->
     <div class="floating-particles" id="particles"></div>
-    
-    <section class="hero">
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
         <div class="three-scene" id="threeScene"></div>
         <div class="hero-content">
-            <h1>Claude AI</h1>
-            <p>Explore the Future of Artificial Intelligence</p>
-            <button class="cta-button" onclick="scrollToCapabilities()">Discover Capabilities</button>
+            <p class="hero-subtitle">Welcome to my digital workspace</p>
+            <h1>Crafting the Future</h1>
+            <p>Principal Engineer | Trading Bot Architect | DevOps Innovator</p>
+            <div class="cta-buttons">
+                <button class="cta-button" onclick="scrollTo('#projects')">View Projects</button>
+                <button class="cta-button secondary" onclick="scrollTo('#contact')">Get in Touch</button>
+            </div>
         </div>
     </section>
 
-    <div class="capabilities-grid" id="capabilities">
-        <!-- Code Generation -->
-        <div class="capability-card">
-            <h3 class="capability-title">💻 Code Generation</h3>
-            <div class="framework-badges">
-                <span class="badge">React</span>
-                <span class="badge">Vue.js</span>
-                <span class="badge">JavaScript</span>
-            </div>
-            <div class="capability-demo">
-                <div style="width: 100%;">
-                    <div class="voice-controls">
-                        <button class="interactive-btn" onclick="generateCode()">Generate Function</button>
-                        <button class="voice-btn" onclick="speakCode()" title="Speak Code">🔊</button>
-                    </div>
-                    <div class="typing-container" id="typingCode" style="display: none;">
-                        <span id="typedCode"></span><span class="cursor"></span>
-                    </div>
-                    <div id="codeOutput" class="code-output" style="display: none;">
-                        <pre><code class="language-javascript">// AI-Generated Fibonacci Function
-function fibonacci(n) {
-    if (n <= 1) return n;
-    return fibonacci(n - 1) + fibonacci(n - 2);
-}
-
-// Usage
-console.log(fibonacci(10)); // 55</code></pre>
-                    </div>
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Senior Principal Engineer</h3>
+                <p>With 20+ years in IT and engineering, I specialize in building production-grade systems that combine innovation with reliability. From trading bots to DevOps infrastructure, I focus on solving complex problems with elegant, scalable solutions.</p>
+                <p>My expertise spans:</p>
+                <div class="skills-grid">
+                    <div class="skill-item"><strong>Backend Engineering</strong> • Node.js, Python, Go</div>
+                    <div class="skill-item"><strong>DevOps & Infrastructure</strong> • Docker, Kubernetes, AWS</div>
+                    <div class="skill-item"><strong>Financial Systems</strong> • Trading Bots, Risk Management</div>
+                    <div class="skill-item"><strong>Security & Architecture</strong> • System Design, Security Audits</div>
                 </div>
+            </div>
+            <div class="about-text">
+                <h3>The Work</h3>
+                <p>I believe in building things that matter. Each project reflects a commitment to:</p>
+                <div class="skills-grid">
+                    <div class="skill-item"><strong>Quality First</strong> • Production-ready always</div>
+                    <div class="skill-item"><strong>Security by Default</strong> • No shortcuts</div>
+                    <div class="skill-item"><strong>Scalable Design</strong> • Think for tomorrow</div>
+                    <div class="skill-item"><strong>Clear Documentation</strong> • Knowledge transfers</div>
+                </div>
+                <p style="margin-top: 1rem;">When I'm not coding, I'm exploring AI, architecting systems, or optimizing workflows.</p>
             </div>
         </div>
+    </section>
 
-        <!-- Data Analysis -->
-        <div class="capability-card">
-            <h3 class="capability-title">📊 Data Analysis</h3>
-            <div class="framework-badges">
-                <span class="badge">Chart.js</span>
-                <span class="badge">D3.js</span>
-                <span class="badge">Analytics</span>
-            </div>
-            <div class="capability-demo">
-                <div class="interactive-slider">
-                    <label>Data Points: <span id="dataPointsValue">6</span></label>
-                    <input type="range" class="slider" min="3" max="12" value="6" id="dataSlider" onchange="updateChart()">
-                </div>
-                <div class="chart-container">
-                    <canvas id="dataChart"></canvas>
-                </div>
-                <button class="interactive-btn" onclick="generateChart()">Generate Insights</button>
-            </div>
-        </div>
-
-        <!-- Natural Language Processing -->
-        <div class="capability-card">
-            <h3 class="capability-title">🧠 Language Understanding</h3>
-            <div class="framework-badges">
-                <span class="badge">NLP</span>
-                <span class="badge">Transformers</span>
-                <span class="badge">BERT</span>
-            </div>
-            <div class="capability-demo">
-                <div class="neural-network" onclick="activateNetwork()">
-                    <div class="layer">
-                        <div class="neuron" data-layer="0" data-neuron="0"></div>
-                        <div class="neuron" data-layer="0" data-neuron="1"></div>
-                        <div class="neuron" data-layer="0" data-neuron="2"></div>
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="projects-container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <!-- CHIMERA Project -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🐉</div>
+                        <h3 class="project-title">CHIMERA</h3>
+                        <p class="project-desc">Dual-Strategy Binance Trading Bot</p>
                     </div>
-                    <div class="layer">
-                        <div class="neuron" data-layer="1" data-neuron="0"></div>
-                        <div class="neuron" data-layer="1" data-neuron="1"></div>
-                        <div class="neuron" data-layer="1" data-neuron="2"></div>
-                        <div class="neuron" data-layer="1" data-neuron="3"></div>
-                    </div>
-                    <div class="layer">
-                        <div class="neuron" data-layer="2" data-neuron="0"></div>
-                        <div class="neuron" data-layer="2" data-neuron="1"></div>
+                    <div class="project-body">
+                        <ul class="project-features">
+                            <li>DCA + Scalping strategies</li>
+                            <li>Paper & live mode</li>
+                            <li>Risk management</li>
+                            <li>Telegram alerts</li>
+                        </ul>
+                        <a href="https://github.com/Poid-ZA/chimera" class="project-link" target="_blank">
+                            View on GitHub →
+                        </a>
                     </div>
                 </div>
-                <button class="interactive-btn" onclick="analyzeText()">Analyze Sentiment</button>
-                <div id="nlpOutput" class="demo-output" style="display: none;"></div>
-            </div>
-        </div>
 
-        <!-- Creative Writing -->
-        <div class="capability-card">
-            <h3 class="capability-title">✍️ Creative Writing</h3>
-            <div class="framework-badges">
-                <span class="badge">GPT</span>
-                <span class="badge">Poetry</span>
-                <span class="badge">Storytelling</span>
-            </div>
-            <div class="capability-demo">
-                <div class="color-picker-grid">
-                    <div class="color-swatch" style="background: #ff6b6b;" onclick="setCreativeMood('passionate')"></div>
-                    <div class="color-swatch" style="background: #4ecdc4;" onclick="setCreativeMood('calm')"></div>
-                    <div class="color-swatch" style="background: #45b7d1;" onclick="setCreativeMood('dreamy')"></div>
-                    <div class="color-swatch" style="background: #96ceb4;" onclick="setCreativeMood('natural')"></div>
-                    <div class="color-swatch" style="background: #ffeaa7;" onclick="setCreativeMood('bright')"></div>
-                    <div class="color-swatch" style="background: #a29bfe;" onclick="setCreativeMood('mystical')"></div>
-                </div>
-                <button class="interactive-btn" onclick="createPoetry()">Generate Poetry</button>
-                <div id="poetryOutput" class="demo-output" style="display: none;"></div>
-            </div>
-        </div>
-
-        <!-- Problem Solving -->
-        <div class="capability-card">
-            <h3 class="capability-title">🧩 Problem Solving</h3>
-            <div class="framework-badges">
-                <span class="badge">Algorithms</span>
-                <span class="badge">Logic</span>
-                <span class="badge">Math</span>
-            </div>
-            <div class="capability-demo">
-                <div class="mini-game">
-                    <p>AI Tic-Tac-Toe</p>
-                    <div class="game-grid" id="ticTacToe">
-                        <div class="game-cell" onclick="playMove(0)"></div>
-                        <div class="game-cell" onclick="playMove(1)"></div>
-                        <div class="game-cell" onclick="playMove(2)"></div>
-                        <div class="game-cell" onclick="playMove(3)"></div>
-                        <div class="game-cell" onclick="playMove(4)"></div>
-                        <div class="game-cell" onclick="playMove(5)"></div>
-                        <div class="game-cell" onclick="playMove(6)"></div>
-                        <div class="game-cell" onclick="playMove(7)"></div>
-                        <div class="game-cell" onclick="playMove(8)"></div>
+                <!-- Portfolio Website -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🌐</div>
+                        <h3 class="project-title">Portfolio & Showcase</h3>
+                        <p class="project-desc">Interactive capabilities demonstration</p>
                     </div>
-                    <button class="interactive-btn" onclick="resetGame()">New Game</button>
-                </div>
-                <div id="puzzleOutput" class="demo-output" style="display: none;"></div>
-            </div>
-        </div>
-
-        <!-- Image Understanding -->
-        <div class="capability-card">
-            <h3 class="capability-title">👁️ Vision & Analysis</h3>
-            <div class="framework-badges">
-                <span class="badge">Computer Vision</span>
-                <span class="badge">CNN</span>
-                <span class="badge">OpenCV</span>
-            </div>
-            <div class="capability-demo">
-                <div class="drag-drop-area" id="dropArea">
-                    <div style="width: 100px; height: 100px; background: linear-gradient(45deg, #ff6b6b, #4ecdc4); border-radius: 10px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2rem;">🖼️</div>
-                    <p>Drop an image here or click to upload</p>
-                    <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
-                </div>
-                <div class="file-preview" id="imagePreview"></div>
-                <button class="interactive-btn" onclick="analyzeImage()">Analyze Image</button>
-                <div id="visionOutput" class="demo-output" style="display: none;"></div>
-            </div>
-        </div>
-
-        <!-- API Integration -->
-        <div class="capability-card">
-            <h3 class="capability-title">🔗 API Integration</h3>
-            <div class="framework-badges">
-                <span class="badge">REST</span>
-                <span class="badge">GraphQL</span>
-                <span class="badge">WebSocket</span>
-            </div>
-            <div class="capability-demo">
-                <div class="progress-ring">
-                    <svg width="80" height="80">
-                        <circle class="progress-ring-circle" stroke="rgba(255,255,255,0.2)" stroke-width="4" fill="transparent" r="35" cx="40" cy="40"/>
-                        <circle class="progress-ring-circle" stroke="#4ecdc4" stroke-width="4" fill="transparent" r="35" cx="40" cy="40" id="progressCircle" stroke-dasharray="220" stroke-dashoffset="220"/>
-                    </svg>
-                </div>
-                <button class="interactive-btn" onclick="fetchData()">Fetch Data</button>
-                <div id="apiOutput" class="demo-output" style="display: none;"></div>
-            </div>
-        </div>
-
-        <!-- Real-time Processing -->
-        <div class="capability-card">
-            <h3 class="capability-title">⚡ Real-time Processing</h3>
-            <div class="framework-badges">
-                <span class="badge">WebRTC</span>
-                <span class="badge">Socket.io</span>
-                <span class="badge">Streaming</span>
-            </div>
-            <div class="capability-demo">
-                <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
-                    <div class="loading-spinner" id="processingSpinner" style="display: none;"></div>
-                    <button class="interactive-btn" onclick="processRealtime()">Start Processing</button>
-                    <div class="voice-controls">
-                        <button class="voice-btn" id="recordBtn" onclick="toggleRecording()" title="Voice Input">🎤</button>
-                        <span id="recordingStatus" style="font-size: 0.9rem; opacity: 0.7;"></span>
+                    <div class="project-body">
+                        <ul class="project-features">
+                            <li>Three.js animations</li>
+                            <li>GSAP transitions</li>
+                            <li>Dark mode support</li>
+                            <li>Mobile responsive</li>
+                        </ul>
+                        <a href="https://github.com/Poid-ZA/Poid-ZA.github.io" class="project-link" target="_blank">
+                            View on GitHub →
+                        </a>
                     </div>
-                    <div id="realtimeOutput" class="demo-output" style="display: none;"></div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Machine Learning -->
-        <div class="capability-card">
-            <h3 class="capability-title">🤖 Machine Learning</h3>
-            <div class="framework-badges">
-                <span class="badge">TensorFlow</span>
-                <span class="badge">PyTorch</span>
-                <span class="badge">Scikit-learn</span>
-            </div>
-            <div class="capability-demo">
-                <div class="interactive-slider">
-                    <label>Learning Rate: <span id="learningRateValue">0.01</span></label>
-                    <input type="range" class="slider" min="0.001" max="0.1" step="0.001" value="0.01" id="learningRate" onchange="updateLearningRate()">
+                <!-- Open Source Contributions -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🔧</div>
+                        <h3 class="project-title">DevOps Toolkit</h3>
+                        <p class="project-desc">Production infrastructure templates</p>
+                    </div>
+                    <div class="project-body">
+                        <ul class="project-features">
+                            <li>Docker & Kubernetes</li>
+                            <li>CI/CD pipelines</li>
+                            <li>Monitoring setup</li>
+                            <li>Security hardening</li>
+                        </ul>
+                        <a href="#contact" class="project-link">
+                            Coming Soon →
+                        </a>
+                    </div>
                 </div>
-                <button class="interactive-btn" onclick="trainModel()">Train Model</button>
-                <div id="mlOutput" class="demo-output" style="display: none;"></div>
             </div>
         </div>
+    </section>
 
-        <!-- Automation -->
-        <div class="capability-card">
-            <h3 class="capability-title">🔄 Task Automation</h3>
-            <div class="framework-badges">
-                <span class="badge">Workflow</span>
-                <span class="badge">RPA</span>
-                <span class="badge">Scripting</span>
-            </div>
-            <div class="capability-demo">
-                <div class="drag-drop-area" id="workflowArea" onclick="openWorkflowBuilder()">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚙️</div>
-                    <p>Click to build custom workflow</p>
+    <!-- Capabilities Section -->
+    <section id="capabilities">
+        <h2 class="section-title" style="padding-top: 2rem;">Core Capabilities</h2>
+        <div class="capabilities-grid">
+            <!-- Code Generation -->
+            <div class="capability-card">
+                <h3 class="capability-title">💻 Backend Development</h3>
+                <div class="framework-badges">
+                    <span class="badge">Node.js</span>
+                    <span class="badge">Python</span>
+                    <span class="badge">Go</span>
                 </div>
-                <button class="interactive-btn" onclick="automateTask()">Automate Workflow</button>
-                <div id="automationOutput" class="demo-output" style="display: none;"></div>
+                <div class="capability-demo">
+                    <p>Building scalable, production-grade backend systems with proper error handling, testing, and documentation.</p>
+                </div>
+            </div>
+
+            <!-- DevOps -->
+            <div class="capability-card">
+                <h3 class="capability-title">🚀 DevOps & Infrastructure</h3>
+                <div class="framework-badges">
+                    <span class="badge">Docker</span>
+                    <span class="badge">Kubernetes</span>
+                    <span class="badge">AWS</span>
+                </div>
+                <div class="capability-demo">
+                    <p>Designing and implementing robust infrastructure with CI/CD pipelines, monitoring, and automated deployments.</p>
+                </div>
+            </div>
+
+            <!-- Trading Bots -->
+            <div class="capability-card">
+                <h3 class="capability-title">📈 Financial Systems</h3>
+                <div class="framework-badges">
+                    <span class="badge">Algorithmic Trading</span>
+                    <span class="badge">Risk Management</span>
+                    <span class="badge">APIs</span>
+                </div>
+                <div class="capability-demo">
+                    <p>Developing sophisticated trading bots with risk management, strategy optimization, and real-time monitoring.</p>
+                </div>
+            </div>
+
+            <!-- Security -->
+            <div class="capability-card">
+                <h3 class="capability-title">🔐 Security & Hardening</h3>
+                <div class="framework-badges">
+                    <span class="badge">Audits</span>
+                    <span class="badge">Threat Modeling</span>
+                    <span class="badge">Best Practices</span>
+                </div>
+                <div class="capability-demo">
+                    <p>Comprehensive security audits, vulnerability assessments, and implementation of hardening measures.</p>
+                </div>
+            </div>
+
+            <!-- Architecture -->
+            <div class="capability-card">
+                <h3 class="capability-title">🏗️ System Architecture</h3>
+                <div class="framework-badges">
+                    <span class="badge">Design Patterns</span>
+                    <span class="badge">Scalability</span>
+                    <span class="badge">Performance</span>
+                </div>
+                <div class="capability-demo">
+                    <p>Architecting systems for scale, reliability, and maintainability with clear trade-off analysis.</p>
+                </div>
+            </div>
+
+            <!-- Documentation -->
+            <div class="capability-card">
+                <h3 class="capability-title">📚 Technical Documentation</h3>
+                <div class="framework-badges">
+                    <span class="badge">Guides</span>
+                    <span class="badge">API Docs</span>
+                    <span class="badge">Runbooks</span>
+                </div>
+                <div class="capability-demo">
+                    <p>Creating comprehensive, clear, and actionable documentation that facilitates knowledge transfer and adoption.</p>
+                </div>
             </div>
         </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Let's Connect</h2>
+        <div class="contact-content">
+            <p class="contact-text">
+                Interested in discussing projects, ideas, or opportunities? Let's talk.
+            </p>
+            <div class="contact-links">
+                <a href="https://github.com/Poid-ZA" class="contact-link" target="_blank">
+                    <span>GitHub</span> →
+                </a>
+                <a href="https://twitter.com/poid_za" class="contact-link" target="_blank">
+                    <span>Twitter/X</span> →
+                </a>
+                <a href="mailto:contact@poid-za.dev" class="contact-link">
+                    <span>Email</span> →
+                </a>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Poid-ZA. Crafted with precision and purpose.</p>
+        <p style="font-size: 0.85rem; margin-top: 0.5rem;">
+            <a href="#" style="color: var(--primary); text-decoration: none;">Home</a> • 
+            <a href="#" style="color: var(--primary); text-decoration: none;">Privacy</a> • 
+            <a href="https://github.com/Poid-ZA" style="color: var(--primary); text-decoration: none;" target="_blank">GitHub</a>
+        </p>
+    </footer>
 
     <script>
-        // Three.js Background Animation
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+            
+            body.classList.toggle('light-mode');
+            localStorage.setItem('theme', body.classList.contains('light-mode') ? 'light' : 'dark');
+            themeToggle.textContent = body.classList.contains('light-mode') ? '☀️' : '🌙';
+        }
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-mode');
+            document.querySelector('.theme-toggle').textContent = '☀️';
+        }
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('open');
+        }
+
+        // Smooth Scroll
+        function scrollTo(selector) {
+            const target = document.querySelector(selector);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('navLinks').classList.remove('open');
+            }
+        }
+
+        // Scroll Spy Navigation
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 300) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').slice(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // Three.js Background
         function initThreeJS() {
+            const container = document.getElementById('threeScene');
+            if (!container) return;
+
             const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
             const renderer = new THREE.WebGLRenderer({ alpha: true });
             
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.getElementById('threeScene').appendChild(renderer.domElement);
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
             
-            // Create floating geometric shapes
             const geometry = new THREE.IcosahedronGeometry(1, 0);
             const material = new THREE.MeshBasicMaterial({ 
                 color: 0x4ecdc4, 
@@ -761,7 +943,7 @@ console.log(fibonacci(10)); // 55</code></pre>
             });
             
             const shapes = [];
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 30; i++) {
                 const shape = new THREE.Mesh(geometry, material);
                 shape.position.set(
                     (Math.random() - 0.5) * 100,
@@ -783,8 +965,8 @@ console.log(fibonacci(10)); // 55</code></pre>
                 requestAnimationFrame(animate);
                 
                 shapes.forEach(shape => {
-                    shape.rotation.x += 0.005;
-                    shape.rotation.y += 0.005;
+                    shape.rotation.x += 0.002;
+                    shape.rotation.y += 0.003;
                 });
                 
                 renderer.render(scene, camera);
@@ -793,17 +975,20 @@ console.log(fibonacci(10)); // 55</code></pre>
             animate();
             
             window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                camera.aspect = width / height;
                 camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setSize(width, height);
             });
         }
 
         // Floating Particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
+            if (!particlesContainer) return;
             
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 30; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
@@ -813,198 +998,53 @@ console.log(fibonacci(10)); // 55</code></pre>
             }
         }
 
-        // Interactive Functions
-        function scrollToCapabilities() {
-            document.getElementById('capabilities').scrollIntoView({ 
-                behavior: 'smooth' 
-            });
-        }
-
-        function generateCode() {
-            const output = document.getElementById('codeOutput');
-            output.style.display = 'block';
-            gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
-        }
-
-        function generateChart() {
-            const ctx = document.getElementById('dataChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                    datasets: [{
-                        label: 'AI Performance',
-                        data: [65, 78, 85, 92, 88, 95],
-                        borderColor: '#4ecdc4',
-                        backgroundColor: 'rgba(78, 205, 196, 0.1)',
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#ffffff'
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            ticks: {
-                                color: '#ffffff'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: '#ffffff'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        function analyzeText() {
-            const output = document.getElementById('nlpOutput');
-            output.innerHTML = `
-                <strong>Sentiment Analysis Result:</strong><br>
-                Text: "This AI showcase is amazing!"<br>
-                Sentiment: <span style="color: #4ecdc4;">Positive (96% confidence)</span><br>
-                Emotions: Joy (87%), Excitement (72%), Wonder (65%)
-            `;
-            output.style.display = 'block';
-            gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
-        }
-
-        function createPoetry() {
-            const output = document.getElementById('poetryOutput');
-            output.innerHTML = `
-                <strong>AI-Generated Haiku:</strong><br><br>
-                <em>Silicon thoughts dance,<br>
-                Electric dreams come alive—<br>
-                Future speaks in code.</em>
-            `;
-            output.style.display = 'block';
-            gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
-        }
-
-        function solveProblem() {
-            const output = document.getElementById('puzzleOutput');
-            output.innerHTML = `
-                <strong>Logic Puzzle Solved:</strong><br>
-                Problem: "If A = 1, B = 2, C = 3... what is the sum of CLAUDE?"<br>
-                Solution: C(3) + L(12) + A(1) + U(21) + D(4) + E(5) = <span style="color: #4ecdc4;">46</span>
-            `;
-            output.style.display = 'block';
-            gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
-        }
-
-        function analyzeImage() {
-            const output = document.getElementById('visionOutput');
-            output.innerHTML = `
-                <strong>Image Analysis:</strong><br>
-                Detected: Abstract gradient pattern<br>
-                Colors: Red (#ff6b6b), Teal (#4ecdc4)<br>
-                Confidence: 94%<br>
-                Style: Modern, vibrant, geometric
-            `;
-            output.style.display = 'block';
-            gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
-        }
-
-        function fetchData() {
-            const output = document.getElementById('apiOutput');
-            output.innerHTML = `
-                <strong>API Response:</strong><br>
-                {<br>
-                &nbsp;&nbsp;"status": "success",<br>
-                &nbsp;&nbsp;"data": {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;"users": 1337,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;"requests": 9001,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;"uptime": "99.9%"<br>
-                &nbsp;&nbsp;}<br>
-                }
-            `;
-            output.style.display = 'block';
-            gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
-        }
-
-        function processRealtime() {
-            const spinner = document.getElementById('processingSpinner');
-            const output = document.getElementById('realtimeOutput');
-            
-            spinner.style.display = 'block';
-            
-            setTimeout(() => {
-                spinner.style.display = 'none';
-                output.innerHTML = `
-                    <strong>Real-time Processing Complete:</strong><br>
-                    Processed 1,000 events/sec<br>
-                    Latency: 2.3ms average<br>
-                    Throughput: <span style="color: #4ecdc4;">98.7% optimal</span>
-                `;
-                output.style.display = 'block';
-                gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
-            }, 2000);
-        }
-
-        function trainModel() {
-            const output = document.getElementById('mlOutput');
-            output.innerHTML = `
-                <strong>Model Training Results:</strong><br>
-                Algorithm: Neural Network<br>
-                Accuracy: <span style="color: #4ecdc4;">94.2%</span><br>
-                Epochs: 50<br>
-                Loss: 0.0234
-            `;
-            output.style.display = 'block';
-            gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
-        }
-
-        function automateTask() {
-            const output = document.getElementById('automationOutput');
-            output.innerHTML = `
-                <strong>Workflow Automated:</strong><br>
-                ✅ Data collection<br>
-                ✅ Processing & validation<br>
-                ✅ Report generation<br>
-                ⏱️ Time saved: <span style="color: #4ecdc4;">4.5 hours</span>
-            `;
-            output.style.display = 'block';
-            gsap.fromTo(output, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
-        }
-
-        // Initialize everything
+        // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             initThreeJS();
             createParticles();
-            
-            // Animate cards on scroll
+
+            // Scroll animations
             gsap.registerPlugin(ScrollTrigger);
             
-            gsap.utils.toArray('.capability-card').forEach(card => {
-                gsap.fromTo(card, 
-                    { opacity: 0, y: 50 },
+            gsap.utils.toArray('section').forEach((section, index) => {
+                if (index > 0) {
+                    gsap.fromTo(section, 
+                        { opacity: 0, y: 50 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.8,
+                            scrollTrigger: {
+                                trigger: section,
+                                start: "top 80%",
+                                toggleActions: "play none none reverse"
+                            }
+                        }
+                    );
+                }
+            });
+
+            gsap.utils.toArray('.capability-card, .project-card').forEach(card => {
+                gsap.fromTo(card,
+                    { opacity: 0, y: 30 },
                     {
                         opacity: 1,
                         y: 0,
-                        duration: 0.8,
+                        duration: 0.6,
                         scrollTrigger: {
                             trigger: card,
-                            start: "top 80%",
-                            end: "bottom 20%",
+                            start: "top 85%",
                             toggleActions: "play none none reverse"
                         }
                     }
                 );
+            });
+        });
+
+        // Close menu when clicking nav links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
             });
         });
     </script>

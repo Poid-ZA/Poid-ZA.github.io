@@ -1,73 +1,152 @@
 /*
- * Client‑side interactivity for the Grok‑inspired search site
- *
- * This script adds scroll‑spy functionality to highlight navigation links
- * based on scroll position and fade‑in animations for sections when
- * they enter the viewport. It also prevents the default form submission
- * to avoid page reload and logs the query for demonstration purposes.
+ * Enhanced Portfolio Interactivity
+ * Handles smooth scrolling, scroll-spy, and interactive elements
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const navLinks = document.querySelectorAll('.site-nav a');
-  const sections = document.querySelectorAll('main section');
+  // Scroll-Spy Navigation
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sections = document.querySelectorAll('section');
 
-  // Mobile menu toggle
-  const menuToggle = document.querySelector('.menu-toggle');
-  const siteNav = document.querySelector('.site-nav');
-  if (menuToggle && siteNav) {
-    menuToggle.addEventListener('click', () => {
-      siteNav.classList.toggle('open');
+  const updateActiveLink = () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (pageYOffset >= sectionTop - 300) {
+        current = section.getAttribute('id');
+      }
     });
-    // Hide menu when clicking a nav link (optional)
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').slice(1) === current) {
+        link.classList.add('active');
+      }
+    });
+  };
+
+  window.addEventListener('scroll', updateActiveLink);
+  updateActiveLink();
+
+  // Mobile Menu Toggle
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navLinksContainer = document.getElementById('navLinks');
+  
+  if (menuToggle && navLinksContainer) {
+    menuToggle.addEventListener('click', () => {
+      navLinksContainer.classList.toggle('open');
+    });
+
+    // Close menu when clicking a link
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
-        siteNav.classList.remove('open');
+        navLinksContainer.classList.remove('open');
       });
     });
   }
 
-  // Add reveal class to all sections for animation
-  sections.forEach(section => section.classList.add('reveal'));
+  // Theme Toggle Persistence
+  const themeToggle = document.querySelector('.theme-toggle');
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-mode');
+    if (themeToggle) themeToggle.textContent = '☀️';
+  }
 
-  // IntersectionObserver for revealing sections when they come into view
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('reveal-visible');
-        // Once revealed, unobserve to avoid toggling back
-        revealObserver.unobserve(entry.target);
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      const isDark = !document.body.classList.contains('light-mode');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      themeToggle.textContent = isDark ? '🌙' : '☀️';
+    });
+  }
+
+  // Smooth Scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href !== '#') {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+          navLinksContainer?.classList.remove('open');
+        }
       }
     });
-  }, { threshold: 0.1 });
+  });
 
-  sections.forEach(section => revealObserver.observe(section));
+  // Add reveal animation to cards
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Animate capability cards
+    gsap.utils.toArray('.capability-card').forEach(card => {
+      gsap.fromTo(card,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
 
-  // ScrollSpy: highlight nav links based on current section
-  const spyObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Remove active class from all links
-        navLinks.forEach(link => link.classList.remove('active'));
-        // Highlight the link corresponding to the current section ID
-        const id = entry.target.getAttribute('id');
-        const activeLink = document.querySelector(`.site-nav a[href="#${id}"]`);
-        if (activeLink) activeLink.classList.add('active');
+    // Animate project cards
+    gsap.utils.toArray('.project-card').forEach(card => {
+      gsap.fromTo(card,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
+
+    // Animate sections
+    gsap.utils.toArray('section').forEach((section, index) => {
+      if (index > 0) {
+        gsap.fromTo(section,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            scrollTrigger: {
+              trigger: section,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
       }
     });
-  }, { threshold: 0.5 });
+  }
 
-  sections.forEach(section => spyObserver.observe(section));
-
-  // Handle search form submission
-  const searchForm = document.querySelector('.search-box');
-  searchForm.addEventListener('submit', event => {
-    event.preventDefault();
-    const query = searchForm.querySelector('input[type="search"]').value;
-    // For demonstration, redirect to a search engine or display in console
-    if (query.trim()) {
-      // Redirect to a search results page (e.g., DuckDuckGo)
-      const searchUrl = `https://duckduckgo.com/?q=${encodeURIComponent(query)}`;
-      window.open(searchUrl, '_blank');
-    }
+  // Project card click animation
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      if (typeof gsap !== 'undefined') {
+        gsap.to(card, { duration: 0.3, scale: 1.02 });
+      }
+    });
+    card.addEventListener('mouseleave', () => {
+      if (typeof gsap !== 'undefined') {
+        gsap.to(card, { duration: 0.3, scale: 1 });
+      }
+    });
   });
 });
