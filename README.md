@@ -1,10 +1,10 @@
 # APEX — Principal-Level Engineering Intelligence
 
-**APEX** is a unified engineering intelligence system operating inside OpenClaw. It combines Software Engineering, DevOps, Security, Data Engineering, Product Strategy, and Persistent Workspace Awareness into one elite agent running on your Windows machine.
+**APEX** is a unified engineering intelligence system. It combines architecture thinking, security enforcement, DevOps automation, data engineering, product strategy, and persistent workspace awareness into one elite agent.
 
-## What You'll Find Here
+## Overview
 
-This is **APEX's technical homepage** — a complete reference for what this system has become:
+This is **APEX's technical homepage** — a complete reference for a production-grade engineering system:
 
 - **Architecture:** Workspace-centric operating model with file-based continuity
 - **Services:** OpenClaw Gateway, Nerve Dashboard, Employee-Agent daemon
@@ -14,15 +14,15 @@ This is **APEX's technical homepage** — a complete reference for what this sys
 
 ## Quick Links
 
-- 📖 **Full Documentation:** [index.html](./index.html) (open in browser)
-- 🚀 **Quick Start:** See deployment section
+- 📖 **Full Documentation:** [index.html](./index.html) (interactive dashboard)
+- 🚀 **Quick Start:** See deployment section below
 - 🔗 **Main Repository:** [github.com/Poid-ZA/OpenClaw](https://github.com/Poid-ZA/OpenClaw)
 
 ## System Overview
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                      APEX (Windows)                         │
+│                      APEX                                   │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  OpenClaw Gateway (18789)                                  │
@@ -32,10 +32,10 @@ This is **APEX's technical homepage** — a complete reference for what this sys
 │  Nerve Dashboard (80, 0.0.0.0)                             │
 │  ├─ Real-time memory search & APEX UI                      │
 │  ├─ 31+ indexed memories, semantic retrieval               │
-│  └─ Access: http://localhost or http://10.221.25.142      │
+│  └─ Access: http://localhost                               │
 │                                                             │
 │  Employee-Agent (Background Daemon)                        │
-│  ├─ Fetch breaking news (HN API, free)                     │
+│  ├─ Fetch breaking news (API, free tier)                   │
 │  ├─ Log to APEX memory (30-min intervals)                  │
 │  ├─ Execute HEARTBEAT health checks                        │
 │  └─ Port probes: Gateway, Nerve, self-check                │
@@ -63,8 +63,7 @@ This is **APEX's technical homepage** — a complete reference for what this sys
 ### All-in-One (Recommended)
 
 ```powershell
-cd C:\Users\faceb\.openclaw\workspace
-.\apex-startup.ps1 -Mode start
+apex-startup.ps1 -Mode start
 ```
 
 Launches Gateway + Nerve + Employee-Agent in parallel.
@@ -72,7 +71,7 @@ Launches Gateway + Nerve + Employee-Agent in parallel.
 ### Auto-Start on Login
 
 ```powershell
-.\apex-startup.ps1 -Mode setup-autostart
+apex-startup.ps1 -Mode setup-autostart
 ```
 
 Creates Windows Task Scheduler job `APEX-System-Startup`.
@@ -84,7 +83,6 @@ Creates Windows Task Scheduler job `APEX-System-Startup`.
 openclaw gateway start
 
 # Nerve
-cd C:\Users\faceb\.openclaw\workspace\nerve
 npm start
 
 # Employee-Agent
@@ -94,30 +92,30 @@ python employee-agent.py daemon 30
 ## Key Features
 
 ✅ **Unified Intelligence**  
-Combines architecture, security, DevOps, data engineering, product awareness into one system.
+Combines architecture, security, DevOps, data engineering, product awareness.
 
 ✅ **Auditable Improvement**  
-Every decision, pattern, and optimization stored in versioned workspace files. No hidden learning.
+Every decision, pattern, and optimization stored in versioned files. No hidden learning.
 
 ✅ **Semantic Memory**  
 APEX-powered search across 31+ indexed decisions, news items, health checks.
 
 ✅ **Windows-Native**  
-Runs on Windows 10+. Uses Task Scheduler instead of cron. HEARTBEAT.md for periodic tasks.
+Uses Task Scheduler instead of cron. HEARTBEAT.md for periodic tasks.
 
 ✅ **Cost-Optimized**  
-Employee-Agent executes health checks locally (zero API cost). Logs to APEX for semantic queries.
+Employee-Agent executes health checks locally (zero API cost). Logs to APEX for queries.
 
 ✅ **Production-Ready**  
-Structured logging, error handling, configuration management, observability hooks.
+Structured logging, error handling, configuration management, observability.
 
 ## Services Status
 
-| Service | Port | Status | Notes |
-|---------|------|--------|-------|
+| Service | Port | Status | Purpose |
+|---------|------|--------|---------|
 | Gateway | 18789 | ✓ Running | Daemon, CLI, orchestration |
 | Nerve | 80 | ✓ Running | APEX UI, memory search |
-| Employee-Agent | — | ✓ Daemon | Breaking news + health checks |
+| Employee-Agent | — | ✓ Daemon | News + health checks |
 | APEX Memory | SQLite | ✓ Indexed | 31+ items, semantic search |
 
 ## Memory System
@@ -128,8 +126,7 @@ Structured logging, error handling, configuration management, observability hook
 from apex_memory import APEXMemory
 
 with APEXMemory() as m:
-    # Find breaking news about tech
-    results = m.recall("breaking news tech security", max_results=5)
+    results = m.recall("breaking news", max_results=5)
     for r in results:
         print(f"{r['title']}: {r['score']:.2f}")
 ```
@@ -138,10 +135,10 @@ with APEXMemory() as m:
 
 ```python
 m.log_decision(
-    title="Architecture Decision: Service A vs B",
-    details="Chose X because of scalability + cost",
+    title="Architecture Decision",
+    details="Chose X because of scalability",
     category="decision",
-    tags=["architecture", "performance"]
+    tags=["architecture"]
 )
 ```
 
@@ -151,7 +148,7 @@ m.log_decision(
 2. Query breaking news or health checks
 3. Add custom health checks to HEARTBEAT.md
 4. Extend news sources (Reddit, Twitter, Bloomberg)
-5. Enable Nerve authentication: `cd nerve && npm run setup`
+5. Enable Nerve authentication: `npm run setup`
 
 ## Repository
 
@@ -165,15 +162,17 @@ m.log_decision(
 
 - **Workspace OS:** File-based continuity (MEMORY.md, HEARTBEAT.md, daily logs)
 - **Zero Cron:** Windows Task Scheduler + Employee-Agent + HEARTBEAT.md
-- **Cost Optimization:** Local health checks → APEX → semantic queries (no API overhead)
-- **Continuous Improvement:** Issues → fix → regression test → update playbooks → promote durable lessons
+- **Cost Optimization:** Local health checks → APEX → semantic queries
+- **Continuous Improvement:** Issues → fix → regression test → update playbooks → promote lessons
 
-## Deployment Info
+## Tech Stack
 
-- **OS:** Windows 10 (26200)
-- **Timezone:** Africa/Johannesburg (SAST, UTC+2)
-- **Runtime:** Node v25.6.0, Python 3.10+
-- **Credits:** Copilot Business (73% remaining), Codex (renewal 2026-02-25)
+- Node.js v25.6.0
+- Python 3.10+
+- TypeScript
+- SQLite
+- OpenClaw
+- JetBrains Mono
 
 ---
 

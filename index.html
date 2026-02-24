@@ -4,53 +4,171 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>APEX — Principal-Level Engineering Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #050508;
-            color: #e0e0e0;
-            line-height: 1.6;
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box;
         }
         
+        :root {
+            --primary: #00d9ff;
+            --primary-dark: #0099cc;
+            --bg-dark: #050508;
+            --bg-card: #0d0d12;
+            --bg-raised: #1a1a24;
+            --border: #2a2a34;
+            --text: #e0e0e0;
+            --text-muted: #808080;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* HERO SECTION */
         header {
-            background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
-            color: #050508;
-            padding: 60px 20px;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #050508 0%, #0a0a12 100%);
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 217, 255, 0.15) 0%, transparent 70%);
+            top: 10%;
+            left: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 153, 204, 0.1) 0%, transparent 70%);
+            bottom: -100px;
+            right: -100px;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
             text-align: center;
-            border-bottom: 1px solid #00d9ff;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         header h1 {
-            font-size: 3.5em;
-            font-weight: 900;
-            margin-bottom: 10px;
-            letter-spacing: -1px;
+            font-size: clamp(2.5em, 8vw, 5em);
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            text-shadow: 0 0 30px rgba(0, 217, 255, 0.2);
         }
         
         header p {
-            font-size: 1.2em;
-            font-weight: 300;
-            opacity: 0.9;
+            font-size: clamp(0.95em, 2vw, 1.4em);
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 600px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
         }
         
+        .cta-button {
+            display: inline-block;
+            padding: 14px 40px;
+            background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
+            color: var(--bg-dark);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1em;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(0, 217, 255, 0.5);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            z-index: 2;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+        
+        /* NAVIGATION */
         nav {
-            background: #0d0d12;
-            padding: 0;
-            border-bottom: 1px solid #1a1a24;
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            width: 100%;
+            background: rgba(5, 5, 8, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+            z-index: 1000;
+            padding: 0 20px;
         }
         
         nav ul {
             list-style: none;
             display: flex;
+            justify-content: center;
             flex-wrap: wrap;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0;
         }
         
         nav li {
@@ -59,243 +177,434 @@
         
         nav a {
             display: block;
-            padding: 15px 20px;
-            color: #b0b0b0;
+            padding: 12px 20px;
+            color: var(--text-muted);
             text-decoration: none;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-            font-size: 0.95em;
+            transition: all 0.3s;
+            font-size: 0.9em;
             font-weight: 500;
+            position: relative;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transform: translateX(-50%);
+            transition: width 0.3s;
         }
         
         nav a:hover, nav a.active {
-            color: #00d9ff;
-            border-bottom-color: #00d9ff;
+            color: var(--primary);
         }
         
+        nav a:hover::after, nav a.active::after {
+            width: 80%;
+        }
+        
+        /* MAIN CONTENT */
         main {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 60px 20px;
         }
         
         section {
-            margin-bottom: 60px;
-            padding: 40px;
-            background: #0d0d12;
-            border: 1px solid #1a1a24;
-            border-radius: 8px;
+            margin-bottom: 100px;
         }
         
-        h2 {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #00d9ff;
-            border-bottom: 2px solid #00d9ff;
-            padding-bottom: 10px;
+        section h2 {
+            font-size: clamp(2em, 5vw, 3.5em);
+            margin-bottom: 50px;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            border-radius: 2px;
         }
         
         h3 {
-            font-size: 1.3em;
-            margin-top: 30px;
+            font-size: 1.4em;
+            margin-top: 35px;
             margin-bottom: 15px;
-            color: #00d9ff;
+            color: var(--primary);
         }
         
-        p { margin-bottom: 15px; }
-        
-        ul, ol {
-            margin-left: 20px;
+        p {
             margin-bottom: 15px;
-        }
-        
-        li { margin-bottom: 8px; }
-        
-        code {
-            background: #1a1a24;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
+            line-height: 1.8;
+            color: var(--text);
             font-size: 0.95em;
-            color: #00d9ff;
+        }
+        
+        /* GRID LAYOUT */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, var(--bg-raised) 0%, var(--bg-card) 100%);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2), inset 0 0 20px rgba(0, 217, 255, 0.05);
+            transform: translateY(-8px);
+        }
+        
+        .card:hover::before {
+            left: 100%;
+        }
+        
+        .card h4 {
+            font-size: 1.2em;
+            color: var(--primary);
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card p {
+            position: relative;
+            z-index: 1;
+            font-size: 0.9em;
+            color: var(--text-muted);
+        }
+        
+        /* BADGES */
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin: 5px 5px 5px 0;
+            border: 1px solid;
+        }
+        
+        .badge-complete {
+            background: rgba(0, 217, 255, 0.15);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .badge-beta {
+            background: rgba(255, 170, 0, 0.15);
+            color: #ffaa00;
+            border-color: #ffaa00;
+        }
+        
+        /* CODE BLOCKS */
+        code {
+            background: var(--bg-raised);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
         }
         
         pre {
-            background: #1a1a24;
-            padding: 15px;
-            border-radius: 6px;
+            background: var(--bg-raised);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 8px;
             overflow-x: auto;
-            margin: 15px 0;
-            border-left: 3px solid #00d9ff;
+            margin: 20px 0;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
         
         pre code {
             background: none;
             padding: 0;
-            color: #b0b0b0;
-        }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-        
-        .card {
-            background: #1a1a24;
-            border: 1px solid #2a2a34;
-            border-radius: 6px;
-            padding: 20px;
-            transition: all 0.3s;
-        }
-        
-        .card:hover {
-            border-color: #00d9ff;
-            box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
-        }
-        
-        .card h4 {
-            color: #00d9ff;
-            margin-bottom: 10px;
-            font-size: 1.1em;
-        }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 4px;
+            color: var(--text);
             font-size: 0.85em;
-            font-weight: 600;
-            margin: 5px 5px 5px 0;
         }
         
-        .status-complete { background: #00d9ff; color: #050508; }
-        .status-beta { background: #ffaa00; color: #050508; }
-        .status-planning { background: #666; color: #fff; }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        
-        th, td {
-            border: 1px solid #2a2a34;
-            padding: 12px;
-            text-align: left;
-        }
-        
-        th {
-            background: #1a1a24;
-            color: #00d9ff;
-            font-weight: 600;
-        }
-        
-        tr:hover { background: #1a1a24; }
-        
-        .highlight {
-            background: rgba(0, 217, 255, 0.1);
-            border-left: 3px solid #00d9ff;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-        
-        footer {
-            background: #0d0d12;
-            border-top: 1px solid #1a1a24;
-            padding: 30px 20px;
-            text-align: center;
-            color: #808080;
-            font-size: 0.9em;
-        }
-        
+        /* TECH STACK */
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin: 15px 0;
+            gap: 12px;
+            margin: 20px 0;
         }
         
         .tech-badge {
-            background: #1a1a24;
-            border: 1px solid #00d9ff;
-            color: #00d9ff;
-            padding: 6px 12px;
-            border-radius: 20px;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 6px;
             font-size: 0.85em;
             font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .tech-badge:hover {
+            background: rgba(0, 217, 255, 0.2);
+            transform: translateX(5px);
+        }
+        
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: var(--bg-raised);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9em;
+        }
+        
+        th {
+            background: rgba(0, 217, 255, 0.1);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tr:hover {
+            background: rgba(0, 217, 255, 0.05);
+        }
+        
+        /* HIGHLIGHT BOX */
+        .highlight {
+            background: rgba(0, 217, 255, 0.08);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+            position: relative;
+        }
+        
+        .highlight strong {
+            color: var(--primary);
+        }
+        
+        /* LIST */
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        /* FOOTER */
+        footer {
+            background: linear-gradient(180deg, transparent, rgba(0, 217, 255, 0.05));
+            border-top: 1px solid var(--border);
+            padding: 50px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+        
+        footer p {
+            margin-bottom: 10px;
+        }
+        
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        footer a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+            
+            header p {
+                font-size: 1em;
+            }
+            
+            section h2 {
+                font-size: 2em;
+            }
+            
+            nav ul {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding: 0 20px;
+            }
+            
+            nav li {
+                flex-shrink: 0;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            table {
+                font-size: 0.85em;
+            }
+            
+            th, td {
+                padding: 10px;
+            }
+        }
+        
+        /* ANIMATIONS */
+        .fadeIn {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .slideInLeft {
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* INTERSECTION OBSERVER */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>APEX</h1>
-        <p>Principal-Level Engineering Intelligence Operating Inside OpenClaw</p>
-    </header>
-    
+    <!-- NAVIGATION -->
     <nav>
         <ul>
             <li><a href="#overview" class="nav-link">Overview</a></li>
             <li><a href="#architecture" class="nav-link">Architecture</a></li>
             <li><a href="#services" class="nav-link">Services</a></li>
-            <li><a href="#memory" class="nav-link">Memory System</a></li>
-            <li><a href="#deployment" class="nav-link">Deployment</a></li>
+            <li><a href="#memory" class="nav-link">Memory</a></li>
+            <li><a href="#deployment" class="nav-link">Deploy</a></li>
             <li><a href="#status" class="nav-link">Status</a></li>
         </ul>
     </nav>
     
+    <!-- HERO -->
+    <header>
+        <div class="hero-content">
+            <h1>APEX</h1>
+            <p>Principal-Level Engineering Intelligence</p>
+            <button class="cta-button" onclick="document.getElementById('overview').scrollIntoView({behavior:'smooth'})">Explore System</button>
+        </div>
+        <div class="scroll-indicator">↓</div>
+    </header>
+    
     <main>
         <!-- OVERVIEW -->
-        <section id="overview">
+        <section id="overview" class="reveal">
             <h2>What is APEX?</h2>
             
-            <p><strong>APEX</strong> is a unified engineering intelligence system embedded in OpenClaw. It combines:</p>
+            <p>APEX is a unified engineering intelligence system that combines architecture thinking, security enforcement, DevOps automation, data engineering, product strategy, and persistent workspace awareness into one elite agent.</p>
             
             <div class="grid">
-                <div class="card">
+                <div class="card reveal">
                     <h4>🏗️ Architecture</h4>
-                    <p>Production-grade system design, scalability analysis, coupling risk assessment.</p>
+                    <p>Production-grade system design, scalability analysis, coupling risk assessment, and improved design patterns.</p>
                 </div>
-                <div class="card">
+                <div class="card reveal">
                     <h4>🔐 Security</h4>
-                    <p>Threat modeling, input validation, injection prevention, secure defaults.</p>
+                    <p>Threat modeling, input validation, injection prevention, secure defaults, and risk quantification.</p>
                 </div>
-                <div class="card">
+                <div class="card reveal">
                     <h4>☁️ DevOps</h4>
-                    <p>Infrastructure automation, containerization, CI/CD pipelines, observability.</p>
+                    <p>Infrastructure automation, containerization, CI/CD pipelines, observability, and reliability engineering.</p>
                 </div>
-                <div class="card">
+                <div class="card reveal">
                     <h4>💾 Data Engineering</h4>
-                    <p>Schema design, query optimization, indexing strategy, performance tuning.</p>
+                    <p>Schema design, query optimization, indexing strategy, performance tuning, and bottleneck analysis.</p>
                 </div>
-                <div class="card">
+                <div class="card reveal">
                     <h4>🧠 Memory Intelligence</h4>
-                    <p>Semantic search, persistent decision logging, adaptive learning loops.</p>
+                    <p>Semantic search, persistent decision logging, adaptive learning loops, and workspace continuity.</p>
                 </div>
-                <div class="card">
+                <div class="card reveal">
                     <h4>🎯 Product Awareness</h4>
-                    <p>Business impact analysis, risk exposure, trade-off evaluation.</p>
+                    <p>Business impact analysis, risk exposure, trade-off evaluation, and customer-centric reasoning.</p>
                 </div>
             </div>
             
             <h3>Core Principle</h3>
-            <p>APEX improves through <strong>auditable workspace artifacts</strong> — not hidden learning. Every decision, pattern, and optimization is captured in versioned files for review and enhancement.</p>
+            <p>APEX improves through <strong>auditable workspace artifacts</strong> — not hidden learning. Every decision, pattern, and optimization is captured in versioned files for review and continuous enhancement.</p>
             
             <div class="highlight">
-                <strong>Operating Model:</strong> Direct, technical, decisive. No corporate tone. No filler. Just competent engineering delivered in a real environment (Windows, production-grade tools, cost-aware).
+                <strong>Operating Model:</strong> Direct, technical, decisive. No corporate tone. No filler. Just competent engineering delivered in a real environment with practical constraints.
             </div>
         </section>
         
         <!-- ARCHITECTURE -->
-        <section id="architecture">
+        <section id="architecture" class="reveal">
             <h2>System Architecture</h2>
             
             <h3>Core Stack</h3>
             <div class="tech-stack">
-                <span class="tech-badge">OpenClaw v2026.2.23</span>
-                <span class="tech-badge">Node.js v25.6.0</span>
+                <span class="tech-badge">OpenClaw</span>
+                <span class="tech-badge">Node.js</span>
                 <span class="tech-badge">Python 3.10+</span>
                 <span class="tech-badge">TypeScript</span>
                 <span class="tech-badge">SQLite</span>
@@ -313,7 +622,7 @@
                 </tr>
                 <tr>
                     <td><code>SOUL.md</code></td>
-                    <td>Identity, values, behavior guidelines</td>
+                    <td>Identity & behavior guidelines</td>
                     <td>Global</td>
                 </tr>
                 <tr>
@@ -323,69 +632,63 @@
                 </tr>
                 <tr>
                     <td><code>MEMORY.md</code></td>
-                    <td>Persistent long-term memory (main session only)</td>
-                    <td>Per-human</td>
+                    <td>Persistent long-term memory</td>
+                    <td>Per-session</td>
                 </tr>
                 <tr>
                     <td><code>memory/YYYY-MM-DD.md</code></td>
-                    <td>Daily logs, decisions, context</td>
+                    <td>Daily logs & decisions</td>
                     <td>Session</td>
                 </tr>
                 <tr>
                     <td><code>HEARTBEAT.md</code></td>
-                    <td>Periodic task definitions (Windows-safe)</td>
+                    <td>Periodic task definitions</td>
                     <td>System</td>
                 </tr>
                 <tr>
-                    <td><code>TOOLS.md</code></td>
-                    <td>Environment specifics (cameras, hosts, voices)</td>
-                    <td>Local</td>
+                    <td><code>DECISIONS/ADR-*.md</code></td>
+                    <td>Architecture records</td>
+                    <td>Durable</td>
                 </tr>
                 <tr>
                     <td><code>PLAYBOOKS/</code></td>
-                    <td>Repeatable patterns (CI templates, IaC)</td>
+                    <td>Reusable patterns & templates</td>
                     <td>Reusable</td>
-                </tr>
-                <tr>
-                    <td><code>DECISIONS/ADR-XXXX.md</code></td>
-                    <td>Architecture decision records</td>
-                    <td>Durable</td>
                 </tr>
             </table>
             
             <h3>Continuous Improvement Loop</h3>
-            <pre>
-Issue/Correction Identified
-    ↓
+            <pre>Issue Identified
+  ↓
 Log to memory/YYYY-MM-DD.md
-    ↓
+  ↓
 Produce Fix (patch/code)
-    ↓
+  ↓
 Add Regression Test
-    ↓
+  ↓
 Update Playbooks (if generalizable)
-    ↓
-Promote to MEMORY.md (durable lessons)
-            </pre>
+  ↓
+Promote to MEMORY.md (durable lessons)</pre>
         </section>
         
         <!-- SERVICES -->
-        <section id="services">
+        <section id="services" class="reveal">
             <h2>Deployed Services</h2>
             
-            <h3>1. OpenClaw Gateway</h3>
-            <div class="card" style="margin-bottom: 20px;">
-                <div class="status-badge status-complete">✓ Production</div>
+            <div class="card reveal">
+                <span class="badge badge-complete">✓ Production</span>
+                <h3>OpenClaw Gateway</h3>
                 <p><strong>Port:</strong> 18789</p>
-                <p><strong>Purpose:</strong> OpenClaw daemon, CLI interface, orchestration hub.</p>
-                <p><strong>Startup:</strong> <code>openclaw gateway start</code></p>
+                <p>Daemon, CLI interface, and orchestration hub for system control.</p>
+                <pre>openclaw gateway start
+openclaw gateway stop</pre>
             </div>
             
-            <h3>2. Nerve Dashboard</h3>
-            <div class="card" style="margin-bottom: 20px;">
-                <div class="status-badge status-complete">✓ Production</div>
-                <p><strong>Port:</strong> 80 (0.0.0.0 binding)</p>
-                <p><strong>Purpose:</strong> Real-time memory dashboard, APEX semantic search UI, decision logging.</p>
+            <div class="card reveal" style="margin-top: 20px;">
+                <span class="badge badge-complete">✓ Production</span>
+                <h3>Nerve Dashboard</h3>
+                <p><strong>Port:</strong> 80 (0.0.0.0)</p>
+                <p>Real-time memory dashboard with APEX semantic search UI and decision logging.</p>
                 <p><strong>Features:</strong></p>
                 <ul>
                     <li>Live memory search (31+ indexed items)</li>
@@ -393,33 +696,30 @@ Promote to MEMORY.md (durable lessons)
                     <li>Create/edit/delete memories</li>
                     <li>APEX semantic retrieval backend</li>
                 </ul>
-                <p><strong>Access:</strong> http://localhost or http://10.221.25.142 (network accessible)</p>
-                <p><strong>Note:</strong> No auth on 0.0.0.0 binding. Run <code>npm run setup</code> in nerve/ to enable.</p>
+                <p><strong>Access:</strong> http://localhost or http://127.0.0.1</p>
             </div>
             
-            <h3>3. Employee Agent (Breaking News Daemon)</h3>
-            <div class="card" style="margin-bottom: 20px;">
-                <div class="status-badge status-complete">✓ Production</div>
+            <div class="card reveal" style="margin-top: 20px;">
+                <span class="badge badge-complete">✓ Production</span>
+                <h3>Employee Agent</h3>
                 <p><strong>Type:</strong> Background daemon (Python)</p>
-                <p><strong>Purpose:</strong> Fetch Hacker News breaking news, log to APEX, execute health checks.</p>
-                <p><strong>Frequency:</strong> 30-min intervals (configurable)</p>
+                <p>Fetch breaking news, log to APEX, execute health checks every 30 minutes.</p>
                 <p><strong>Features:</strong></p>
                 <ul>
-                    <li>Fetch top 10 HN stories (free API, no auth)</li>
-                    <li>Log top 3 to APEX memory (breaking_news category)</li>
-                    <li>Execute HEARTBEAT.md health checks every 5 cycles</li>
-                    <li>Port probes: Gateway (18789), Nerve (80), self-check</li>
-                    <li>Log health status to APEX (health_check category)</li>
+                    <li>Fetch top stories from news APIs</li>
+                    <li>Auto-log to APEX memory (breaking_news category)</li>
+                    <li>Execute HEARTBEAT health checks</li>
+                    <li>Port probes: Gateway, Nerve, self-check</li>
+                    <li>Zero-cost monitoring (local subprocess calls)</li>
                 </ul>
-                <p><strong>Modes:</strong></p>
-                <pre>python employee-agent.py once          # Single fetch
-python employee-agent.py daemon 30     # Daemon, 30-min interval</pre>
+                <pre>python employee-agent.py once       # Single fetch
+python employee-agent.py daemon 30  # Daemon mode</pre>
             </div>
         </section>
         
         <!-- MEMORY SYSTEM -->
-        <section id="memory">
-            <h2>APEX Memory System (v1)</h2>
+        <section id="memory" class="reveal">
+            <h2>APEX Memory System</h2>
             
             <h3>Architecture</h3>
             <p><strong>Dual-storage model:</strong> MEMORY.md is authoritative; SQLite is indexed replica for fast queries.</p>
@@ -429,111 +729,87 @@ python employee-agent.py daemon 30     # Daemon, 30-min interval</pre>
                 MEMORY.md is git-safe, human-readable, version-controlled. SQLite provides O(1) semantic search without API calls.
             </div>
             
-            <h3>Specs</h3>
-            <ul>
-                <li><strong>Embeddings:</strong> all-MiniLM-L6-v2 (384-dim, local, no API key)</li>
-                <li><strong>Retrieval:</strong> Phase 1 vector similarity + Phase 2 decay scoring</li>
-                <li><strong>Performance:</strong> 40–50ms per query (cached embeddings)</li>
-                <li><strong>Storage:</strong> SQLite at <code>.memory.db</code></li>
-                <li><strong>Portability:</strong> Windows/macOS/Linux, Python 3.10+, offline-first</li>
-            </ul>
+            <h3>Specifications</h3>
+            <div class="grid">
+                <div class="card">
+                    <h4>Embeddings</h4>
+                    <p>all-MiniLM-L6-v2 (384-dim, local, no API key)</p>
+                </div>
+                <div class="card">
+                    <h4>Performance</h4>
+                    <p>40–50ms per query (cached embeddings)</p>
+                </div>
+                <div class="card">
+                    <h4>Storage</h4>
+                    <p>SQLite with embedding BLOB storage</p>
+                </div>
+                <div class="card">
+                    <h4>Retrieval</h4>
+                    <p>Vector similarity + decay scoring</p>
+                </div>
+            </div>
             
-            <h3>API (apex_memory.py)</h3>
-            <pre>
-from apex_memory import APEXMemory
+            <h3>API Usage</h3>
+            <pre>from apex_memory import APEXMemory
 
 with APEXMemory() as m:
     # Semantic search
-    results = m.recall("breaking news tech", max_results=5)
+    results = m.recall("breaking news", max_results=5)
     
     # Log decision
     m.log_decision(
-        title="Feature Decision",
+        title="Architecture Decision",
         details="Chose X over Y because...",
-        category="decision",
-        tags=["architecture", "performance"]
-    )
-    
-    # Log task
-    m.log_task(
-        name="Integrate service X",
-        status="in_progress",
-        tags=["integration"]
+        category="decision"
     )
     
     # Get session snapshot
-    context = m.session_context()
-    
-    # Reindex (after external changes)
-    m.reindex_memory()
-            </pre>
+    context = m.session_context()</pre>
             
-            <h3>Categories (Searchable)</h3>
+            <h3>Categories</h3>
             <ul>
                 <li><code>decision</code> — Architecture/engineering decisions</li>
-                <li><code>breaking_news</code> — News feed items (HN top stories)</li>
-                <li><code>health_check</code> — System health probe results</li>
-                <li><code>task</code> — Work items, progress tracking</li>
+                <li><code>breaking_news</code> — News feed items</li>
+                <li><code>health_check</code> — System health probes</li>
+                <li><code>task</code> — Work items & progress</li>
             </ul>
-            
-            <h3>Storage Format</h3>
-            <p>MEMORY.md entry format:</p>
-            <pre>
-### [2026-02-24T18:56] Breaking News Update
-- Title: Breaking News Update
-- Category: breaking_news
-- Details: Breaking News (2026-02-24T18:56): Story 1 (...) | Story 2 (...) | Story 3 (...)
-            </pre>
         </section>
         
         <!-- DEPLOYMENT -->
-        <section id="deployment">
+        <section id="deployment" class="reveal">
             <h2>Deployment & Startup</h2>
             
             <h3>Quick Start (All-in-One)</h3>
-            <pre>
-cd C:\Users\faceb\.openclaw\workspace
-.\apex-startup.ps1 -Mode start
-            </pre>
+            <pre>apex-startup.ps1 -Mode start</pre>
             <p>Launches Gateway + Nerve + Employee-Agent in parallel (separate terminals).</p>
             
-            <h3>Auto-Start on Windows Login</h3>
-            <pre>
-.\apex-startup.ps1 -Mode setup-autostart
-            </pre>
-            <p>Creates Windows Task Scheduler job: <code>APEX-System-Startup</code> (runs at user logon).</p>
-            
-            <h3>Batch Alternative</h3>
-            <pre>
-C:\Users\faceb\.openclaw\workspace\apex-startup.cmd
-            </pre>
+            <h3>Auto-Start on Login</h3>
+            <pre>apex-startup.ps1 -Mode setup-autostart</pre>
+            <p>Creates Windows Task Scheduler job <code>APEX-System-Startup</code>.</p>
             
             <h3>Manual Service Control</h3>
-            <pre>
-# Gateway
+            <pre>// Gateway
 openclaw gateway start
 openclaw gateway stop
 
-# Nerve
-cd C:\Users\faceb\.openclaw\workspace\nerve
+// Nerve
 npm start
 
-# Employee-Agent
-python employee-agent.py daemon 30      # 30-min intervals
-            </pre>
+// Employee-Agent
+python employee-agent.py daemon 30</pre>
             
             <h3>Environment</h3>
-            <ul>
-                <li><strong>Timezone:</strong> Africa/Johannesburg (SAST, UTC+2)</li>
-                <li><strong>Python:</strong> 3.10+ (venv: <code>.venv/</code>)</li>
-                <li><strong>Node:</strong> v25.6.0 (npm 11.9.0)</li>
-                <li><strong>GitHub:</strong> Copilot Business (73% monthly credits remaining)</li>
-            </ul>
+            <div class="tech-stack">
+                <span class="tech-badge">Python 3.10+</span>
+                <span class="tech-badge">Node.js v25+</span>
+                <span class="tech-badge">Git</span>
+                <span class="tech-badge">Windows 10+</span>
+            </div>
         </section>
         
         <!-- STATUS -->
-        <section id="status">
-            <h2>Current Status</h2>
+        <section id="status" class="reveal">
+            <h2>System Status</h2>
             
             <h3>Completed (v1 Shipped)</h3>
             <table>
@@ -543,82 +819,65 @@ python employee-agent.py daemon 30      # 30-min intervals
                     <th>Notes</th>
                 </tr>
                 <tr>
-                    <td>APEX Memory System</td>
-                    <td><span class="status-badge status-complete">✓ Complete</span></td>
-                    <td>Semantic search, decision logging, offline-first</td>
+                    <td>Memory System</td>
+                    <td><span class="badge badge-complete">✓</span></td>
+                    <td>Semantic search, decision logging</td>
                 </tr>
                 <tr>
                     <td>Nerve Dashboard</td>
-                    <td><span class="status-badge status-complete">✓ Complete</span></td>
-                    <td>APEX integration, real-time memory UI</td>
+                    <td><span class="badge badge-complete">✓</span></td>
+                    <td>APEX integration, real-time UI</td>
                 </tr>
                 <tr>
                     <td>Employee-Agent</td>
-                    <td><span class="status-badge status-complete">✓ Complete</span></td>
-                    <td>News daemon + HEARTBEAT health checks</td>
+                    <td><span class="badge badge-complete">✓</span></td>
+                    <td>News daemon + health checks</td>
                 </tr>
                 <tr>
                     <td>Unified Startup</td>
-                    <td><span class="status-badge status-complete">✓ Complete</span></td>
-                    <td>PowerShell + Batch orchestrators, auto-start</td>
+                    <td><span class="badge badge-complete">✓</span></td>
+                    <td>PowerShell + Batch, auto-start</td>
                 </tr>
                 <tr>
                     <td>GitHub Integration</td>
-                    <td><span class="status-badge status-complete">✓ Complete</span></td>
-                    <td>Automated repo ops, skill-guard audits</td>
+                    <td><span class="badge badge-complete">✓</span></td>
+                    <td>Automated operations</td>
                 </tr>
             </table>
             
             <h3>Known Limitations</h3>
             <ul>
-                <li><strong>Windows Cron:</strong> Not available (Unix-only). Using HEARTBEAT.md + Employee-Agent instead (cost-optimized).</li>
-                <li><strong>Unicode Encoding:</strong> Charmap warnings on Windows stderr (non-fatal, logging works).</li>
-                <li><strong>Nerve Auth:</strong> Disabled on 0.0.0.0 binding by default. Run <code>npm run setup</code> to enable.</li>
-                <li><strong>sqlite-vector:</strong> Not installed (CPU similarity fallback active; acceptable for 31-item dataset).</li>
+                <li><strong>Windows Cron:</strong> Unix-only. Using HEARTBEAT.md + Employee-Agent instead.</li>
+                <li><strong>Nerve Auth:</strong> Disabled by default on 0.0.0.0. Run <code>npm run setup</code> to enable.</li>
+                <li><strong>Unicode Encoding:</strong> Charmap warnings on stderr (non-fatal).</li>
             </ul>
             
-            <h3>Recommended Next Steps</h3>
+            <h3>Next Steps</h3>
             <ol>
-                <li>Test auto-start: <code>.\apex-startup.ps1 -Mode setup-autostart</code></li>
-                <li>Verify Nerve at http://localhost (should show 31+ indexed memories)</li>
-                <li>Monitor costs: Audit Copilot vs Codex consumption</li>
-                <li>Extend news sources: Add Reddit/Twitter feed to employee-agent</li>
-                <li>Enable Nerve auth: <code>cd nerve && npm run setup</code></li>
-                <li>Add custom health checks to HEARTBEAT.md as needed</li>
+                <li>Test auto-start: <code>apex-startup.ps1 -Mode setup-autostart</code></li>
+                <li>Verify Nerve at http://localhost (should show 31+ memories)</li>
+                <li>Extend news sources (Reddit, Twitter, Bloomberg)</li>
+                <li>Enable Nerve authentication</li>
+                <li>Add custom health checks to HEARTBEAT.md</li>
             </ol>
-            
-            <h3>Cost Intelligence (30-day)</h3>
-            <ul>
-                <li><strong>Total:</strong> $19.998950 (22.9M tokens)</li>
-                <li><strong>Gemini:</strong> $19.96 (99.8%) — Mission Control build spike (2026-02-20)</li>
-                <li><strong>GitHub Copilot:</strong> Business subscription active (73% credits remaining)</li>
-                <li><strong>Cache Hit:</strong> 76% (excellent, targeting 80%+)</li>
-                <li><strong>Strategy:</strong> Prioritize Gemini post-2026-02-25 if Codex credits deplete</li>
-            </ul>
         </section>
         
-        <!-- GITHUB LINKS -->
-        <section>
-            <h2>Repository Links</h2>
-            <ul>
-                <li><strong>Main Workspace:</strong> <a href="https://github.com/Poid-ZA/OpenClaw" target="_blank" style="color: #00d9ff; text-decoration: underline;">https://github.com/Poid-ZA/OpenClaw</a></li>
-                <li><strong>Latest Commits:</strong>
-                    <ul>
-                        <li>94d80cb — HEARTBEAT-driven health checks (employee-agent)</li>
-                        <li>e93b67d — APEX integrated startup system</li>
-                        <li>3960193 — Mission Control dashboard + Skill Guard</li>
-                    </ul>
-                </li>
-            </ul>
+        <!-- LINKS -->
+        <section class="reveal">
+            <h2>Repository & Resources</h2>
+            <p><strong>Main Repository:</strong> <a href="https://github.com/Poid-ZA/OpenClaw" target="_blank" style="color: var(--primary);">github.com/Poid-ZA/OpenClaw</a></p>
+            <p>Latest commits include HEARTBEAT-driven health checks, APEX integrated startup, and Mission Control dashboard.</p>
         </section>
     </main>
     
+    <!-- FOOTER -->
     <footer>
-        <p><strong>APEX</strong> — Principal-level engineering intelligence inside OpenClaw</p>
-        <p>Last updated: 2026-02-24 | Timezone: Africa/Johannesburg (SAST) | Environment: Windows 10</p>
+        <p><strong>APEX</strong> — Principal-level engineering intelligence</p>
         <p style="margin-top: 20px; font-size: 0.85em;">
-            <em>This system improves through auditable workspace artifacts. Every decision, pattern, and optimization is captured, versioned, and open for review.</em>
+            <em>This system improves through auditable workspace artifacts.<br>
+            Every decision, pattern, and optimization is captured, versioned, and open for review.</em>
         </p>
+        <p style="margin-top: 30px; color: var(--text-muted);">Built with single-file HTML + JetBrains Mono</p>
     </footer>
     
     <script>
@@ -638,8 +897,37 @@ python employee-agent.py daemon 30      # 30-min intervals
             });
         });
         
-        // Mark first nav link as active
-        document.querySelectorAll('nav a')[0]?.classList.add('active');
+        // Intersection Observer for reveal animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Update active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPos = window.scrollY + 100;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    document.querySelectorAll('nav a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    const activeLink = document.querySelector(`nav a[href="#${section.id}"]`);
+                    if (activeLink) activeLink.classList.add('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
