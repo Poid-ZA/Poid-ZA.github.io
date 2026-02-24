@@ -929,6 +929,27 @@ python employee-agent.py daemon 30</pre>
                 }
             });
         });
+        
+        // Last Modified Indicator
+        document.addEventListener('DOMContentLoaded', () => {
+            const lastModified = document.lastModified;
+            const modDate = new Date(lastModified);
+            const formattedDate = modDate.toLocaleString('en-ZA', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                timeZone: 'Africa/Johannesburg'
+            });
+            
+            const footer = document.querySelector('footer');
+            const lastModDiv = document.createElement('div');
+            lastModDiv.style.cssText = 'margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.85em; color: var(--text-muted);';
+            lastModDiv.innerHTML = `<span style="color: var(--primary);">⟳</span> Last Modified: <code style="color: var(--primary);">${formattedDate}</code> (SAST)`;
+            footer.appendChild(lastModDiv);
+        });
     </script>
 </body>
 </html>
