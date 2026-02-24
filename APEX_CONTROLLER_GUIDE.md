@@ -6,7 +6,7 @@
 
 ## 📋 What It Does
 
-- **Start all services:** `▶ Start` button
+- **Start all services:** `▶ Start` button (Gateway + Nerve)
 - **Stop all services:** `⏹ Stop` button
 - **Restart (stop + start):** `↻ Restart` button
 - **Real-time status:** Auto-refreshes every 5 seconds
@@ -52,9 +52,6 @@ node apex-controller.js
 ├─────────────────────┤
 │ NERVE      STOPPED  │
 │ Port: 80            │
-├─────────────────────┤
-│ EMPLOYEE_AGENT RUNNING
-│ (daemon process)    │
 └─────────────────────┘
 ```
 
@@ -106,8 +103,7 @@ Status: "running" | "stopped"
 
 **Employee-Agent (Process Check):**
 ```javascript
-Command: tasklist /FI "IMAGENAME eq python.exe"
-Status: "running" | "stopped"
+Status: REMOVED (breaking news not core functionality)
 ```
 
 ---
