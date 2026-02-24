@@ -1,301 +1,180 @@
-# Poid-ZA Portfolio
+# APEX — Principal-Level Engineering Intelligence
 
-A modern, interactive portfolio showcasing engineering projects and capabilities. Built with performance, accessibility, and beautiful design in mind.
+**APEX** is a unified engineering intelligence system operating inside OpenClaw. It combines Software Engineering, DevOps, Security, Data Engineering, Product Strategy, and Persistent Workspace Awareness into one elite agent running on your Windows machine.
 
-## ✨ Features
+## What You'll Find Here
 
-- **🌓 Dark/Light Mode** — Toggle between themes with persistent storage
-- **📱 Mobile Responsive** — Seamless experience on all devices
-- **🎨 Modern Design** — Glassmorphism, smooth animations, gradient effects
-- **⚡ Performance Optimized** — Fast load times, smooth scrolling
-- **🔍 SEO Friendly** — Proper meta tags, structured data
-- **♿ Accessible** — WCAG compliant, semantic HTML
-- **🎯 Scroll Animations** — GSAP-powered transitions
-- **🌐 Three.js Background** — Interactive 3D scene
+This is **APEX's technical homepage** — a complete reference for what this system has become:
 
-## 📁 Project Structure
+- **Architecture:** Workspace-centric operating model with file-based continuity
+- **Services:** OpenClaw Gateway, Nerve Dashboard, Employee-Agent daemon
+- **Memory System:** Semantic search, persistent decision logging, adaptive learning
+- **Deployment:** Quick-start, auto-start, manual control
+- **Status:** v1 complete, shipped, production-ready
+
+## Quick Links
+
+- 📖 **Full Documentation:** [index.html](./index.html) (open in browser)
+- 🚀 **Quick Start:** See deployment section
+- 🔗 **Main Repository:** [github.com/Poid-ZA/OpenClaw](https://github.com/Poid-ZA/OpenClaw)
+
+## System Overview
 
 ```
-portfolio-website/
-├── index.html          # Main page (single-page app)
-├── script.js           # Interactive features & animations
-├── style.css           # (embedded in HTML)
-├── manifest.json       # PWA configuration
-├── service-worker.js   # Progressive Web App support
-├── README.md          # This file
-├── favicon-512x512.png # Favicon
-└── logo.png           # Logo assets
+┌─────────────────────────────────────────────────────────────┐
+│                      APEX (Windows)                         │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  OpenClaw Gateway (18789)                                  │
+│  ├─ Daemon, CLI interface, orchestration hub               │
+│  └─ Startup: openclaw gateway start                        │
+│                                                             │
+│  Nerve Dashboard (80, 0.0.0.0)                             │
+│  ├─ Real-time memory search & APEX UI                      │
+│  ├─ 31+ indexed memories, semantic retrieval               │
+│  └─ Access: http://localhost or http://10.221.25.142      │
+│                                                             │
+│  Employee-Agent (Background Daemon)                        │
+│  ├─ Fetch breaking news (HN API, free)                     │
+│  ├─ Log to APEX memory (30-min intervals)                  │
+│  ├─ Execute HEARTBEAT health checks                        │
+│  └─ Port probes: Gateway, Nerve, self-check                │
+│                                                             │
+│  APEX Memory System                                         │
+│  ├─ Dual storage: MEMORY.md + SQLite                       │
+│  ├─ 384-dim embeddings, semantic search                    │
+│  ├─ 40–50ms per query, offline-first                       │
+│  └─ Categories: decision, breaking_news, health_check      │
+│                                                             │
+│  Workspace Files (Auditable Improvement)                   │
+│  ├─ SOUL.md — Identity & behavior                          │
+│  ├─ AGENTS.md — Engineering framework                      │
+│  ├─ MEMORY.md — Long-term memory (git-safe)                │
+│  ├─ memory/YYYY-MM-DD.md — Daily logs                      │
+│  ├─ HEARTBEAT.md — Periodic task definitions               │
+│  ├─ DECISIONS/ADR-*.md — Architecture records              │
+│  └─ PLAYBOOKS/ — Reusable patterns                         │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-## 🚀 Features Overview
+## Startup
 
-### Navigation
-- Fixed sticky header with smooth scroll links
-- Mobile hamburger menu
-- Active link highlighting
-- Theme toggle button
+### All-in-One (Recommended)
 
-### Sections
+```powershell
+cd C:\Users\faceb\.openclaw\workspace
+.\apex-startup.ps1 -Mode start
+```
 
-#### Hero
-- Animated gradient text
-- Three.js 3D background
-- Call-to-action buttons
-- Floating particles effect
+Launches Gateway + Nerve + Employee-Agent in parallel.
 
-#### About
-- Professional introduction
-- Skills grid (2x2 layout)
-- Responsive design
-- Quick facts about expertise
+### Auto-Start on Login
 
-#### Projects
-- Showcase of featured work
-- Project cards with descriptions
-- GitHub links
-- Responsive grid layout
-- Links to:
-  - **CHIMERA** - Trading Bot (Binance)
-  - **Portfolio** - This website
-  - **DevOps Toolkit** - Infrastructure templates
+```powershell
+.\apex-startup.ps1 -Mode setup-autostart
+```
 
-#### Capabilities
-- Core competencies display
-- 6 key areas of expertise
-- Technology badges
-- Icon-based organization
+Creates Windows Task Scheduler job `APEX-System-Startup`.
 
-#### Contact
-- Social links (GitHub, Twitter/X, Email)
-- Professional call-to-action
-- Easy reach-out section
-
-#### Footer
-- Copyright notice
-- Quick links
-- GitHub profile link
-
-## 🛠️ Technology Stack
-
-- **Frontend**: HTML5, CSS3 (CSS Variables)
-- **Animation**: GSAP, ScrollTrigger, Three.js
-- **Interactivity**: Vanilla JavaScript
-- **Performance**: Optimized CDN links, minimal dependencies
-- **Responsive**: Mobile-first CSS Grid/Flexbox
-- **PWA**: Service Worker, Web Manifest
-
-## 🎨 Design System
-
-### Colors
-- **Primary**: `#4ecdc4` (Teal)
-- **Secondary**: `#45b7d1` (Blue)
-- **Accent**: `#ff6b6b` (Red)
-- **Dark**: `#0a0a0a`
-- **Darker**: `#1a1a2e`
-- **Surface**: `#16213e`
-
-### Typography
-- Font Family: Inter, system fonts
-- Smooth scaling with clamp()
-- Accessible font sizes
-
-### Spacing
-- Consistent rem-based spacing
-- 2rem padding on major sections
-- 1rem gaps in grids
-
-## 🔧 Installation & Setup
-
-### Local Development
+### Manual
 
 ```bash
-# Clone the repository
-git clone https://github.com/Poid-ZA/Poid-ZA.github.io.git
-cd Poid-ZA.github.io
+# Gateway
+openclaw gateway start
 
-# No build process needed! Just open in browser
-open index.html
+# Nerve
+cd C:\Users\faceb\.openclaw\workspace\nerve
+npm start
 
-# Or use a local server (recommended)
-python3 -m http.server 8000
-# Visit http://localhost:8000
+# Employee-Agent
+python employee-agent.py daemon 30
 ```
 
-### GitHub Pages Deployment
+## Key Features
 
-This site is automatically deployed to:
-```
-https://poid-za.github.io/
-```
+✅ **Unified Intelligence**  
+Combines architecture, security, DevOps, data engineering, product awareness into one system.
 
-Push to `main` branch to auto-deploy.
+✅ **Auditable Improvement**  
+Every decision, pattern, and optimization stored in versioned workspace files. No hidden learning.
 
-## 📋 Customization
+✅ **Semantic Memory**  
+APEX-powered search across 31+ indexed decisions, news items, health checks.
 
-### Update Personal Information
+✅ **Windows-Native**  
+Runs on Windows 10+. Uses Task Scheduler instead of cron. HEARTBEAT.md for periodic tasks.
 
-Edit `index.html`:
+✅ **Cost-Optimized**  
+Employee-Agent executes health checks locally (zero API cost). Logs to APEX for semantic queries.
 
-```html
-<!-- Navigation Logo -->
-<a href="#" class="nav-logo">
-    <span>🐉</span> YOUR_NAME
-</a>
+✅ **Production-Ready**  
+Structured logging, error handling, configuration management, observability hooks.
 
-<!-- Hero Section -->
-<h1>Your Main Title</h1>
-<p>Your Subtitle</p>
+## Services Status
 
-<!-- About Section -->
-<p>Your bio here...</p>
+| Service | Port | Status | Notes |
+|---------|------|--------|-------|
+| Gateway | 18789 | ✓ Running | Daemon, CLI, orchestration |
+| Nerve | 80 | ✓ Running | APEX UI, memory search |
+| Employee-Agent | — | ✓ Daemon | Breaking news + health checks |
+| APEX Memory | SQLite | ✓ Indexed | 31+ items, semantic search |
 
-<!-- Contact Links -->
-<a href="https://github.com/YOUR_GITHUB" class="contact-link">GitHub</a>
-<a href="mailto:your@email.com" class="contact-link">Email</a>
-```
+## Memory System
 
-### Add Projects
+### Search Example
 
-Add a new project card in the Projects section:
+```python
+from apex_memory import APEXMemory
 
-```html
-<div class="project-card">
-    <div class="project-header">
-        <div class="project-icon">🔧</div>
-        <h3 class="project-title">Project Name</h3>
-        <p class="project-desc">Short description</p>
-    </div>
-    <div class="project-body">
-        <ul class="project-features">
-            <li>Feature 1</li>
-            <li>Feature 2</li>
-        </ul>
-        <a href="https://github.com/..." class="project-link" target="_blank">
-            View on GitHub →
-        </a>
-    </div>
-</div>
+with APEXMemory() as m:
+    # Find breaking news about tech
+    results = m.recall("breaking news tech security", max_results=5)
+    for r in results:
+        print(f"{r['title']}: {r['score']:.2f}")
 ```
 
-### Customize Colors
+### Log Decision Example
 
-Edit CSS variables in the `<style>` tag:
-
-```css
-:root {
-    --primary: #4ecdc4;     /* Main color */
-    --secondary: #45b7d1;   /* Accent */
-    --accent: #ff6b6b;      /* Highlights */
-    /* ... */
-}
+```python
+m.log_decision(
+    title="Architecture Decision: Service A vs B",
+    details="Chose X because of scalability + cost",
+    category="decision",
+    tags=["architecture", "performance"]
+)
 ```
 
-Or for light mode:
+## Next Steps
 
-```css
-body.light-mode {
-    --primary: #0099ff;
-    /* ... */
-}
-```
+1. Open http://localhost to access Nerve Dashboard
+2. Query breaking news or health checks
+3. Add custom health checks to HEARTBEAT.md
+4. Extend news sources (Reddit, Twitter, Bloomberg)
+5. Enable Nerve authentication: `cd nerve && npm run setup`
 
-## 🌐 Browser Support
+## Repository
 
-- Chrome/Brave (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
+- **Main:** https://github.com/Poid-ZA/OpenClaw
+- **Latest Commits:**
+  - `94d80cb` — HEARTBEAT-driven health checks
+  - `e93b67d` — APEX integrated startup system
+  - `3960193` — Mission Control + Skill Guard
 
-## 📱 Mobile Optimization
+## Architecture & Design
 
-- Responsive grid (1 column on mobile)
-- Touch-friendly buttons
-- Hamburger menu for navigation
-- Optimized font sizes (clamp)
-- Proper viewport meta tag
+- **Workspace OS:** File-based continuity (MEMORY.md, HEARTBEAT.md, daily logs)
+- **Zero Cron:** Windows Task Scheduler + Employee-Agent + HEARTBEAT.md
+- **Cost Optimization:** Local health checks → APEX → semantic queries (no API overhead)
+- **Continuous Improvement:** Issues → fix → regression test → update playbooks → promote durable lessons
 
-## ♿ Accessibility
+## Deployment Info
 
-- Semantic HTML structure
-- ARIA labels where needed
-- Color contrast compliant
-- Keyboard navigable
-- Focus indicators
-- Alt text for images
-
-## 🚀 Performance Tips
-
-- Uses CDN for external libraries
-- Minimal custom CSS
-- Hardware-accelerated animations
-- Lazy-loaded images (browser native)
-- Service worker for offline support
-
-### Lighthouse Scores
-
-Target metrics:
-- Performance: 90+
-- Accessibility: 95+
-- Best Practices: 95+
-- SEO: 100
-
-## 📝 SEO
-
-- Descriptive page title
-- Meta description
-- Open Graph tags
-- Structured markup ready
-- Sitemap compatible
-- Mobile-friendly
-
-## 🔐 Privacy & Security
-
-- No external tracking
-- No analytics by default
-- No cookies stored
-- HTTPS enforced on GitHub Pages
-- Third-party libraries vetted
-
-## 🤝 Contributing
-
-Want to improve this portfolio?
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit changes: `git commit -m 'Add amazing feature'`
-4. Push to branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-## 📜 License
-
-This project is licensed under the MIT License - see LICENSE file for details.
-
-## 🙏 Credits
-
-- **Animations**: GSAP, Three.js
-- **Icons**: Unicode emojis
-- **Fonts**: System font stack
-- **Design**: Modern web design best practices
-
-## 📞 Contact
-
-- **GitHub**: [@Poid-ZA](https://github.com/Poid-ZA)
-- **Twitter/X**: [@poid_za](https://twitter.com/poid_za)
-- **Email**: contact@poid-za.dev
-
-## 🎯 Roadmap
-
-- [ ] Blog section
-- [ ] Project case studies
-- [ ] Team section
-- [ ] Testimonials carousel
-- [ ] Newsletter signup
-- [ ] Analytics (optional)
-- [ ] Multi-language support
+- **OS:** Windows 10 (26200)
+- **Timezone:** Africa/Johannesburg (SAST, UTC+2)
+- **Runtime:** Node v25.6.0, Python 3.10+
+- **Credits:** Copilot Business (73% remaining), Codex (renewal 2026-02-25)
 
 ---
 
-**Last Updated**: 2026-02-21  
-**Version**: 2.0 (Enhanced)  
-**Status**: ✅ Production Ready
+**APEX** — *Engineering intelligence that improves through auditable artifacts.*
