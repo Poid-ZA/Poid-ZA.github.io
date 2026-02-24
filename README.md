@@ -1,6 +1,6 @@
-# APEX — Principal-Level Engineering Intelligence
+# APEX — AI Engineering Intelligence
 
-**APEX** is a unified engineering intelligence system. It combines architecture thinking, security enforcement, DevOps automation, data engineering, product strategy, and persistent workspace awareness into one elite agent.
+**APEX** is a unified engineering intelligence system. It combines architecture thinking, security enforcement, DevOps automation, data engineering, product strategy, and persistent workspace awareness into one elite AI agent. Inspired by OpenClaw's architecture and tooling patterns.
 
 ## Overview
 
@@ -25,9 +25,9 @@ This is **APEX's technical homepage** — a complete reference for a production-
 │                      APEX                                   │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│  OpenClaw Gateway (18789)                                  │
-│  ├─ Daemon, CLI interface, orchestration hub               │
-│  └─ Startup: openclaw gateway start                        │
+│  Gateway Service (18789)                                   │
+│  ├─ Daemon, API routing, orchestration                     │
+│  └─ Startup: gateway start                                 │
 │                                                             │
 │  Nerve Dashboard (80, 0.0.0.0)                             │
 │  ├─ Real-time memory search & APEX UI                      │
@@ -80,7 +80,7 @@ Creates Windows Task Scheduler job `APEX-System-Startup`.
 
 ```bash
 # Gateway
-openclaw gateway start
+gateway start
 
 # Nerve
 npm start
@@ -113,7 +113,7 @@ Structured logging, error handling, configuration management, observability.
 
 | Service | Port | Status | Purpose |
 |---------|------|--------|---------|
-| Gateway | 18789 | ✓ Running | Daemon, CLI, orchestration |
+| Gateway | 18789 | ✓ Running | Daemon, API routing |
 | Nerve | 80 | ✓ Running | APEX UI, memory search |
 | Employee-Agent | — | ✓ Daemon | News + health checks |
 | APEX Memory | SQLite | ✓ Indexed | 31+ items, semantic search |
@@ -176,4 +176,6 @@ m.log_decision(
 
 ---
 
-**APEX** — *Engineering intelligence that improves through auditable artifacts.*
+**APEX** — *AI engineering intelligence that improves through auditable artifacts.*
+
+Inspired by OpenClaw's architecture and design patterns.
