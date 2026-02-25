@@ -873,6 +873,7 @@ python employee-agent.py daemon 30</pre>
                 <li>Run one-shot cleanup: <code>POST /api/qmd/dedupe</code> after major imports</li>
                 <li>Monitor quality gate telemetry: <code>GET /api/qmd/quality-stats?hours=24</code></li>
                 <li>Apply engineering checklists: <code>CHECKLISTS/IMPLEMENTATION_PLAN.md</code>, <code>CHECKLISTS/CODE_REVIEW_GATE.md</code>, <code>CHECKLISTS/SECURE_ENDPOINT.md</code></li>
+                <li>Apply hardening gates: <code>CHECKLISTS/ENVIRONMENT_ASSUMPTIONS.md</code>, <code>CHECKLISTS/COMMAND_SAFETY_NOTICE.md</code>, <code>PLAYBOOKS/VERIFICATION_COMMAND_PROFILES.md</code></li>
                 <li>Enable Nerve authentication</li>
                 <li>Add custom health checks to HEARTBEAT.md</li>
             </ol>
@@ -929,6 +930,7 @@ python employee-agent.py daemon 30</pre>
                 <li>✅ Quality gate + <code>/api/qmd/quality-stats</code> telemetry endpoint</li>
                 <li>✅ Workspace quality framework added (planning/review/security/test checklists)</li>
                 <li>✅ Phase 1 skill adoption executed (search-first, verification-loop, migration/deploy gates)</li>
+                <li>✅ Open-source prompt hardening adopted (DoD gate, environment assumptions, command safety notice, verification profiles)</li>
             </ul>
             
             <h3>Key Metrics</h3>
