@@ -1,1040 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APEX — AI Engineering Intelligence</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box;
-        }
-        
-        :root {
-            --primary: #00d9ff;
-            --primary-dark: #0099cc;
-            --bg-dark: #050508;
-            --bg-card: #0d0d12;
-            --bg-raised: #1a1a24;
-            --border: #2a2a34;
-            --text: #e0e0e0;
-            --text-muted: #808080;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            background: var(--bg-dark);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        /* HERO SECTION */
-        header {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: linear-gradient(135deg, #050508 0%, #0a0a12 100%);
-        }
-        
-        header::before {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(0, 217, 255, 0.15) 0%, transparent 70%);
-            top: 10%;
-            left: 10%;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        header::after {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(0, 153, 204, 0.1) 0%, transparent 70%);
-            bottom: -100px;
-            right: -100px;
-            animation: float 8s ease-in-out infinite reverse;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(30px); }
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            animation: fadeInUp 1s ease-out;
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        header h1 {
-            font-size: clamp(2.5em, 8vw, 5em);
-            font-weight: 700;
-            background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
-            letter-spacing: -2px;
-            text-shadow: 0 0 30px rgba(0, 217, 255, 0.2);
-        }
-        
-        header p {
-            font-size: clamp(0.95em, 2vw, 1.4em);
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            max-width: 600px;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            padding: 14px 40px;
-            background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
-            color: var(--bg-dark);
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1em;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
-            font-family: 'JetBrains Mono', monospace;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 50px rgba(0, 217, 255, 0.5);
-        }
-        
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-            z-index: 2;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
-        }
-        
-        /* NAVIGATION */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(5, 5, 8, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
-            z-index: 1000;
-            padding: 0 20px;
-        }
-        
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0;
-        }
-        
-        nav li {
-            margin: 0;
-        }
-        
-        nav a {
-            display: block;
-            padding: 12px 20px;
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 0.9em;
-            font-weight: 500;
-            position: relative;
-        }
-        
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 8px;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transform: translateX(-50%);
-            transition: width 0.3s;
-        }
-        
-        nav a:hover, nav a.active {
-            color: var(--primary);
-        }
-        
-        nav a:hover::after, nav a.active::after {
-            width: 80%;
-        }
-        
-        /* MAIN CONTENT */
-        main {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-        
-        section {
-            margin-bottom: 100px;
-        }
-        
-        section h2 {
-            font-size: clamp(2em, 5vw, 3.5em);
-            margin-bottom: 50px;
-            color: var(--primary);
-            position: relative;
-            padding-bottom: 20px;
-        }
-        
-        section h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), transparent);
-            border-radius: 2px;
-        }
-        
-        h3 {
-            font-size: 1.4em;
-            margin-top: 35px;
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
-        
-        p {
-            margin-bottom: 15px;
-            line-height: 1.8;
-            color: var(--text);
-            font-size: 0.95em;
-        }
-        
-        /* GRID LAYOUT */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
-        }
-        
-        .card {
-            background: linear-gradient(135deg, var(--bg-raised) 0%, var(--bg-card) 100%);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 30px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
-            transition: left 0.5s;
-        }
-        
-        .card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2), inset 0 0 20px rgba(0, 217, 255, 0.05);
-            transform: translateY(-8px);
-        }
-        
-        .card:hover::before {
-            left: 100%;
-        }
-        
-        .card h4 {
-            font-size: 1.2em;
-            color: var(--primary);
-            margin-bottom: 12px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .card p {
-            position: relative;
-            z-index: 1;
-            font-size: 0.9em;
-            color: var(--text-muted);
-        }
-        
-        /* BADGES */
-        .badge {
-            display: inline-block;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: 600;
-            margin: 5px 5px 5px 0;
-            border: 1px solid;
-        }
-        
-        .badge-complete {
-            background: rgba(0, 217, 255, 0.15);
-            color: var(--primary);
-            border-color: var(--primary);
-        }
-        
-        .badge-beta {
-            background: rgba(255, 170, 0, 0.15);
-            color: #ffaa00;
-            border-color: #ffaa00;
-        }
-        
-        /* CODE BLOCKS */
-        code {
-            background: var(--bg-raised);
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: var(--primary);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9em;
-        }
-        
-        pre {
-            background: var(--bg-raised);
-            border: 1px solid var(--border);
-            padding: 20px;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 20px 0;
-            border-left: 4px solid var(--primary);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        pre code {
-            background: none;
-            padding: 0;
-            color: var(--text);
-            font-size: 0.85em;
-        }
-        
-        /* TECH STACK */
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin: 20px 0;
-        }
-        
-        .tech-badge {
-            background: rgba(0, 217, 255, 0.1);
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 0.85em;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        
-        .tech-badge:hover {
-            background: rgba(0, 217, 255, 0.2);
-            transform: translateX(5px);
-        }
-        
-        /* TABLE */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            background: var(--bg-raised);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.9em;
-        }
-        
-        th {
-            background: rgba(0, 217, 255, 0.1);
-            color: var(--primary);
-            font-weight: 600;
-        }
-        
-        tr:last-child td {
-            border-bottom: none;
-        }
-        
-        tr:hover {
-            background: rgba(0, 217, 255, 0.05);
-        }
-        
-        /* HIGHLIGHT BOX */
-        .highlight {
-            background: rgba(0, 217, 255, 0.08);
-            border-left: 4px solid var(--primary);
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 6px;
-            position: relative;
-        }
-        
-        .highlight strong {
-            color: var(--primary);
-        }
-        
-        /* LIST */
-        ul, ol {
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-        
-        li {
-            margin-bottom: 10px;
-        }
-        
-        /* FOOTER */
-        footer {
-            background: linear-gradient(180deg, transparent, rgba(0, 217, 255, 0.05));
-            border-top: 1px solid var(--border);
-            padding: 50px 20px;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9em;
-        }
-        
-        footer p {
-            margin-bottom: 10px;
-        }
-        
-        footer a {
-            color: var(--primary);
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
-        
-        footer a:hover {
-            opacity: 0.8;
-            text-decoration: underline;
-        }
-        
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.5em;
-            }
-            
-            header p {
-                font-size: 1em;
-            }
-            
-            section h2 {
-                font-size: 2em;
-            }
-            
-            nav ul {
-                justify-content: flex-start;
-                overflow-x: auto;
-                padding: 0 20px;
-            }
-            
-            nav li {
-                flex-shrink: 0;
-            }
-            
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            
-            table {
-                font-size: 0.85em;
-            }
-            
-            th, td {
-                padding: 10px;
-            }
-        }
-        
-        /* ANIMATIONS */
-        .fadeIn {
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-        
-        .slideInLeft {
-            animation: slideInLeft 0.8s ease-out forwards;
-        }
-        
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        /* INTERSECTION OBSERVER */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>APEX — Engineering Progress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #00d9ff;
+      --primary-dark: #0099cc;
+      --bg-dark: #050508;
+      --bg-card: #0d0d12;
+      --bg-raised: #1a1a24;
+      --border: #2a2a34;
+      --text: #e0e0e0;
+      --text-muted: #8a8a98;
+      --ok: #47d18c;
+      --warn: #ffb347;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg-dark);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(5, 5, 8, 0.95);
+      border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+      backdrop-filter: blur(8px);
+    }
+    nav ul {
+      list-style: none;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 8px 12px;
+    }
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: all .25s;
+    }
+    nav a:hover, nav a.active {
+      color: var(--primary);
+      background: rgba(0, 217, 255, 0.08);
+    }
+
+    header {
+      min-height: 85vh;
+      display: grid;
+      place-items: center;
+      position: relative;
+      padding: 120px 20px 60px;
+      background: radial-gradient(circle at 20% 20%, rgba(0, 217, 255, 0.12), transparent 35%),
+                  radial-gradient(circle at 80% 80%, rgba(0, 153, 204, 0.10), transparent 40%),
+                  linear-gradient(135deg, #050508, #0a0a12);
+    }
+    .hero {
+      max-width: 1000px;
+      text-align: center;
+      animation: fadeInUp .9s ease-out;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 4.4rem);
+      line-height: 1.08;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #00d9ff, #0099cc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      color: var(--text-muted);
+      max-width: 800px;
+      margin: 0 auto 24px;
+      font-size: clamp(.92rem, 2vw, 1.1rem);
+    }
+    .pill-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .pill {
+      border: 1px solid var(--border);
+      background: var(--bg-raised);
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: .78rem;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px 90px;
+    }
+    section { margin: 62px 0; }
+    section h2 {
+      color: var(--primary);
+      font-size: clamp(1.55rem, 4vw, 2.5rem);
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+    h3 {
+      color: var(--primary);
+      margin: 22px 0 10px;
+      font-size: 1.06rem;
+    }
+    p { color: var(--text); margin-bottom: 10px; font-size: 0.93rem; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .card {
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 14px;
+    }
+    .card h4 { color: var(--primary); margin-bottom: 8px; font-size: .95rem; }
+    .muted { color: var(--text-muted); }
+
+    ul, ol { padding-left: 20px; margin: 8px 0; }
+    li { margin: 6px 0; font-size: .92rem; }
+    .ok { color: var(--ok); }
+    .warn { color: var(--warn); }
+
+    pre {
+      border: 1px solid var(--border);
+      background: #09090f;
+      border-radius: 10px;
+      padding: 12px;
+      overflow-x: auto;
+      font-size: .83rem;
+    }
+    code { color: var(--primary); }
+
+    .timeline {
+      border-left: 2px solid var(--border);
+      margin-left: 6px;
+      padding-left: 18px;
+    }
+    .timeline .item { margin-bottom: 16px; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+      margin-top: 30px;
+      color: var(--text-muted);
+      font-size: .85rem;
+    }
+  </style>
 </head>
 <body>
-    <!-- NAVIGATION -->
-    <nav>
-        <ul>
-            <li><a href="#overview" class="nav-link">Overview</a></li>
-            <li><a href="#architecture" class="nav-link">Architecture</a></li>
-            <li><a href="#services" class="nav-link">Services</a></li>
-            <li><a href="#memory" class="nav-link">Memory</a></li>
-            <li><a href="#deployment" class="nav-link">Deploy</a></li>
-            <li><a href="#status" class="nav-link">Status</a></li>
-            <li><a href="#milestones" class="nav-link">Milestones</a></li>
-            <li><a href="MILESTONES.md" target="_blank" style="color: var(--primary); font-weight: 600;">📖 Journey</a></li>
-        </ul>
-    </nav>
-    
-    <!-- HERO -->
-    <header>
-        <div class="hero-content">
-            <h1>APEX</h1>
-            <p>AI Engineering Intelligence — Inspired by OpenClaw</p>
-            <button class="cta-button" onclick="document.getElementById('overview').scrollIntoView({behavior:'smooth'})">Explore System</button>
+  <nav>
+    <ul>
+      <li><a href="#overview" class="active">Overview</a></li>
+      <li><a href="#delivered">Delivered</a></li>
+      <li><a href="#qmd">QMD</a></li>
+      <li><a href="#audit">Adoption Audit</a></li>
+      <li><a href="#ops">Ops + Quality</a></li>
+      <li><a href="#next">Next</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <div class="hero">
+      <h1>APEX Progress Snapshot</h1>
+      <p>Clean rebuild of the project status page with the same visual language (JetBrains Mono + cyan-on-dark), now focused on concrete delivery outcomes and operating maturity.</p>
+      <div class="pill-row">
+        <span class="pill">QMD v1 Active</span>
+        <span class="pill">Quality Gate + Telemetry</span>
+        <span class="pill">Skill Framework Hardened</span>
+        <span class="pill">Website + Repos Updated</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>Current state: memory runtime is QMD-first, FAISS path removed from active flow, quality controls are enforced and measurable, and engineering gates are codified in workspace artifacts.</p>
+      <div class="grid">
+        <div class="card">
+          <h4>Primary Memory Runtime</h4>
+          <p><code>/api/qmd/*</code> with SQLite + FTS5, tags, relations, linked context.</p>
         </div>
-        <div class="scroll-indicator">↓</div>
-    </header>
-    
-    <main>
-        <!-- OVERVIEW -->
-        <section id="overview" class="reveal">
-            <h2>What is APEX?</h2>
-            
-            <p>APEX is a unified engineering intelligence system that combines architecture thinking, security enforcement, DevOps automation, data engineering, product strategy, and persistent workspace awareness into one elite AI agent. Inspired by OpenClaw's architecture.</p>
-            
-            <div class="grid">
-                <div class="card reveal">
-                    <h4>🏗️ Architecture</h4>
-                    <p>Production-grade system design, scalability analysis, coupling risk assessment, and improved design patterns.</p>
-                </div>
-                <div class="card reveal">
-                    <h4>🔐 Security</h4>
-                    <p>Threat modeling, input validation, injection prevention, secure defaults, and risk quantification.</p>
-                </div>
-                <div class="card reveal">
-                    <h4>☁️ DevOps</h4>
-                    <p>Infrastructure automation, containerization, CI/CD pipelines, observability, and reliability engineering.</p>
-                </div>
-                <div class="card reveal">
-                    <h4>💾 Data Engineering</h4>
-                    <p>Schema design, query optimization, indexing strategy, performance tuning, and bottleneck analysis.</p>
-                </div>
-                <div class="card reveal">
-                    <h4>🧠 Memory Intelligence</h4>
-                    <p>Semantic search, persistent decision logging, adaptive learning loops, and workspace continuity.</p>
-                </div>
-                <div class="card reveal">
-                    <h4>🎯 Product Awareness</h4>
-                    <p>Business impact analysis, risk exposure, trade-off evaluation, and customer-centric reasoning.</p>
-                </div>
-            </div>
-            
-            <h3>Core Principle</h3>
-            <p>APEX improves through <strong>auditable workspace artifacts</strong> — not hidden learning. Every decision, pattern, and optimization is captured in versioned files for review and continuous enhancement.</p>
-            
-            <div class="highlight">
-                <strong>Operating Model:</strong> Direct, technical, decisive. No corporate tone. No filler. Just competent engineering delivered in a real environment with practical constraints.
-            </div>
-        </section>
-        
-        <!-- ARCHITECTURE -->
-        <section id="architecture" class="reveal">
-            <h2>System Architecture</h2>
-            
-            <h3>Core Stack</h3>
-            <div class="tech-stack">
-                <span class="tech-badge">OpenClaw</span>
-                <span class="tech-badge">Node.js</span>
-                <span class="tech-badge">Python 3.10+</span>
-                <span class="tech-badge">TypeScript</span>
-                <span class="tech-badge">SQLite</span>
-                <span class="tech-badge">Git</span>
-            </div>
-            
-            <h3>Workspace-Centric Operating System</h3>
-            <p>APEX wakes fresh each session. Continuity comes from workspace files:</p>
-            
-            <table>
-                <tr>
-                    <th>File</th>
-                    <th>Purpose</th>
-                    <th>Scope</th>
-                </tr>
-                <tr>
-                    <td><code>SOUL.md</code></td>
-                    <td>Identity & behavior guidelines</td>
-                    <td>Global</td>
-                </tr>
-                <tr>
-                    <td><code>AGENTS.md</code></td>
-                    <td>Engineering operating framework</td>
-                    <td>Global</td>
-                </tr>
-                <tr>
-                    <td><code>MEMORY.md</code></td>
-                    <td>Persistent long-term memory</td>
-                    <td>Per-session</td>
-                </tr>
-                <tr>
-                    <td><code>memory/YYYY-MM-DD.md</code></td>
-                    <td>Daily logs & decisions</td>
-                    <td>Session</td>
-                </tr>
-                <tr>
-                    <td><code>HEARTBEAT.md</code></td>
-                    <td>Periodic task definitions</td>
-                    <td>System</td>
-                </tr>
-                <tr>
-                    <td><code>DECISIONS/ADR-*.md</code></td>
-                    <td>Architecture records</td>
-                    <td>Durable</td>
-                </tr>
-                <tr>
-                    <td><code>PLAYBOOKS/</code></td>
-                    <td>Reusable patterns & templates</td>
-                    <td>Reusable</td>
-                </tr>
-            </table>
-            
-            <h3>Continuous Improvement Loop</h3>
-            <pre>Issue Identified
-  ↓
-Log to memory/YYYY-MM-DD.md
-  ↓
-Produce Fix (patch/code)
-  ↓
-Add Regression Test
-  ↓
-Update Playbooks (if generalizable)
-  ↓
-Promote to MEMORY.md (durable lessons)</pre>
-        </section>
-        
-        <!-- SERVICES -->
-        <section id="services" class="reveal">
-            <h2>Deployed Services</h2>
-            
-            <div class="card reveal">
-                <span class="badge badge-complete">✓ Production</span>
-                <h3>Gateway Service</h3>
-                <p><strong>Port:</strong> 18789</p>
-                <p>Daemon and orchestration hub for system control and API routing.</p>
-                <pre>gateway start
-gateway stop</pre>
-            </div>
-            
-            <div class="card reveal" style="margin-top: 20px;">
-                <span class="badge badge-complete">✓ Production</span>
-                <h3>Nerve Dashboard</h3>
-                <p><strong>Port:</strong> 80 (0.0.0.0)</p>
-                <p>Real-time memory dashboard with QMD v1 indexed retrieval, tags, and linked-context graph.</p>
-                <p><strong>Features:</strong></p>
-                <ul>
-                    <li>Live QMD search (550 indexed entries)</li>
-                    <li>Tag CRUD and entry-tag assignment</li>
-                    <li>Relation linking + linked-context pane</li>
-                    <li>Safe bootstrap + dedupe endpoint</li>
-                    <li>Quality gate + quality telemetry endpoint</li>
-                    <li>One-click maintenance run (dedupe + quality snapshot)</li>
-                </ul>
-                <p><strong>Access:</strong> http://localhost or http://127.0.0.1</p>
-            </div>
-            
-            <div class="card reveal" style="margin-top: 20px;">
-                <span class="badge badge-complete">✓ Production</span>
-                <h3>Employee Agent</h3>
-                <p><strong>Type:</strong> Background daemon (Python)</p>
-                <p>Fetch breaking news, log to APEX, execute health checks every 30 minutes.</p>
-                <p><strong>Features:</strong></p>
-                <ul>
-                    <li>Fetch top stories from news APIs</li>
-                    <li>Auto-log to APEX memory (breaking_news category)</li>
-                    <li>Execute HEARTBEAT health checks</li>
-                    <li>Port probes: Gateway, Nerve, self-check</li>
-                    <li>Zero-cost monitoring (local subprocess calls)</li>
-                </ul>
-                <pre>python employee-agent.py once       # Single fetch
-python employee-agent.py daemon 30  # Daemon mode</pre>
-            </div>
-        </section>
-        
-        <!-- MEMORY SYSTEM -->
-        <section id="memory" class="reveal">
-            <h2>APEX Memory System (QMD v1)</h2>
-            
-            <h3>Architecture</h3>
-            <p><strong>QMD v1 model:</strong> MEMORY.md stays human-readable source-of-truth while QMD SQLite powers indexed retrieval and graph links.</p>
-            
-            <div class="highlight">
-                <strong>Current memory stack:</strong><br>
-                QMD v1 replaces FAISS/APEX semantic backend in active runtime paths. Indexed search, timeline, tags, and relations are served from <code>memory/qmd/qmd.db</code>.
-            </div>
-            
-            <h3>Specifications</h3>
-            <div class="grid">
-                <div class="card">
-                    <h4>Storage</h4>
-                    <p>SQLite (<code>memory/qmd/qmd.db</code>)</p>
-                </div>
-                <div class="card">
-                    <h4>Retrieval</h4>
-                    <p>FTS5 text search + timeline filters</p>
-                </div>
-                <div class="card">
-                    <h4>Knowledge Graph</h4>
-                    <p>Entry relations + linked-context pane</p>
-                </div>
-                <div class="card">
-                    <h4>Tagging</h4>
-                    <p>Tag CRUD + entry-tag assignment</p>
-                </div>
-            </div>
-            
-            <h3>API Usage</h3>
-            <pre># Bootstrap daily + MEMORY.md into QMD (dedupe-safe)
-POST /api/qmd/bootstrap
+        <div class="card">
+          <h4>Quality Controls</h4>
+          <p>Entry quality gate, rejection telemetry, warmup-aware alerting, dedupe and maintenance run.</p>
+        </div>
+        <div class="card">
+          <h4>Workflow Governance</h4>
+          <p>Planning, review, security, testing, migration and deployment checklists integrated into APEX defaults.</p>
+        </div>
+      </div>
+    </section>
 
-# Search
-GET /api/qmd/search?q=security&limit=5
+    <section id="delivered">
+      <h2>Delivered So Far</h2>
+      <div class="timeline">
+        <div class="item">
+          <h3>QMD Core</h3>
+          <ul>
+            <li class="ok">SQLite-backed QMD with FTS5 indexing</li>
+            <li class="ok">Endpoints for entries, search, timeline, tags, relations, context</li>
+            <li class="ok">Bootstrap import from <code>MEMORY.md</code> + daily logs</li>
+          </ul>
+        </div>
+        <div class="item">
+          <h3>Data Integrity & Cleanup</h3>
+          <ul>
+            <li class="ok">Dedupe-safe bootstrap logic</li>
+            <li class="ok">One-shot cleanup endpoint: <code>POST /api/qmd/dedupe</code></li>
+            <li class="ok">Maintenance endpoint: <code>POST /api/qmd/maintenance-run</code></li>
+          </ul>
+        </div>
+        <div class="item">
+          <h3>UI Delivery</h3>
+          <ul>
+            <li class="ok">Workspace QMD tab with search/timeline/add/bootstrap</li>
+            <li class="ok">Tag CRUD + assignment</li>
+            <li class="ok">Relation linking + linked-context pane</li>
+            <li class="ok">Quality card with warmup + trend signal</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-# Timeline
-GET /api/qmd/timeline?from=2026-02-01&to=2026-02-25
-
-# Tags
-POST /api/qmd/tags
-POST /api/qmd/entry-tags
-
-# Relations + linked context
+    <section id="qmd">
+      <h2>QMD APIs in Use</h2>
+      <pre>GET  /api/qmd/health
+GET  /api/qmd/search?q=security&limit=5
+GET  /api/qmd/timeline?from=YYYY-MM-DD&to=YYYY-MM-DD
+POST /api/qmd/entries
+GET  /api/qmd/context/:entryId
 POST /api/qmd/relate
-GET /api/qmd/context/:entryId
-
-# One-shot cleanup
+GET  /api/qmd/tags
+POST /api/qmd/entry-tags
+POST /api/qmd/bootstrap
 POST /api/qmd/dedupe
-
-# Weekly maintenance run (dedupe + quality snapshot)
 POST /api/qmd/maintenance-run?threshold=0.4
+GET  /api/qmd/quality-stats?hours=24&threshold=0.4&minSamples=10</pre>
+    </section>
 
-# Quality telemetry
-GET /api/qmd/quality-stats?hours=24</pre>
-            
-            <h3>Categories</h3>
-            <ul>
-                <li><code>decision</code> — Architecture/engineering decisions</li>
-                <li><code>daily</code> — Imported daily memory items</li>
-                <li><code>other</code> — General captured knowledge</li>
-                <li><code>breaking_news</code> — News feed items</li>
-            </ul>
-        </section>
-        
-        <!-- DEPLOYMENT -->
-        <section id="deployment" class="reveal">
-            <h2>Deployment & Startup</h2>
-            
-            <h3>Quick Start (All-in-One)</h3>
-            <pre>apex-startup.ps1 -Mode start</pre>
-            <p>Launches Gateway + Nerve + Employee-Agent in parallel (separate terminals).</p>
-            
-            <h3>Auto-Start on Login</h3>
-            <pre>apex-startup.ps1 -Mode setup-autostart</pre>
-            <p>Creates Windows Task Scheduler job <code>APEX-System-Startup</code>.</p>
-            
-            <h3>Manual Service Control</h3>
-            <pre>// Gateway
-gateway start
-gateway stop
+    <section id="audit">
+      <h2>Adoption Audit — Phase 1</h2>
+      <p>Audit executed and recorded in <code>PLAYBOOKS/ADOPTION_AUDIT_PHASE1_2026-02-25.md</code>.</p>
+      <div class="grid">
+        <div class="card">
+          <h4>Verdict</h4>
+          <p><span class="ok">PASS</span> for rollout completeness.</p>
+          <p class="muted">Operational maturity: good. Remaining value is cadence automation and evidence capture.</p>
+        </div>
+        <div class="card">
+          <h4>Active Gates</h4>
+          <ul>
+            <li>Implementation plan</li>
+            <li>Code review gate</li>
+            <li>Secure endpoint checklist</li>
+            <li>DB migration safety</li>
+            <li>Deployment readiness</li>
+            <li>Environment assumptions</li>
+            <li>Command safety notice</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Runtime Controls</h4>
+          <ul>
+            <li>Unified quality evaluation path</li>
+            <li>Quality telemetry events</li>
+            <li>Warmup-aware low-rate alerts</li>
+            <li>Dedupe + maintenance controls</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-// Nerve
-npm start
+    <section id="ops">
+      <h2>Ops + Quality Improvements</h2>
+      <h3>Applied from cross-prompt analysis</h3>
+      <ul>
+        <li class="ok">Definition-of-Done hardening for non-trivial tasks</li>
+        <li class="ok">Question-only behavior discipline to avoid over-execution</li>
+        <li class="ok">Search-first and verification profiles documented</li>
+        <li class="ok">Command safety notice standard for impactful operations</li>
+      </ul>
 
-// Employee-Agent
-python employee-agent.py daemon 30</pre>
-            
-            <h3>Environment</h3>
-            <div class="tech-stack">
-                <span class="tech-badge">Python 3.10+</span>
-                <span class="tech-badge">Node.js v25+</span>
-                <span class="tech-badge">Git</span>
-                <span class="tech-badge">Windows 10+</span>
-            </div>
-        </section>
-        
-        <!-- STATUS -->
-        <section id="status" class="reveal">
-            <h2>System Status</h2>
-            
-            <h3>Completed (v1 Shipped)</h3>
-            <table>
-                <tr>
-                    <th>Component</th>
-                    <th>Status</th>
-                    <th>Notes</th>
-                </tr>
-                <tr>
-                    <td>Memory System</td>
-                    <td><span class="badge badge-complete">✓</span></td>
-                    <td>QMD v1 search, tags, relations, dedupe-safe bootstrap</td>
-                </tr>
-                <tr>
-                    <td>Nerve Dashboard</td>
-                    <td><span class="badge badge-complete">✓</span></td>
-                    <td>APEX integration, real-time UI</td>
-                </tr>
-                <tr>
-                    <td>Employee-Agent</td>
-                    <td><span class="badge badge-complete">✓</span></td>
-                    <td>News daemon + health checks</td>
-                </tr>
-                <tr>
-                    <td>Unified Startup</td>
-                    <td><span class="badge badge-complete">✓</span></td>
-                    <td>PowerShell + Batch, auto-start</td>
-                </tr>
-                <tr>
-                    <td>GitHub Integration</td>
-                    <td><span class="badge badge-complete">✓</span></td>
-                    <td>Automated operations</td>
-                </tr>
-            </table>
-            
-            <h3>Known Limitations</h3>
-            <ul>
-                <li><strong>Windows Cron:</strong> Unix-only. Using HEARTBEAT.md + Employee-Agent instead.</li>
-                <li><strong>Nerve Auth:</strong> Disabled by default on 0.0.0.0. Run <code>npm run setup</code> to enable.</li>
-                <li><strong>Unicode Encoding:</strong> Charmap warnings on stderr (non-fatal).</li>
-            </ul>
-            
-            <h3>Next Steps</h3>
-            <ol>
-                <li>Test auto-start: <code>apex-startup.ps1 -Mode setup-autostart</code></li>
-                <li>Verify QMD endpoints: <code>/api/qmd/health</code>, <code>/api/qmd/search</code>, <code>/api/qmd/context/:id</code></li>
-                <li>Run one-shot cleanup: <code>POST /api/qmd/dedupe</code> after major imports</li>
-                <li>Monitor quality gate telemetry: <code>GET /api/qmd/quality-stats?hours=24</code></li>
-                <li>Apply engineering checklists: <code>CHECKLISTS/IMPLEMENTATION_PLAN.md</code>, <code>CHECKLISTS/CODE_REVIEW_GATE.md</code>, <code>CHECKLISTS/SECURE_ENDPOINT.md</code></li>
-                <li>Apply hardening gates: <code>CHECKLISTS/ENVIRONMENT_ASSUMPTIONS.md</code>, <code>CHECKLISTS/COMMAND_SAFETY_NOTICE.md</code>, <code>PLAYBOOKS/VERIFICATION_COMMAND_PROFILES.md</code></li>
-                <li>Enable Nerve authentication</li>
-                <li>Add custom health checks to HEARTBEAT.md</li>
-            </ol>
-        </section>
-        
-        <!-- LINKS -->
-        <section class="reveal">
-            <h2>Repository & Resources</h2>
-            <p><strong>Main Repository:</strong> <a href="https://github.com/Poid-ZA/OpenClaw" target="_blank" style="color: var(--primary);">github.com/Poid-ZA/OpenClaw</a></p>
-            <p>Latest commits include HEARTBEAT-driven health checks, APEX integrated startup, and Mission Control dashboard.</p>
-            <p style="margin-top: 15px; font-size: 0.9em; color: var(--text-muted);"><em>APEX is an AI engineering intelligence system inspired by OpenClaw's architecture and tooling patterns.</em></p>
-        </section>
-        
-        <!-- MILESTONES -->
-        <section id="milestones" class="reveal">
-            <h2>Project Journey & Milestones</h2>
-            
-            <h3>2026 Progress</h3>
-            <p><strong>Status:</strong> <code style="color: var(--primary);">PRODUCTION READY</code></p>
-            
-            <h3>January 2026 — Foundation</h3>
-            <ul>
-                <li>✅ APEX framework initialized</li>
-                <li>✅ Workspace intelligence layer established</li>
-                <li>✅ MEMORY_SYSTEM_v1 built (semantic search + SQLite)</li>
-                <li>✅ 9-step security auditor (skill-guard)</li>
-            </ul>
-            
-            <h3>February 1-2 — Platform Integration & Security P0</h3>
-            <ul>
-                <li>✅ Nerve v1.3.0 deployed (port 80)</li>
-                <li>✅ Multi-backend routing (Gemini, GitHub Copilot)</li>
-                <li>✅ Employee-Agent daemon (Hacker News)</li>
-                <li>✅ `.gitignore` + pre-commit hook</li>
-                <li>✅ Memory validator + SHA256 checksums</li>
-            </ul>
-            
-            <h3>February 3 — Multi-Channel & Security P1-P2 (Current)</h3>
-            <ul>
-                <li>✅ Telegram integration (active, 30+ news tracked)</li>
-                <li>✅ Discord integration (active)</li>
-                <li>✅ Unified message routing (APEX memory backend)</li>
-                <li>✅ Execution resource limits (timeout + output caps)</li>
-                <li>✅ Sub-agent confirmation gates</li>
-            </ul>
-            
-            <h3>February 25 — QMD Memory Upgrade</h3>
-            <ul>
-                <li>✅ QMD v1 implemented (SQLite + FTS5)</li>
-                <li>✅ FAISS runtime path removed from active memory flow</li>
-                <li>✅ Tag CRUD + entry-tag assignment endpoints/UI</li>
-                <li>✅ Relation graph + linked-context pane</li>
-                <li>✅ Bootstrap dedupe + one-shot <code>/api/qmd/dedupe</code> cleanup endpoint</li>
-                <li>✅ Quality gate + <code>/api/qmd/quality-stats</code> telemetry endpoint</li>
-                <li>✅ Workspace quality framework added (planning/review/security/test checklists)</li>
-                <li>✅ Phase 1 skill adoption executed (search-first, verification-loop, migration/deploy gates)</li>
-                <li>✅ Open-source prompt hardening adopted (DoD gate, environment assumptions, command safety notice, verification profiles)</li>
-            </ul>
-            
-            <h3>Key Metrics</h3>
-            <ul>
-                <li><strong>Security:</strong> 7 vulnerabilities → 0 (100% mitigation)</li>
-                <li><strong>Audit Coverage:</strong> 100% of security-sensitive operations</li>
-                <li><strong>QMD Index Size:</strong> 550 entries (bootstrapped, dedupe-verified)</li>
-                <li><strong>Startup Time:</strong> ~8 seconds (all 3 services)</li>
-                <li><strong>Channels:</strong> 2 active (Telegram, Discord)</li>
-                <li><strong>Services:</strong> 3 running (Gateway, Nerve, Employee-Agent)</li>
-            </ul>
-            
-            <h3>Next Phases (Planned)</h3>
-            <ul>
-                <li>📅 <strong>March 2026:</strong> P3 planning (SQLite encryption, policy limits)</li>
-                <li>📅 <strong>April-May:</strong> Extended integrations (Reddit, Twitter, Bloomberg)</li>
-                <li>📅 <strong>Q2-Q3:</strong> Infrastructure scaling (Kubernetes, multi-region)</li>
-            </ul>
-            
-            <h3>Living Document</h3>
-            <p>This website reflects the project evolution. New milestones, integrations, and optimizations are captured continuously.</p>
-            <p><strong>Full Journey:</strong> <a href="MILESTONES.md" target="_blank" style="color: var(--primary); text-decoration: underline;">MILESTONES.md</a></p>
-        </section>
-    </main>
-    
-    <!-- FOOTER -->
+      <h3>Current signal</h3>
+      <p class="warn">Quality snapshot can show temporary low rate if sample volume is low; warmup mode now suppresses false alerts until minimum sample threshold is reached.</p>
+    </section>
+
+    <section id="next">
+      <h2>Next</h2>
+      <ol>
+        <li>Automate monthly adoption-audit evidence capture.</li>
+        <li>Add regression tests for quality gate accepted/rejected edge paths.</li>
+        <li>Expand QMD quality trend panel (24h/7d + reason distribution).</li>
+        <li>Continue Phase-2 adaptation from new external resources.</li>
+      </ol>
+    </section>
+
     <footer>
-        <p><strong>APEX</strong> — AI engineering intelligence</p>
-        <p style="margin-top: 20px; font-size: 0.85em;">
-            <em>This system improves through auditable workspace artifacts.<br>
-            Every decision, pattern, and optimization is captured, versioned, and open for review.</em>
-        </p>
-        <p style="margin-top: 30px; font-size: 0.85em; color: var(--text-muted);">Inspired by OpenClaw | Built with single-file HTML + JetBrains Mono</p>
+      <div>APEX — Engineering Intelligence Operating Record</div>
+      <div id="last-mod" style="margin-top:8px"></div>
     </footer>
-    
-    <script>
-        // Smooth scroll navigation
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                const href = link.getAttribute('href');
-                if (href.startsWith('#')) {
-                    e.preventDefault();
-                    const section = document.querySelector(href);
-                    section?.scrollIntoView({ behavior: 'smooth' });
-                    
-                    // Update active link
-                    document.querySelectorAll('nav a').forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
-                }
-            });
-        });
-        
-        // Intersection Observer for reveal animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        document.querySelectorAll('.reveal').forEach(el => {
-            observer.observe(el);
-        });
-        
-        // Update active nav link on scroll
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section[id]');
-            const scrollPos = window.scrollY + 100;
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-                
-                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                    document.querySelectorAll('nav a').forEach(link => {
-                        link.classList.remove('active');
-                    });
-                    const activeLink = document.querySelector(`nav a[href="#${section.id}"]`);
-                    if (activeLink) activeLink.classList.add('active');
-                }
-            });
-        });
-        
-        // Last Modified Indicator
-        document.addEventListener('DOMContentLoaded', () => {
-            const lastModified = document.lastModified;
-            const modDate = new Date(lastModified);
-            const formattedDate = modDate.toLocaleString('en-ZA', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                timeZone: 'Africa/Johannesburg'
-            });
-            
-            const footer = document.querySelector('footer');
-            const lastModDiv = document.createElement('div');
-            lastModDiv.style.cssText = 'margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.85em; color: var(--text-muted);';
-            lastModDiv.innerHTML = `<span style="color: var(--primary);">⟳</span> Last Modified: <code style="color: var(--primary);">${formattedDate}</code> (SAST)`;
-            footer.appendChild(lastModDiv);
-        });
-    </script>
+  </main>
+
+  <script>
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelectorAll('nav a').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('section[id]');
+      const y = window.scrollY + 120;
+      sections.forEach(section => {
+        if (y >= section.offsetTop && y < section.offsetTop + section.offsetHeight) {
+          document.querySelectorAll('nav a').forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`nav a[href="#${section.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    });
+
+    const mod = new Date(document.lastModified);
+    document.getElementById('last-mod').textContent = `Last Modified: ${mod.toLocaleString('en-ZA', { timeZone: 'Africa/Johannesburg' })} (SAST)`;
+  </script>
 </body>
 </html>
