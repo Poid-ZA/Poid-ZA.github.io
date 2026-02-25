@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>APEX — Engineering Progress</title>
+  <title>APEX - Engineering Progress</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -177,6 +177,20 @@
       color: var(--text-muted);
       font-size: .85rem;
     }
+    .last-mod {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .last-mod code {
+      color: var(--primary);
+      background: rgba(0, 217, 255, 0.08);
+      border: 1px solid rgba(0, 217, 255, 0.25);
+      border-radius: 6px;
+      padding: 2px 6px;
+    }
   </style>
 </head>
 <body>
@@ -272,7 +286,7 @@ GET  /api/qmd/quality-stats?hours=24&threshold=0.4&minSamples=10</pre>
     </section>
 
     <section id="audit">
-      <h2>Adoption Audit — Phase 1</h2>
+      <h2>Adoption Audit - Phase 1</h2>
       <p>Audit executed and recorded in <code>PLAYBOOKS/ADOPTION_AUDIT_PHASE1_2026-02-25.md</code>.</p>
       <div class="grid">
         <div class="card">
@@ -329,8 +343,8 @@ GET  /api/qmd/quality-stats?hours=24&threshold=0.4&minSamples=10</pre>
     </section>
 
     <footer>
-      <div>APEX — Engineering Intelligence Operating Record</div>
-      <div id="last-mod" style="margin-top:8px"></div>
+      <div>APEX - Engineering Intelligence Operating Record</div>
+      <div id="last-mod" class="last-mod"></div>
     </footer>
   </main>
 
@@ -355,7 +369,16 @@ GET  /api/qmd/quality-stats?hours=24&threshold=0.4&minSamples=10</pre>
     });
 
     const mod = new Date(document.lastModified);
-    document.getElementById('last-mod').textContent = `Last Modified: ${mod.toLocaleString('en-ZA', { timeZone: 'Africa/Johannesburg' })} (SAST)`;
+    const formatted = mod.toLocaleString('en-ZA', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      timeZone: 'Africa/Johannesburg'
+    });
+    document.getElementById('last-mod').innerHTML = `<span style="color: var(--primary);">⟳</span> Last Modified: <code>${formatted}</code> (SAST)`;
   </script>
 </body>
 </html>
