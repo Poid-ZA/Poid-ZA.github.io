@@ -191,25 +191,37 @@ Feb 4      ← Secret Management & Website Launch
 - Nerve: ⏳ ALERT (port 80 was down, user aware)
 - System checks: Operational
 
-### Next Phases (Planned)
+### Next Phases (Updated 2026-02-25)
 
-#### March 2026 (P3 Planning)
-- [ ] SQLite encryption at rest (`sqlcipher`)
-- [ ] Policy-based resource allocation
-- [ ] Advanced threat modeling
-- [ ] Quarterly token rotation
+#### Immediate (Feb 26 - Mar 10)
+- [ ] ✅ Security incident monitoring (24-hour window: Feb 25 → Feb 26 07:11)
+- [ ] Deploy pre-commit hooks locally (optional, recommended)
+- [ ] GitHub support request for cache purge (optional, if old diffs detected)
+- [ ] Enable GitHub secret scanning in both repos
+- [ ] Deploy `detect-secrets` as additional layer (optional)
 
-#### April-May 2026 (Optional Extensions)
-- [ ] Reddit feed integration
-- [ ] Twitter/X feed integration
-- [ ] Bloomberg API integration
-- [ ] Custom health check dashboard
+#### March 2026 (P3 Planning) — Security + Performance Focus
+- [ ] **SQLite encryption at rest** (`sqlcipher`) — P3 priority
+- [ ] **IVF index upgrade** (when FAISS vectors > 100K)
+- [ ] **Policy-based resource allocation** (memory limits per channel)
+- [ ] **Quarterly token rotation** (next: 2026-05-25)
+- [ ] **Advanced threat modeling** (quarterly security review)
+- [ ] **Nerve performance optimization** (current: 80.5% context utilization)
 
-#### Q2-Q3 2026 (Infrastructure)
-- [ ] Kubernetes deployment option
-- [ ] Multi-region failover
-- [ ] Observability stack (Prometheus + Grafana)
-- [ ] Cost attribution per channel
+#### April-May 2026 (Feed Integration & Observability)
+- [ ] Reddit feed integration (similar to Hacker News)
+- [ ] Twitter/X feed integration (news aggregation)
+- [ ] Service logs viewer in dashboard (operational visibility)
+- [ ] Performance metrics dashboard (latency, throughput, errors)
+- [ ] Custom health check dashboard (service status visual)
+
+#### Q2-Q3 2026 (Infrastructure & Scaling)
+- [ ] **IVF index upgrade** (vector database scaling, if > 100K)
+- [ ] **Kubernetes deployment option** (optional, if multi-node needed)
+- [ ] **Multi-region failover** (geographic redundancy)
+- [ ] **Observability stack** (Prometheus + Grafana, optional)
+- [ ] **Cost attribution per channel** (resource tracking)
+- [ ] **Automated monthly reviews** (scheduled 2026-03-24 onwards)
 
 ---
 
