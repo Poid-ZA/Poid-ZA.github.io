@@ -698,6 +698,7 @@ gateway stop</pre>
                     <li>Relation linking + linked-context pane</li>
                     <li>Safe bootstrap + dedupe endpoint</li>
                     <li>Quality gate + quality telemetry endpoint</li>
+                    <li>One-click maintenance run (dedupe + quality snapshot)</li>
                 </ul>
                 <p><strong>Access:</strong> http://localhost or http://127.0.0.1</p>
             </div>
@@ -772,6 +773,9 @@ GET /api/qmd/context/:entryId
 
 # One-shot cleanup
 POST /api/qmd/dedupe
+
+# Weekly maintenance run (dedupe + quality snapshot)
+POST /api/qmd/maintenance-run?threshold=0.4
 
 # Quality telemetry
 GET /api/qmd/quality-stats?hours=24</pre>
