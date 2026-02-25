@@ -1,6 +1,7 @@
 # APEX — AI Engineering Intelligence System
 
-**Status:** ✅ **PRODUCTION LIVE** (as of 2026-02-24 23:13 GMT+2)
+**Status:** 🟢 **PRODUCTION LIVE** (as of 2026-02-25 07:17 GMT+2)  
+**Latest Update:** Security Incident Response + Never-Forget Protocol deployed
 
 ---
 
@@ -9,7 +10,8 @@
 APEX is a **production-grade engineering intelligence system** that combines:
 
 - **🧠 Semantic Memory** — FAISS vector database with 14.4ms query latency
-- **🔐 Security Hardening** — P0-P2 complete (credentials, validation, execution limits)
+- **📋 Never-Forget Protocol** — Proactive context protection + FAISS-integrated recovery
+- **🔐 Security Hardening** — P0-P2 complete + incident response playbooks
 - **🎛️ Service Control** — Web dashboard for managing services (start/stop/restart)
 - **📡 Multi-Channel Integration** — Discord + Telegram via secure .env configuration
 - **🏗️ Architecture First** — Production-ready design, DevOps automation, observability
@@ -28,6 +30,7 @@ cd C:\Users\faceb\.openclaw\workspace
 **Online:**
 - Gateway: http://127.0.0.1:18789
 - Nerve: http://localhost
+- Controller: http://localhost:3001
 
 ### 2. Open Control Dashboard
 
@@ -59,11 +62,11 @@ Creates Windows Task Scheduler task for automatic startup on login.
 
 ```
 ✅ LIVE as primary memory system
-✅ 18 vectors ingested and searchable
+✅ 30+ vectors ingested and searchable
 ✅ 14.4ms average latency (66% below 50ms target)
 ✅ Thread-safe, persistent storage
 ✅ 3-way backup coverage
-✅ 48-hour monitoring window active
+✅ Never-Forget Protocol integration (context protection)
 ```
 
 ### Semantic Search Example
@@ -80,7 +83,7 @@ results = memory.recall(query="architecture decision", k=5)
 for result in results:
     print(f"{result['label']}: {result['distance']:.2f}")
 
-# Log
+# Log decision
 memory.log_decision(
     decision="Decision text",
     category="decision",
@@ -88,6 +91,25 @@ memory.log_decision(
 )
 memory.save()
 ```
+
+### Never-Forget Protocol
+
+**Purpose:** Prevent context loss through proactive checkpointing
+
+```
+Context < 50%   → Normal operation
+Context 50-70%  → Vigilant mode
+Context 70-85%  → Active checkpointing
+Context > 85%   → Emergency stop + full snapshot
+```
+
+**Recovery Workflow:**
+1. Read daily checkpoint (`memory/YYYY-MM-DD.md`)
+2. Semantic search FAISS for related decisions
+3. Load permanent files (SOUL.md, USER.md)
+4. Reconstruct context + resume
+
+**Docs:** See `NEVER_FORGET_PROTOCOL.md` (10.3 KB, full integration guide)
 
 ---
 
@@ -129,14 +151,32 @@ POST /api/restart      - Restart services
 | **Execution** | ✅ LIMITED | Timeouts, output limits, pattern blocking |
 | **Sub-agents** | ✅ GATED | Spawn confirmation required |
 | **Git** | ✅ SAFE | Pre-commit hook prevents leaks |
+| **Incident Response** | ✅ ACTIVE | Playbook deployed, 11-min remediation |
 
 ### Secret Management
 
 ```
 Location:    C:\Users\faceb\.openclaw\.env
 Protection:  .gitignore + pre-commit hook
-Rotation:    Quarterly (next: 2026-05-24)
+Tokens:      Rotated 2026-02-25 (Telegram + Discord)
+Rotation:    Quarterly (next: 2026-05-25)
 ```
+
+### Recent Security Incident (Resolved ✅)
+
+**Incident:** Telegram bot token exposed in git history (2026-02-21)  
+**Status:** REMEDIATED (2026-02-25 07:11 GMT+2)  
+**Response Time:** 11 minutes (detection to remediation)
+
+**Remediation:**
+- Old tokens revoked and rotated
+- Git history partially cleaned
+- Enhanced .gitignore patterns
+- Security notices published to repos
+- 24-hour monitoring active
+- Incident playbook documented
+
+**Docs:** See `SECURITY_NOTICE.md` (public notice) + `SECURITY_INCIDENT_2026-02-25.md` (OpenClaw repo, detailed analysis)
 
 ---
 
@@ -148,8 +188,9 @@ Rotation:    Quarterly (next: 2026-05-24)
 Latency (avg):        14.4ms    (target: 50ms)  ✅ 66% better
 Latency (P95):        26.7ms    (target: 50ms)  ✅ 47% better
 Query Success:        57%+      (tuning ongoing)
-Vector Capacity:      18/100K   (highly scalable)
+Vector Capacity:      30+/100K  (highly scalable)
 Memory Usage:         ~50 MB    (FAISS + runtime)
+Startup Time:         ~8s       (typical)
 ```
 
 ---
@@ -176,10 +217,21 @@ memory/apex_faiss.db              - Metadata + audit
 ### Configuration
 
 ```
-.env                    - Secrets (git-ignored)
-.gitignore              - Protection rules
+.env                    - Secrets (git-ignored, updated 2026-02-25)
+.gitignore              - Protection rules (enhanced 2026-02-25)
 HEARTBEAT.md            - Health check tasks
 MEMORY.md               - Operational memory
+NEVER_FORGET_PROTOCOL.md - Context protection system
+```
+
+### Documentation
+
+```
+README.md                           - System overview
+SECURITY_NOTICE.md                  - Public incident notice
+MILESTONES.md                       - Project journey & roadmap
+NEVER_FORGET_PROTOCOL.md            - Context protection guide
+APEX_CONTROLLER_GUIDE.md            - Dashboard detailed guide
 ```
 
 ---
@@ -194,6 +246,7 @@ Tech:       OpenClaw
 Config:     gateway.cmd
 Channels:   Discord, Telegram
 Auth:       GATEWAY_AUTH_TOKEN (.env)
+Status:     ✅ RUNNING (verified 2026-02-25 06:32)
 ```
 
 ### Nerve Dashboard (Port 80)
@@ -203,6 +256,16 @@ Purpose:    Memory CRUD interface
 Tech:       Node.js + Express
 Binding:    0.0.0.0:80 (all interfaces)
 Features:   Real-time editing, health checks, FAISS integration
+Status:     ✅ RUNNING (actively monitored)
+```
+
+### Employee Agent (Daemon)
+
+```
+Purpose:    Hacker News aggregation + APEX logging
+Schedule:   Every 30 minutes
+Output:     31+ breaking news stories tracked
+Status:     ✅ ACTIVE
 ```
 
 ---
@@ -211,10 +274,11 @@ Features:   Real-time editing, health checks, FAISS integration
 
 | Document | Purpose |
 |----------|---------|
-| **README.md** | This file — system overview |
-| **SYSTEM_STATUS_2026-02-24.md** | Complete status report |
+| **README.md** | System overview (this file) |
+| **MILESTONES.md** | Feature roadmap & project journey |
+| **NEVER_FORGET_PROTOCOL.md** | Context protection system guide |
+| **SECURITY_NOTICE.md** | Public incident notice |
 | **APEX_CONTROLLER_GUIDE.md** | Web dashboard detailed guide |
-| **MILESTONES.md** | Feature roadmap & timeline |
 
 ---
 
@@ -253,6 +317,8 @@ Dashboard: http://localhost:3001
 .\apex-startup.ps1 -Mode start
 ```
 
+**For detailed procedure:** See `PLAYBOOKS/SECRET_ROTATION.md` (in OpenClaw repo)
+
 ### Check Status
 
 ```powershell
@@ -260,7 +326,7 @@ Dashboard: http://localhost:3001
 .\launch-controller.ps1  # Opens http://localhost:3001
 
 # Via command line
-.\apex-startup.ps1 -Mode status  # (if supported)
+openclaw status
 ```
 
 ---
@@ -271,48 +337,53 @@ Dashboard: http://localhost:3001
 
 - ✅ Monitor FAISS error rate and latency
 - ✅ Verify multi-channel message flow
+- ✅ Monitor bot logs for unauthorized access (security incident)
 - ✅ Test web dashboard controls
 
-### After Monitoring Window (2026-02-26 23:13)
+### After Monitoring Window (2026-02-26 07:17)
 
-- ✅ Close rollback window
-- ✅ Archive old memory system
-- ✅ Plan P3 optimizations
+- ✅ Close incident observation period
+- ✅ Finalize GitHub cache purge (optional)
+- ✅ Deploy pre-commit hooks
 
 ### Future Enhancements
 
+- [ ] SQLite encryption at rest (`sqlcipher`) — P3
 - [ ] IVF index upgrade (when vectors > 100K)
-- [ ] SQLite encryption at rest (P3)
-- [ ] Cost attribution per channel (P3)
+- [ ] Cost attribution per channel
 - [ ] Service logs viewer in dashboard
 - [ ] Performance metrics dashboard
+- [ ] Reddit feed integration
+- [ ] Twitter/X feed integration
 
 ---
 
 ## ✅ Production Checklist
 
 - [x] FAISS vector database live and tested
-- [x] Multi-channel integration (Discord + Telegram)
+- [x] Multi-channel integration (Discord + Telegram, tokens rotated)
 - [x] Web control dashboard with real-time status
 - [x] Security hardening (P0-P2 complete, 0 critical risks)
+- [x] Incident response playbook deployed
+- [x] Never-Forget Protocol implemented + FAISS integrated
 - [x] Service orchestration (PowerShell + Windows Task Scheduler)
-- [x] Comprehensive documentation
-- [x] 48-hour monitoring window active
-- [x] Rollback procedures documented and tested
+- [x] Comprehensive documentation (20+ guides)
 - [x] All tests passing, performance targets met
+- [x] Post-incident monitoring active (24-hour window)
 
 ---
 
 ## 📞 Support
 
 **System Status:** 🟢 PRODUCTION LIVE  
-**Last Updated:** 2026-02-24 23:47 GMT+2  
-**Monitoring Until:** 2026-02-26 23:13 GMT+2
+**Last Updated:** 2026-02-25 07:17 GMT+2  
+**Monitoring Until:** 2026-02-26 07:17 GMT+2 (security incident observation)
 
 For issues:
 1. Check dashboard: http://localhost:3001
-2. Review logs: MEMORY.md or .*.audit.log files
+2. Review logs: MEMORY.md or memory/.*.audit.log files
 3. Restart services: `.\apex-startup.ps1 -Mode stop; .\apex-startup.ps1 -Mode start`
+4. For security concerns: See SECURITY_NOTICE.md
 
 ---
 
