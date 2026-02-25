@@ -280,6 +280,15 @@
             <li class="ok">Unblocked <code>wacli</code> eligibility on Windows via compatibility shim</li>
           </ul>
         </div>
+        <div class="item">
+          <h3>Agent + Operations Upgrade</h3>
+          <ul>
+            <li class="ok">Created persistent coding agent <code>CODEE (c0d33)</code> on <code>gpt-5.3-codex</code></li>
+            <li class="ok">Evening brief + daily surprise workflows scheduled for Discord delivery</li>
+            <li class="ok">Added backup/restore automation scripts and retention pruning</li>
+            <li class="ok">Added Windows→macOS migration guide for full APEX transfer</li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -345,15 +354,16 @@ GET  /api/qmd/quality-stats?hours=24&threshold=0.4&minSamples=10</pre>
 
       <h3>Current signal</h3>
       <p class="warn">Quality snapshot can show temporary low rate if sample volume is low; warmup mode now suppresses false alerts until minimum sample threshold is reached.</p>
+      <p class="muted">Local offload readiness is now scripted (`offload-healthcheck.ps1`): core components are validated, while paired-node offload remains optional until nodes are configured.</p>
     </section>
 
     <section id="next">
       <h2>Next</h2>
       <ol>
-        <li>Automate monthly adoption-audit evidence capture.</li>
+        <li>Configure paired nodes to unlock heavy-task offload capacity.</li>
         <li>Add regression tests for quality gate accepted/rejected edge paths.</li>
         <li>Expand QMD quality trend panel (24h/7d + reason distribution).</li>
-        <li>Continue Phase-2 adaptation from new external resources.</li>
+        <li>Run first full restore drill to second machine baseline.</li>
       </ol>
     </section>
 
