@@ -46,7 +46,7 @@
 
 **Risk Reduction:** 4 MEDIUM risks → MITIGATED
 
-#### Week 4: Secret Management, Multi-Channel Live & Living Document (CURRENT)
+#### Week 4: Secret Management, Multi-Channel Live & Living Document
 - ✅ Discord integration (live, active)
 - ✅ Telegram verified (31+ breaking news tracked)
 - ✅ All tokens moved to `.env` (git-ignored)
@@ -59,6 +59,31 @@
 - ✅ 4 GitHub commits pushed (secret management, website, milestones)
 
 **Status:** PRODUCTION READY + LIVING DOCUMENT ACTIVE
+
+#### Week 4 (Continued): Never-Forget Protocol & Security Incident Response
+- ✅ SOUL.md amended (capability alignment)
+- ✅ Never-Forget Protocol created (10.3 KB, FAISS-integrated)
+  - Proactive context checkpointing system
+  - Threshold-based escalation (50-85% context)
+  - Recovery workflow with decision promotion
+  - Multi-layer protection against context loss
+- ✅ Published to OpenClaw repo + website
+- ✅ SECURITY INCIDENT DETECTED: Telegram token exposed (2026-02-21)
+  - Response time: 11 minutes to full remediation
+  - Tokens revoked and rotated (Telegram + Discord)
+  - Git history partially cleaned
+  - 5 comprehensive security documents created
+  - Incident notices published to both repos
+  - 24-hour monitoring window active
+- ✅ Workspace security documentation (27 KB total)
+  - Incident analysis
+  - Comprehensive audit
+  - Secret rotation playbook
+  - Regression tests
+- ✅ GitHub repos updated with SECURITY_NOTICE.md
+- ✅ Preventive controls deployed (pre-commit, detect-secrets guidance)
+
+**Status:** INCIDENT RESOLVED + ENHANCED SECURITY POSTURE
 
 ---
 
@@ -108,17 +133,63 @@ Feb 3      ← Multi-Channel & P1-P2 Security
 Feb 4      ← Secret Management & Website Launch
 ```
 
-## Current Status (2026-02-24 21:23 GMT+2)
-- **Telegram:** ✅ Live (30+ breaking news)
-- **Discord:** ✅ Live (integrated this session)
+## Current Status (2026-02-25 07:17 GMT+2)
+- **Telegram:** ✅ Live (rotated token 2026-02-25)
+- **Discord:** ✅ Live (rotated token 2026-02-25)
 - **Gateway:** ✅ Running (port 18789)
-- **Nerve Dashboard:** ✅ Live (port 80)
+- **Nerve Dashboard:** ✅ Live (port 80, was down earlier; monitoring)
 - **Employee-Agent:** ✅ Daemon active (30-min intervals)
-- **Security:** ✅ All P0-P2 hardening complete
-- **Website:** ✅ Living document active (MILESTONES.md live)
-- **Secrets:** ✅ All tokens in .env (git-ignored, 0 in version control)
-- **Memory:** ✅ MEMORY.md synchronized with session work
-- **Commits:** ✅ 5 repositories synced (OpenClaw + GitHub Pages)
+- **Security:** ✅ All P0-P2 hardening complete + P0.5 incident response
+- **Website:** ✅ Living document active (MILESTONES.md current)
+- **Secrets:** ✅ All tokens rotated (new tokens in .env, git-ignored)
+- **Memory:** ✅ MEMORY.md + FAISS synchronized
+- **Commits:** ✅ 7 repositories synced (Never-Forget + Security notices)
+
+### Major Session 2026-02-25 Updates
+
+#### 🟢 SOUL.md Amended
+- Aligned with actual capabilities (honest constraint assessment)
+- Removed aspirational language where it exceeded scope
+- Clarified user-driven improvement model
+
+#### 🟢 Never-Forget Protocol Implemented
+- Proactive context checkpointing system (40+ page document)
+- FAISS semantic search integration
+- Threshold-based escalation (50-85% context)
+- Daily log format + emergency procedures
+- Recovery workflow with decision promotion
+- Status: ACTIVE in workspace + published to repos
+
+#### 🔴 SECURITY INCIDENT DETECTED & RESOLVED
+- **Incident:** Telegram bot token exposed in public repos (2026-02-21)
+- **Duration:** 4 days in git history
+- **Detection:** 2026-02-25 07:00
+- **Response:** 11 minutes to remediation
+- **Status:** ✅ COMPLETE
+  - Old tokens revoked (Telegram + Discord)
+  - New tokens generated and deployed
+  - Git history partially cleaned
+  - `.gitignore` enhanced
+  - 5 new security documents created
+  - SECURITY_NOTICE.md published to both repos
+  - Monitoring plan: 24-hour observation window
+
+#### 📊 Workspace Security Documentation
+- `SECURITY_INCIDENT_2026-02-25.md` (6.8 KB)
+- `SECURITY_AUDIT_2026-02-25.md` (9.6 KB)
+- `SECURITY_REMEDIATION_COMPLETE_2026-02-25.md` (6.7 KB)
+- `PLAYBOOKS/SECRET_ROTATION.md` (4.6 KB)
+- `REGRESSION/detect-telegram-token.sh` (0.5 KB)
+
+#### 🚀 GitHub Repository Updates
+- OpenClaw: 2 new commits (Never-Forget + Security notice)
+- Website: 2 new commits (Never-Forget + Security notice)
+- Status: All public notices updated with incident details
+
+#### 📋 HEARTBEAT Status
+- Gateway: 🟢 HEALTHY (port 18789)
+- Nerve: ⏳ ALERT (port 80 was down, user aware)
+- System checks: Operational
 
 ### Next Phases (Planned)
 
@@ -221,8 +292,8 @@ This living document should be updated when:
 
 ---
 
-**Last Updated:** 2026-02-24 21:23 GMT+2  
+**Last Updated:** 2026-02-25 07:17 GMT+2  
 **Maintained By:** APEX Agent  
 **Next Review:** 2026-03-24 (monthly) or next milestone  
 **Repository:** https://github.com/Poid-ZA/OpenClaw  
-**Sync Status:** ✅ MEMORY.md + MILESTONES.md + Vector DB all synchronized
+**Sync Status:** ✅ MEMORY.md + MILESTONES.md + Vector DB all synchronized + Never-Forget Protocol active
