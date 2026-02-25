@@ -697,6 +697,7 @@ gateway stop</pre>
                     <li>Tag CRUD and entry-tag assignment</li>
                     <li>Relation linking + linked-context pane</li>
                     <li>Safe bootstrap + dedupe endpoint</li>
+                    <li>Quality gate + quality telemetry endpoint</li>
                 </ul>
                 <p><strong>Access:</strong> http://localhost or http://127.0.0.1</p>
             </div>
@@ -770,7 +771,10 @@ POST /api/qmd/relate
 GET /api/qmd/context/:entryId
 
 # One-shot cleanup
-POST /api/qmd/dedupe</pre>
+POST /api/qmd/dedupe
+
+# Quality telemetry
+GET /api/qmd/quality-stats?hours=24</pre>
             
             <h3>Categories</h3>
             <ul>
@@ -863,6 +867,7 @@ python employee-agent.py daemon 30</pre>
                 <li>Test auto-start: <code>apex-startup.ps1 -Mode setup-autostart</code></li>
                 <li>Verify QMD endpoints: <code>/api/qmd/health</code>, <code>/api/qmd/search</code>, <code>/api/qmd/context/:id</code></li>
                 <li>Run one-shot cleanup: <code>POST /api/qmd/dedupe</code> after major imports</li>
+                <li>Monitor quality gate telemetry: <code>GET /api/qmd/quality-stats?hours=24</code></li>
                 <li>Enable Nerve authentication</li>
                 <li>Add custom health checks to HEARTBEAT.md</li>
             </ol>
@@ -916,6 +921,7 @@ python employee-agent.py daemon 30</pre>
                 <li>✅ Tag CRUD + entry-tag assignment endpoints/UI</li>
                 <li>✅ Relation graph + linked-context pane</li>
                 <li>✅ Bootstrap dedupe + one-shot <code>/api/qmd/dedupe</code> cleanup endpoint</li>
+                <li>✅ Quality gate + <code>/api/qmd/quality-stats</code> telemetry endpoint</li>
             </ul>
             
             <h3>Key Metrics</h3>
