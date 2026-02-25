@@ -690,13 +690,13 @@ gateway stop</pre>
                 <span class="badge badge-complete">✓ Production</span>
                 <h3>Nerve Dashboard</h3>
                 <p><strong>Port:</strong> 80 (0.0.0.0)</p>
-                <p>Real-time memory dashboard with APEX semantic search UI and decision logging.</p>
+                <p>Real-time memory dashboard with QMD v1 indexed retrieval, tags, and linked-context graph.</p>
                 <p><strong>Features:</strong></p>
                 <ul>
-                    <li>Live memory search (31+ indexed items)</li>
-                    <li>Category filtering (breaking_news, health_check, decision)</li>
-                    <li>Create/edit/delete memories</li>
-                    <li>APEX semantic retrieval backend</li>
+                    <li>Live QMD search (550 indexed entries)</li>
+                    <li>Tag CRUD and entry-tag assignment</li>
+                    <li>Relation linking + linked-context pane</li>
+                    <li>Safe bootstrap + dedupe endpoint</li>
                 </ul>
                 <p><strong>Access:</strong> http://localhost or http://127.0.0.1</p>
             </div>
@@ -721,59 +721,63 @@ python employee-agent.py daemon 30  # Daemon mode</pre>
         
         <!-- MEMORY SYSTEM -->
         <section id="memory" class="reveal">
-            <h2>APEX Memory System</h2>
+            <h2>APEX Memory System (QMD v1)</h2>
             
             <h3>Architecture</h3>
-            <p><strong>Dual-storage model:</strong> MEMORY.md is authoritative; SQLite is indexed replica for fast queries.</p>
+            <p><strong>QMD v1 model:</strong> MEMORY.md stays human-readable source-of-truth while QMD SQLite powers indexed retrieval and graph links.</p>
             
             <div class="highlight">
-                <strong>Why dual storage?</strong><br>
-                MEMORY.md is git-safe, human-readable, version-controlled. SQLite provides O(1) semantic search without API calls.
+                <strong>Current memory stack:</strong><br>
+                QMD v1 replaces FAISS/APEX semantic backend in active runtime paths. Indexed search, timeline, tags, and relations are served from <code>memory/qmd/qmd.db</code>.
             </div>
             
             <h3>Specifications</h3>
             <div class="grid">
                 <div class="card">
-                    <h4>Embeddings</h4>
-                    <p>all-MiniLM-L6-v2 (384-dim, local, no API key)</p>
-                </div>
-                <div class="card">
-                    <h4>Performance</h4>
-                    <p>40–50ms per query (cached embeddings)</p>
-                </div>
-                <div class="card">
                     <h4>Storage</h4>
-                    <p>SQLite with embedding BLOB storage</p>
+                    <p>SQLite (<code>memory/qmd/qmd.db</code>)</p>
                 </div>
                 <div class="card">
                     <h4>Retrieval</h4>
-                    <p>Vector similarity + decay scoring</p>
+                    <p>FTS5 text search + timeline filters</p>
+                </div>
+                <div class="card">
+                    <h4>Knowledge Graph</h4>
+                    <p>Entry relations + linked-context pane</p>
+                </div>
+                <div class="card">
+                    <h4>Tagging</h4>
+                    <p>Tag CRUD + entry-tag assignment</p>
                 </div>
             </div>
             
             <h3>API Usage</h3>
-            <pre>from apex_memory import APEXMemory
+            <pre># Bootstrap daily + MEMORY.md into QMD (dedupe-safe)
+POST /api/qmd/bootstrap
 
-with APEXMemory() as m:
-    # Semantic search
-    results = m.recall("breaking news", max_results=5)
-    
-    # Log decision
-    m.log_decision(
-        title="Architecture Decision",
-        details="Chose X over Y because...",
-        category="decision"
-    )
-    
-    # Get session snapshot
-    context = m.session_context()</pre>
+# Search
+GET /api/qmd/search?q=security&limit=5
+
+# Timeline
+GET /api/qmd/timeline?from=2026-02-01&to=2026-02-25
+
+# Tags
+POST /api/qmd/tags
+POST /api/qmd/entry-tags
+
+# Relations + linked context
+POST /api/qmd/relate
+GET /api/qmd/context/:entryId
+
+# One-shot cleanup
+POST /api/qmd/dedupe</pre>
             
             <h3>Categories</h3>
             <ul>
                 <li><code>decision</code> — Architecture/engineering decisions</li>
+                <li><code>daily</code> — Imported daily memory items</li>
+                <li><code>other</code> — General captured knowledge</li>
                 <li><code>breaking_news</code> — News feed items</li>
-                <li><code>health_check</code> — System health probes</li>
-                <li><code>task</code> — Work items & progress</li>
             </ul>
         </section>
         
@@ -823,7 +827,7 @@ python employee-agent.py daemon 30</pre>
                 <tr>
                     <td>Memory System</td>
                     <td><span class="badge badge-complete">✓</span></td>
-                    <td>Semantic search, decision logging</td>
+                    <td>QMD v1 search, tags, relations, dedupe-safe bootstrap</td>
                 </tr>
                 <tr>
                     <td>Nerve Dashboard</td>
@@ -857,8 +861,8 @@ python employee-agent.py daemon 30</pre>
             <h3>Next Steps</h3>
             <ol>
                 <li>Test auto-start: <code>apex-startup.ps1 -Mode setup-autostart</code></li>
-                <li>Verify Nerve at http://localhost (should show 31+ memories)</li>
-                <li>Extend news sources (Reddit, Twitter, Bloomberg)</li>
+                <li>Verify QMD endpoints: <code>/api/qmd/health</code>, <code>/api/qmd/search</code>, <code>/api/qmd/context/:id</code></li>
+                <li>Run one-shot cleanup: <code>POST /api/qmd/dedupe</code> after major imports</li>
                 <li>Enable Nerve authentication</li>
                 <li>Add custom health checks to HEARTBEAT.md</li>
             </ol>
@@ -905,20 +909,20 @@ python employee-agent.py daemon 30</pre>
                 <li>✅ Sub-agent confirmation gates</li>
             </ul>
             
-            <h3>February 4 — Secret Management & Website Launch</h3>
+            <h3>February 25 — QMD Memory Upgrade</h3>
             <ul>
-                <li>✅ All tokens moved to `.env` (git-ignored)</li>
-                <li>✅ Environment variable references in config</li>
-                <li>✅ Website updated (living document)</li>
-                <li>✅ 9 security guides published (70+ KB)</li>
-                <li>✅ Last Modified indicator added</li>
+                <li>✅ QMD v1 implemented (SQLite + FTS5)</li>
+                <li>✅ FAISS runtime path removed from active memory flow</li>
+                <li>✅ Tag CRUD + entry-tag assignment endpoints/UI</li>
+                <li>✅ Relation graph + linked-context pane</li>
+                <li>✅ Bootstrap dedupe + one-shot <code>/api/qmd/dedupe</code> cleanup endpoint</li>
             </ul>
             
             <h3>Key Metrics</h3>
             <ul>
                 <li><strong>Security:</strong> 7 vulnerabilities → 0 (100% mitigation)</li>
                 <li><strong>Audit Coverage:</strong> 100% of security-sensitive operations</li>
-                <li><strong>Query Latency:</strong> 40-50 ms (semantic search)</li>
+                <li><strong>QMD Index Size:</strong> 550 entries (bootstrapped, dedupe-verified)</li>
                 <li><strong>Startup Time:</strong> ~8 seconds (all 3 services)</li>
                 <li><strong>Channels:</strong> 2 active (Telegram, Discord)</li>
                 <li><strong>Services:</strong> 3 running (Gateway, Nerve, Employee-Agent)</li>
