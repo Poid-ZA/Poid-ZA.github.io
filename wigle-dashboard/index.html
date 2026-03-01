@@ -1,0 +1,76 @@
+var secClass = x.security.toLowerCase().indexOf('wpa') !== -1 ? 'sb-wpa' : x.security.toLowerCase().indexOf('wep') !== -1 ? 'sb-wep' : 'sb-open';
+        return '<div class="ni" onclick="focusMap(' + x.lat + ',' + x.lon + ')"><div class="nn">' + x.ssid + '</div><div class="nm"><span class="sb ' + secClass + '">' + x.security + '</span> ' + x.signal + ' dBm</div></div>';
+    }).join('');
+}
+
+function focusMap(lat, lon) { map.setView([lat, lon], 16); }
+
+function centerMap() {
+    if (filteredNetworks.length > 0) {
+        var bounds = L.latLngBounds(filteredNetworks.map(function(x) { return [x.lat, x.lon]; }));
+        map.fitBounds(bounds);
+    } else {
+        map.setView([37.7749, -122.4194], 10);
+    }
+}
+
+function applyFilters() {
+    var sf = document.getElementById('filter-security').value;
+    var sif = document.getElementById('filter-signal').value;
+    var ssf = document.getElementById('filter-ssid').value.toLowerCase();
+    
+    filteredNetworks = allNetworks.filter(function(x) {
+        if (sf !== 'all') {
+            if (sf === 'WPA' && x.security.toLowerCase().indexOf('wpa') === -1) return false;
+            if (sf === 'WEP' && x.security.toLowerCase().indexOf('wep') === -1) return false;
+            if (sf === 'Open' && x.security.toLowerCase().indexOf('open') === -1 && x.security !== 'None') return false;
+        }
+        if (sif !== 'all') {
+            if (sif === 'strong' && x.signal <= -70) return false;
+            if (sif === 'medium' && (x.signal > -50 || x.signal <= -80)) return false;
+            if (sif === 'weak' && x.signal > -80) return false;
+        }
+        if (ssf && x.ssid.toLowerCase().indexOf(ssf) === -1) return false;
+        return true;
+    });
+    
+    updateStats();
+    renderMap();
+    renderNetworkList();
+    showToast('Showing ' + filteredNetworks.length + ' networks', 'su');
+}
+
+function clearFilters() {
+    document.getElementById('filter-security').value = 'all';
+    document.getElementById('filter-signal').value = 'all';
+    document.getElementById('filter-ssid').value = '';
+    filteredNetworks = allNetworks.slice();
+    updateStats();
+    renderMap();
+    renderNetworkList();
+    showToast('Filters cleared', 'su');
+}
+
+function loadSampleData() {
+    allNetworks = [
+        { ssid: 'FreeWiFi', bssid: 'AA:BB:CC:DD:EE:01', lat: 37.7749, lon: -122.4194, signal: -30, channel: 6, security: 'Open' },
+        { ssid: 'HomeNetwork', bssid: 'AA:BB:CC:DD:EE:02', lat: 37.7751, lon: -122.4180, signal: -45, channel: 11, security: 'WPA2' },
+        { ssid: 'OfficeNet', bssid: 'AA:BB:CC:DD:EE:03', lat: 37.7755, lon: -122.4170, signal: -55, channel: 1, security: 'WPA2' },
+        { ssid: 'CoffeeShop', bssid: 'AA:BB:CC:DD:EE:04', lat: 37.7760, lon: -122.4160, signal: -40, channel: 6, security: 'Open' },
+        { ssid: 'Neighbor5G', bssid: 'AA:BB:CC:DD:EE:05', lat: 37.7745, lon: -122.4200, signal: -65, channel: 36, security: 'WPA3' },
+        { ssid: 'GuestNetwork', bssid: 'AA:BB:CC:DD:EE:06', lat: 37.7758, lon: -122.4185, signal: -50, channel: 6, security: 'Open' },
+        { ssid: 'SecureCorp', bssid: 'AA:BB:CC:DD:EE:07', lat: 37.7762, lon: -122.4175, signal: -60, channel: 44, security: 'WPA2-Enterprise' },
+        { ssid: 'OldRouter', bssid: 'AA:BB:CC:DD:EE:08', lat: 37.7747, lon: -122.4198, signal: -75, channel: 3, security: 'WEP' }
+    ];
+    filteredNetworks = allNetworks.slice();
+    updateStats();
+    renderMap();
+    renderNetworkList();
+    showToast('Loaded ' + allNetworks.length + ' sample networks', 'su');
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', initMap);
+</script>
+</body>
+</html>
