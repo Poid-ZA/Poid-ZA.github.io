@@ -1,0 +1,210 @@
+        function updateStats() {
+            document.getElementById('stat-total').textContent = filteredNetworks.length;
+            document.getElementById('stat-wpa').textContent = filteredNetworks.filter(function(n) {
+                return n.security.toLowerCase().indexOf('wpa') !== -1;
+            }).length;
+            document.getElementById('stat-open').textContent = filteredNetworks.filter(function(n) {
+                return n.security.toLowerCase().indexOf('open') !== -1 || n.security === 'None' || n.security === 'Unknown';
+            }).length;
+            var uniqueLocs = {};
+            filteredNetworks.forEach(function(n) { uniqueLocs[n.lat + ',' + n.lon] = true; });
+            document.getElementById('stat-locations').textContent = Object.keys(uniqueLocs).length;
+            document.getElementById('network-count').textContent = filteredNetworks.length;
+        }
+        
+        function renderMap() {
+            markersLayer.clearLayers();
+            if (heatLayer) { map.removeLayer(heatLayer); heatLayer = null; }
+            
+            if (filteredNetworks.length === 0) return;
+            
+            var heatData = filteredNetworks.map(function(n) {
+                var intensity = (n.signal + 100) / 100;
+                intensity = Math.max(0.1, Math.min(1, intensity));
+                return [n.lat, n.lon, intensity];
+            });
+            
+            heatData.forEach(function(point) {
+                var circle = L.circleMarker([point[0], point[1]], {
+                    radius: 8,
+                    fillColor: point[2] > 0.5 ? '#ff0000' : point[2] > 0.3 ? '#ffff00' : '#00ff00',
+                    fillOpacity: 0.6,
+                    color: 'transparent',
+                    weight: 0
+                });
+                circle.bindPopup('<b>' + (point[2] * 100 - 100) + ' dBm</b>');
+                markersLayer.addLayer(circle);
+            });
+            
+            var bounds = L.latLngBounds(filteredNetworks.map(function(n) { return [n.lat, n.lon]; }));
+            map.fitBounds(bounds, { padding: [50, 50] });
+        }
+        
+        function renderNetworkList() {
+            var list = document.getElementById('network-list');
+            if (filteredNetworks.length === 0) {
+                list.innerHTML = '<div style="text-align: center; color: var(--text-secondary); padding: 2rem;">No networks loaded</div>';
+                return;
+            }
+            list.innerHTML = filteredNetworks.slice(0, 50).map(function(n) {
+                var secClass = n.security.toLowerCase().indexOf('wpa') !== -1 ? 'security-wpa' : n.security.toLowerCase().indexOf('wep') !== -1 ? 'security-wep' : 'security-open';
+                return '<div class="network-item" onclick="focusNetwork(' + n.lat + ',' + n.lon + ')"><div class="network-name">' + n.ssid + '</div><div class="network-meta"><span class="security-badge ' + secClass + '">' + n.security + '</span> | Ch: ' + n.channel + ' | ' + n.signal + ' dBm</div></div>';
+            }).join('');
+        }
+        
+        function focusNetwork(lat, lon) {
+            map.setView([lat, lon], 16);
+        }
+        
+        function centerMap() {
+            if (filteredNetworks.length > 0) {
+                var bounds = L.latLngBounds(filteredNetworks.map(function(n) { return [n.lat, n.lon]; }));
+                map.fitBounds(bounds);
+            } else {
+                map.setView([37.7749, -122.4194], 10);
+            }
+        }
+        
+        function toggleHeatmap() {
+            showHeatmap = !showHeatmap;
+            renderMap();
+            showToast(showHeatmap ? 'Heatmap enabled' : 'Heatmap disabled');
+        }
+        
+        function applyFilters() {
+            var secFilter = document.getElementById('filter-security').value;
+            var sigFilter = document.getElementById('filter-signal').value;
+            var ssidFilter = document.getElementById('filter-ssid').value.toLowerCase();
+            
+            filteredNetworks = networks.filter(function(n) {
+                if (secFilter !== 'all') {
+                    if (secFilter === 'WPA' && n.security.toLowerCase().indexOf('wpa') === -1) return false;
+                    if (secFilter === 'WEP' && n.security.toLowerCase().indexOf('wep') === -1) return false;
+                    if (secFilter === 'Open' && n.security.toLowerCase().indexOf('open') === -1 && n.security !== 'None' && n.security !== 'Unknown') return false;
+                }
+                if (sigFilter !== 'all') {
+                    if (sigFilter === 'strong' && n.signal <= -70) return false;
+                    if (sigFilter === 'medium' && (n.signal > -70 || n.signal <= -90)) return false;
+                    if (sigFilter === 'weak' && n.signal > -90) return false;
+                }
+                if (ssidFilter && n.ssid.toLowerCase().indexOf(ssidFilter) === -1) return false;
+                return true;
+            });
+            
+            updateStats();
+            renderMap();
+            renderNetworkList();
+            showToast('Showing ' + filteredNetworks.length + ' networks');
+        }
+        
+        function clearFilters() {
+            document.getElementById('filter-security').value = 'all';
+            document.getElementById('filter-signal').value = 'all';
+            document.getElementById('filter-ssid').value = '';
+            filteredNetworks = networks.slice();
+            updateStats();
+            renderMap();
+            renderNetworkList();
+        }
+        
+        function parseKML(xmlText) {
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+            var placemarks = xmlDoc.getElementsByTagName('Placemark');
+            var results = [];
+            
+            for (var i = 0; i < placemarks.length; i++) {
+                var pm = placemarks[i];
+                var type = pm.getElementsByTagName('description')[0];
+                if (!type) continue;
+                var desc = type.textContent || type.textContent;
+                if (desc.indexOf('Type: WIFI') === -1) continue;
+                
+                var name = pm.getElementsByTagName('name')[0];
+                var ssid = name ? (name.textContent || name.textContent) : 'Unknown';
+                
+                var coords = pm.getElementsByTagName('coordinates')[0];
+                if (!coords) continue;
+                var coordStr = coords.textContent || coords.textContent;
+                var parts = coordStr.trim().split(',');
+                var lon = parseFloat(parts[0]);
+                var lat = parseFloat(parts[1]);
+                
+                var signal = -75;
+                var bssid = '';
+                var security = 'Unknown';
+                
+                var signalMatch = desc.match(/Signal:\s*([-\d.]+)/);
+                if (signalMatch) signal = parseFloat(signalMatch[1]);
+                
+                var bssidMatch = desc.match(/Network ID:\s*([0-9A-F:]+)/i);
+                if (bssidMatch) bssid = bssidMatch[1];
+                
+                var secMatch = desc.match(/Encryption:\s*([^ Time]+)/);
+                if (secMatch) security = secMatch[1].trim();
+                
+                results.push({
+                    ssid: ssid,
+                    bssid: bssid,
+                    lat: lat,
+                    lon: lon,
+                    signal: signal,
+                    channel: 0,
+                    security: security
+                });
+            }
+            return results;
+        }
+        
+        function processFile(file) {
+            showLoading();
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    if (file.name.endsWith('.json')) {
+                        networks = JSON.parse(e.target.result);
+                    } else if (file.name.endsWith('.csv')) {
+                        networks = parseCSV(e.target.result);
+                    } else if (file.name.endsWith('.kml') || file.name.endsWith('.kmz')) {
+                        networks = parseKML(e.target.result);
+                    }
+                    filteredNetworks = networks.slice();
+                    updateStats();
+                    renderMap();
+                    renderNetworkList();
+                    showToast('Loaded ' + networks.length + ' networks');
+                } catch (err) {
+                    showToast('Error: ' + err.message, 'error');
+                }
+                hideLoading();
+            };
+            reader.readAsText(file);
+        }
+        
+        function loadSampleData() {
+            showLoading();
+            setTimeout(function() {
+                networks = [
+                    { ssid: 'FreeWiFi', bssid: 'AA:BB:CC:DD:EE:01', lat: 37.7749, lon: -122.4194, signal: -45, channel: 6, security: 'Open' },
+                    { ssid: 'HomeNetwork', bssid: 'AA:BB:CC:DD:EE:02', lat: 37.7751, lon: -122.4180, signal: -55, channel: 11, security: 'WPA2' },
+                    { ssid: 'OfficeNet', bssid: 'AA:BB:CC:DD:EE:03', lat: 37.7755, lon: -122.4170, signal: -65, channel: 1, security: 'WPA3' },
+                    { ssid: 'CoffeeShop', bssid: 'AA:BB:CC:DD:EE:04', lat: 37.7760, lon: -122.4160, signal: -70, channel: 6, security: 'Open' },
+                    { ssid: 'GuestNet', bssid: 'AA:BB:CC:DD:EE:05', lat: 37.7745, lon: -122.4200, signal: -80, channel: 3, security: 'Open' },
+                    { ssid: 'SecureCorp', bssid: 'AA:BB:CC:DD:EE:06', lat: 37.7765, lon: -122.4150, signal: -60, channel: 9, security: 'WPA2' },
+                    { ssid: 'OldRouter', bssid: 'AA:BB:CC:DD:EE:07', lat: 37.7740, lon: -122.4210, signal: -85, channel: 11, security: 'WEP' },
+                    { ssid: 'Neighborhood', bssid: 'AA:BB:CC:DD:EE:08', lat: 37.7770, lon: -122.4140, signal: -50, channel: 1, security: 'WPA2' }
+                ];
+                filteredNetworks = networks.slice();
+                updateStats();
+                renderMap();
+                renderNetworkList();
+                showToast('Loaded ' + networks.length + ' sample networks');
+                hideLoading();
+            }, 500);
+        }
+        
+        // Initialize
+        initMap();
+    </script>
+</body>
+</html>
