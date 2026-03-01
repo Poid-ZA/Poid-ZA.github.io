@@ -1,7 +1,7 @@
 # Hierarchical Memory Index
 
-**Version:** 2026-02-28  
-**Last Updated:** 2026-02-28 21:15 UTC  
+**Version:** 2026-03-01  
+**Last Updated:** 2026-03-01 21:15 UTC  
 **Token Estimate:** ~1800
 
 ---
@@ -10,7 +10,7 @@
 
 | Property | Value |
 |----------|-------|
-| Version | 2.0 |
+| Version | 2.1 |
 | Token Estimate | ~1800 |
 | Max Allowed | 3000 |
 | Format | Hierarchical Index |
@@ -19,8 +19,6 @@
 
 ## Active Working Set (always loaded — 2–4 files max)
 
-These files are injected at every session start:
-
 - `memory/active/user_profile.md` — Current user context
 - `memory/active/apex_project.md` — Active project details
 
@@ -28,70 +26,61 @@ These files are injected at every session start:
 
 ## People
 
-| Name | File | Triggers / Keywords | Last Updated | Importance |
-|------|------|---------------------|--------------|------------|
-| The One | `people/The_One.md` | user, human, they, X, senior eng | 2026-02-28 | High |
+| Name | File | Triggers / Keywords | Last Updated |
+|------|------|---------------------|--------------|
+| X (The One) | `people/x.md` | user, human, they, X, senior eng | 2026-02-28 |
 
 ---
 
 ## Projects
 
-| Project Slug | File | Triggers / Keywords | Status | Last Updated |
-|--------------|------|----------------------|--------|--------------|
-| apex | `projects/apex.md` | apex, agent, super-agent, engineering | Active | 2026-02-28 |
+| Project Slug | File | Status | Last Updated |
+|--------------|------|--------|--------------|
+| apex | `projects/apex.md` | Active | 2026-03-01 |
+| kimi-prompt | `projects/kimi-prompt.md` | Reference | 2026-02-28 |
 
 ---
 
-## Preferences & Rules
+## Preferences
 
-| Category | File | Triggers | Last Updated |
-|----------|------|----------|--------------|
-| Comm Style | `preferences/communication-style.md` | tone, reply style, verbosity | 2026-02-28 |
-
----
-
-## Decisions Archive
-
-| Period | File | Key Topics | Last Updated |
-|--------|------|------------|--------------|
-| 2026-02 | `decisions/2026-02.md` | Hierarchical memory, QMD v1 | 2026-02-28 |
+| Category | File | Last Updated |
+|----------|------|--------------|
+| Comm Style | `preferences/communication-style.md` | 2026-02-28 |
 
 ---
 
-## Drill-Down Rules (mandatory)
+## Decisions
 
-1. Any mention of a name/project in triggers column → MUST read corresponding file
-2. Questions containing who/what/when/why + entity → check People/Projects first
-3. Uncertainty about past decision → search decisions/ + active set
-4. Max 5 drill-down file reads at session initialization
-5. If >5 needed → ask user which topics are currently most relevant
+| Period | File | Key Topics |
+|--------|------|------------|
+| 2026-02 | `decisions/2026-02.md` | Hierarchical memory, QMD v1 |
+| 2026-03 | `decisions/2026-03.md` | Capability Evolver, Ralph Loop, Token Optimization |
 
 ---
 
-## Archive / Prune Policy
+## Daily Logs
 
-- Items inactive >90 days → move tomemory/archive/YYYY `/`
-- Replace detail row with pointer + one-sentence summary
-- Review monthly
+| Date | File | Status |
+|------|------|--------|
+| 2026-02-28 | `logs/2026-02-28.md` | Archived |
+| 2026-03-01 | `logs/2026-03-01.md` | Active |
+
+---
+
+## Knowledge Base
+
+| Path | Purpose |
+|------|---------|
+| `memory/KNOWLEDGE_BASE/` | Crystallized lessons from Capability Evolver |
 
 ---
 
 ## Operational Rules
 
-### Session Start Load Order
-1. Read `MEMORY.md` (~1.5–2k tokens)
-2. Auto-load all files listed in Active Working Set
-3. Scan user's first 1–3 messages for trigger keywords → queue up to 5 detail files
-4. Read those detail files only if trigger confidence > medium
-
-### Write / Update Protocol
-- Whenever you create/edit a detail file → Immediately update corresponding row(s) in MEMORY.md
-- Commit both changes together (same response)
-
-### Active Set Management (rotate weekly)
-- Max 4 files
-- Criteria: highest recent access frequency + user explicitly says "keep focusing on X"
+1. **Session Start:** Read MEMORY.md → load active set → drill-down on triggers
+2. **Write Protocol:** Update detail file → immediately update MEMORY.md → same commit
+3. **Max Drill-downs:** 5 files per session init
 
 ---
 
-**System Status:** 🟢 Hierarchical Memory v2.0 Active
+**System Status:** 🟢 Hierarchical Memory v2.1 Active

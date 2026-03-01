@@ -3,8 +3,8 @@
 ## Project Overview
 - **Type:** Multi-domain AI engineering agent
 - **Status:** Active development
-- **Target:** VS Code / terminal workspace
-- **Core Tools:** workspace, terminal, git
+- **Target:** OpenClaw workspace (cloud-hosted)
+- **Core Tools:** workspace, terminal, git, OpenClaw skills
 
 ## Architecture
 
@@ -19,17 +19,17 @@ Principal-level multi-domain engineering agent combining:
 - Adaptive optimization via auditable artifacts
 
 ### Modes
-- Architecture Mode: Produce technical design before coding
-- Implementation Mode: Deliver full production-ready implementation
-- Patch Mode: Return unified diff only
-- Hardening Mode: Add security, observability, reliability improvements
-- Performance Mode: Add profiling and optimization strategy
-- Incident Mode: Root cause analysis and remediation plan
-- Workspace Audit Mode: Review memory files, update MEMORY.md, improve docs
+- Architecture Mode → design before coding
+- Implementation Mode → production-ready delivery
+- Patch Mode → unified diff only
+- Hardening Mode → security + reliability
+- Performance Mode → profiling + optimization
+- Incident Mode → root cause + remediation
+- Workspace Audit Mode → memory review + docs
 
-## Memory System
+## Memory System (Hierarchical v2.0)
 
-### Layers (Hierarchical v2.0)
+### Layers
 1. **MEMORY.md** — Lightweight index (~1.8k tokens)
 2. **memory/active/** — 2-4 hot files always loaded
 3. **memory/people/** — Per-person detail files
@@ -37,48 +37,47 @@ Principal-level multi-domain engineering agent combining:
 5. **memory/decisions/** — Monthly decision logs
 6. **memory/preferences/** — Cross-cutting preferences
 7. **memory/logs/** — Daily session logs
-8. **memory/archive/** — Inactive items (>90 days)
+8. **memory/KNOWLEDGE_BASE/** — Crystallized lessons (from Capability Evolver)
+9. **memory/archive/** — Inactive items (>90 days)
 
 ### QMD Integration
 - SQLite + FTS5 for indexed search
 - Vector embeddings for semantic search
-- API endpoints: /api/qmd/*
+- Files: `qmd.js`, `qmd-vector.js`
 
-## Key Artifacts
+## Skills
 
-### Checklists
-- `CHECKLISTS/IMPLEMENTATION_PLAN.md`
-- `CHECKLISTS/CODE_REVIEW_GATE.md`
-- `CHECKLISTS/SECURE_ENDPOINT.md`
-- `CHECKLISTS/DATABASE_MIGRATION_SAFETY.md`
-- `CHECKLISTS/DEPLOYMENT_READINESS.md`
+### Capability Evolver (installed 2026-03-01)
+- Path: `skills/capability-evolver/`
+- Function: Self-evolution engine — introspect → evolve → persist
+- Crystallizes lessons to `memory/KNOWLEDGE_BASE/LESSONS_LEARNED.md`
+- Modes: single run, Mad Dog (continuous loop)
 
-### Snippets
-- `SNIPPETS/TEST_EDGE_CASE_MATRIX.md`
+### Ralph Loop Mode (configured in IDENTITY.md)
+- Self-repair for loop detection
+- Max 10 iterations, verification-first
+- Output: `APEX_RALPH_COMPLETE`
+
+## Active Repositories
+
+| Repo | Purpose | Status |
+|------|---------|--------|
+| Poid-ZA/Poid-ZA.github.io | APEX progress website | ✅ Live |
+| Poid-ZA/wigle-dashboard | WiGLE wardriving dashboard | ✅ Live |
+| Poid-ZA/thor-defence | Thor Defence website | ❌ Repo missing |
 
 ## Engineering Standards
-
-- Secure by default (validation, least privilege, threat modeling)
-- Observable by default (structured logs, metrics hooks, health checks)
-- Scalable where reasonable (avoid premature optimization)
-- Minimal but correct (simplicity over cleverness)
-- Explicit about trade-offs (never hide complexity)
+- Secure by default
+- Observable by default
+- Scalable where reasonable
+- Minimal but correct
+- Explicit about trade-offs
 
 ## Self-Improvement Protocol
-
-On errors/corrections/insights:
-1. Log to `memory/logs/YYYY-MM-DD.md` (immediate)
-2. Produce fix (patch if applicable)
+1. Log to daily memory
+2. Produce fix
 3. Add regression protection
-4. Update reusable artifacts if generalizable
-5. Update `MEMORY.md` index (same commit)
+4. Update reusable artifacts
+5. Update MEMORY.md index (same commit)
 
-## Status
-
-- **Workspace:** ✅ Operational
-- **Memory System:** ✅ Hierarchical v2.0
-- **QMD:** ✅ SQLite + FTS5 + Vector
-- **Active Set:** ✅ 2 files
-- **Lookup Priority:** Index → Active → Detail → Daily
-
-**Last Updated:** 2026-02-28
+**Last Updated:** 2026-03-01
