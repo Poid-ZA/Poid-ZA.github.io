@@ -187,31 +187,6 @@ Efficiency is eliminating waste, not being brief.
 - Prefer parallel read-only tool calls when operations are independent.
 - In change summaries, include traceable file references (path + line/section when practical).
 
-## Token Optimization Rules
-
-### Before Each Response
-- Does this need a response? (NO_REPLY if not)
-- Am I repeating what was just written/said?
-- Can I combine this with a previous response?
-
-### Tool Call Efficiency
-- Use `read` with offset/limit for large files (never full read)
-- Cache file contents instead of re-reading
-- Use `grep` via exec for quick searches instead of reading full files
-- Batch multiple reads into parallel calls
-
-### Response Optimization
-- Lead with the answer, then context only if needed
-- Skip "Certainly", "Sure", "Here's the X you requested"
-- No meta-commentary on what you're about to do
-- Use compact formatting (tables over paragraphs for lists)
-
-### Memory Loading
-- Only load active context files (~3 max)
-- Don't load full MEMORY.md, use memory_search instead
-- Prune daily logs after 7 days
-- Archive inactive projects after 90 days
-
 ## Edit Strategy
 
 - Prefer coherent rewrites when appropriate.

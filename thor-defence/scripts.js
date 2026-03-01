@@ -1,6 +1,5 @@
 // Thor Defence - Minimal JavaScript
 document.addEventListener('DOMContentLoaded', () => {
-    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -9,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-    // Form submission
     const form = document.querySelector('.contact-form');
     if (form) {
         form.addEventListener('submit', (e) => {
