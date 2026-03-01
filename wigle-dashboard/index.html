@@ -30,7 +30,7 @@
         .sc { margin-bottom: 2rem; }
         .st { font-size: 0.875rem; font-weight: 600; color: var(--t2); text-transform: uppercase; margin-bottom: 1rem; }
         .uz { border: 2px dashed #4b5563; border-radius: 12px; padding: 2rem; text-align: center; cursor: pointer; }
-        .uz:hover { border-color: var(--a); background: #00ff8833; }
+        .uz:hover, .uz.hovered { border-color: var(--a); background: #00ff8833; }
         .ut { font-size: 2rem; margin-bottom: 0.5rem; }
         .uh { font-size: 0.75rem; color: #6b7280; margin-top: 0.5rem; }
         .fg { margin-bottom: 1rem; }
@@ -83,6 +83,8 @@
         <aside class="sb">
             <div class="sc">
                 <div class="st">Import</div>
+                <div class="fg"><label class="fl">WiGLE API Key</label><input type="password" class="fi" id="wigle-api-key" placeholder="Enter API Key"></div>
+                <button class="btn bs" onclick="loadFromWiGLE()" style="margin-bottom:0.5rem">Fetch My WiGLE Data</button>
                 <div class="uz" id="upload-zone"><div class="ut">+</div><div class="uh">Drop KML/CSV</div></div>
                 <input type="file" id="file-input" accept=".kml,.csv,.json" hidden>
                 <button class="btn bp" onclick="loadSampleData()">Load Sample</button>
@@ -323,6 +325,70 @@
             renderMap();
             renderNetworkList();
             showToast('Filters cleared', 'su');
+        }
+
+        function loadFromWiGLE() {
+            var apiKey = document.getElementById('wigle-api-key').value.trim();
+            if (!apiKey) {
+                showToast('Please enter your WiGLE API key', 'er');
+                return;
+            }
+            showLoading();
+            // WiGLE API v2 endpoint for user's networks
+            var url = 'https://api.wigle.net/api/v2/results/gpx';
+            fetch(url, {
+                headers: {
+                    'Authorization': 'Basic ' + btoa(apiKey + ':'),
+                    'Accept': 'application/json'
+                }
+            })
+            .then(function(response) {
+                if (!response.ok) {
+                    return response.text().then(function(text) {
+                        throw new Error('API error ' + response.status + ': ' + (text || response.statusText));
+                    });
+                }
+                return response.json();
+            })
+            .then(function(data) {
+                console.log('WiGLE response:', data);
+                // Handle different response formats
+                var results = data.results || data.networks || [];
+                if (!Array.isArray(results) || results.length === 0) {
+                    // Try alternative format
+                    if (data.totalResults) {
+                        results = data;
+                    }
+                }
+                if (results.length === 0) {
+                    showToast('No networks found - check API key', 'er');
+                    hideLoading();
+                    return;
+                }
+                allNetworks = results.map(function(n) {
+                    return {
+                        ssid: n.ssid || n.SSID || 'Unknown',
+                        bssid: n.bssid || n.BSSID || '',
+                        lat: n.lat || n.latitude || n.gpsLatitude,
+                        lon: n.lon || n.longitude || n.gpsLongitude,
+                        signal: n.signal || n.rssi || n.RSSI || -75,
+                        channel: n.channel || n.Channel || 0,
+                        security: n.security || n.encryption || n.authMode || 'Unknown'
+                    };
+                }).filter(function(n) { return n.lat && n.lon; });
+                
+                filteredNetworks = allNetworks.slice();
+                updateStats();
+                renderMap();
+                renderNetworkList();
+                showToast('Loaded ' + allNetworks.length + ' networks from WiGLE', 'su');
+                hideLoading();
+            })
+            .catch(function(err) {
+                console.error('WiGLE error:', err);
+                showToast('WiGLE error: ' + err.message, 'er');
+                hideLoading();
+            });
         }
 
         function loadSampleData() {
