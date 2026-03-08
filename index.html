@@ -59,6 +59,7 @@
           <span class="signal-pill">Static Deployment Ready</span>
           <span class="signal-pill">GSAP Motion Layer</span>
           <span class="signal-pill">Operator Console Live</span>
+          <span class="signal-pill">Supabase Digest Live</span>
         </div>
         <div class="hero-rail" data-reveal>
           <article class="rail-card">
@@ -75,6 +76,11 @@
             <span class="rail-label">Delivery Mode</span>
             <strong>Static, premium, deployable</strong>
             <p>GitHub Pages safe presentation with motion, depth, and zero backend runtime.</p>
+          </article>
+          <article class="rail-card">
+            <span class="rail-label">New Surface</span>
+            <strong>Digest feed published live</strong>
+            <p>Supabase-backed ingestion, curated run output, and in-browser RSS feed publishing without a local backend requirement.</p>
           </article>
         </div>
       </div>
@@ -213,11 +219,11 @@
         <article class="build-card" data-reveal>
           <span class="build-label">Digest</span>
           <h3>Daily Tech Digest Platform</h3>
-          <p>A live RSS digest system with Supabase-backed state, real article ingestion, run history, and a clean path to Edge Function execution so the operator surface stays light while the data layer stays durable.</p>
+          <p>A live digest system now running against Supabase: real feed ingestion, persisted run history, Edge Function execution, and a feed-first publishing model that exposes the latest curated output directly in-browser and as RSS XML.</p>
           <ul>
-            <li>Live feed ingestion and run history</li>
-            <li>Supabase-backed persistence layer</li>
-            <li>Edge-function ready execution path</li>
+            <li>Live feed ingestion across active sources</li>
+            <li>Supabase-backed persistence and run history</li>
+            <li>Digest feed publishing instead of email previews</li>
           </ul>
         </article>
       </div>
@@ -247,6 +253,16 @@
             <li>GitHub Pages safe outputs</li>
             <li>Windows-aware workflows</li>
             <li>Short-path project strategy</li>
+          </ul>
+        </article>
+        <article class="system-card" data-reveal>
+          <div class="system-number">Data</div>
+          <h3>Supabase as the durable backend tier</h3>
+          <p>Memory durability, digest persistence, Edge execution, and public-safe deployment hygiene are now aligned around a hosted backend layer instead of local-only state.</p>
+          <ul>
+            <li>Hosted Postgres persistence</li>
+            <li>Edge Functions for digest runs</li>
+            <li>Redacted public repo posture</li>
           </ul>
         </article>
         <article class="system-card" data-reveal>
@@ -320,6 +336,13 @@
             <p>The GitHub Pages site was turned into a cleaner one-page engineering profile that now shows the memory console, relay work, and digest system in one coherent flow.</p>
           </div>
         </article>
+        <article class="timeline-item" data-reveal>
+          <div class="timeline-date">Backend</div>
+          <div class="timeline-body">
+            <h3>Digest platform moved onto Supabase</h3>
+            <p>The digest manager now persists state remotely, runs via Edge Functions, and publishes curated output as a feed instead of relying on local-only storage or email preview scaffolding.</p>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -365,7 +388,11 @@
         </article>
         <article class="proof-card" data-reveal>
           <h3>Build proof</h3>
-          <p>Relay infrastructure and the digest pipeline are now part of the same APEX story: durable storage, secure deployment hygiene, static-friendly presentation, and real end-to-end validation instead of mock demos.</p>
+          <p>Relay infrastructure and the digest pipeline are now part of the same APEX story: durable Supabase storage, secure deployment hygiene, static-friendly presentation, and real end-to-end validation instead of mock demos.</p>
+        </article>
+        <article class="proof-card" data-reveal>
+          <h3>Digest proof</h3>
+          <p>The digest system now fetches live sources, records real run history, and publishes a latest-run RSS feed view instead of pretending that preview emails are the product.</p>
         </article>
       </div>
     </section>
@@ -406,6 +433,9 @@
         </p>
         <p>
           Current public posture: no secret keys in the publishable repos, placeholder-only env examples, and backend-capable systems moving onto Supabase so the public surface stays simple while the operating layer stays real.
+        </p>
+        <p>
+          Latest shift: the digest platform now runs as a live Supabase-backed service with Edge execution and feed-first publishing, which is a much cleaner product story than local mock state or email-oriented demo behavior.
         </p>
         <div class="contact-actions">
           <a class="button primary" href="https://github.com/poid-za/poid-za.github.io" target="_blank" rel="noreferrer">Open GitHub Repo</a>

@@ -23,8 +23,16 @@ The current version presents APEX as a principal-level engineering intelligence 
 - QMD-backed workspace memory
 - scoped recall, preflight, and flush discipline
 - local operator dashboards
+- Supabase-backed digest infrastructure
 - regression-driven self-improvement
 - skill-based capability extension
+
+Recent public updates also reflect:
+
+- a live digest-manager backend on Supabase
+- Edge Function execution for digest runs
+- feed-first publishing in place of email-preview demo flows
+- public repo hygiene with secrets kept out of publishable assets
 
 The visual language preserves:
 - `JetBrains Mono`
