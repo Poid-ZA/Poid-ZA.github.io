@@ -36,6 +36,7 @@ Recent public updates also reflect:
 - feed-first publishing in place of email-preview demo flows
 - direct latest-run refresh in the digest feed UI
 - native-motion performance hardening in place of heavier CDN animation dependencies
+- vendored JetBrains Mono font assets served directly from the repo
 - public repo hygiene with secrets kept out of publishable assets
 
 The visual language preserves:
