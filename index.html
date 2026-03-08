@@ -1,409 +1,292 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>APEX - Engineering Progress</title>
+  <meta name="description" content="APEX is a principal-level engineering intelligence system for architecture, memory, automation, governance, and production-grade delivery." />
+  <meta name="color-scheme" content="dark" />
+  <title>APEX | Engineering Intelligence System</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --primary: #00d9ff;
-      --primary-dark: #0099cc;
-      --bg-dark: #050508;
-      --bg-card: #0d0d12;
-      --bg-raised: #1a1a24;
-      --border: #2a2a34;
-      --text: #e0e0e0;
-      --text-muted: #8a8a98;
-      --ok: #47d18c;
-      --warn: #ffb347;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'JetBrains Mono', monospace;
-      background: var(--bg-dark);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      background: rgba(5, 5, 8, 0.95);
-      border-bottom: 1px solid rgba(0, 217, 255, 0.2);
-      backdrop-filter: blur(8px);
-    }
-    nav ul {
-      list-style: none;
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      gap: 4px;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 8px 12px;
-    }
-    nav a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.85rem;
-      padding: 8px 12px;
-      border-radius: 6px;
-      transition: all .25s;
-    }
-    nav a:hover, nav a.active {
-      color: var(--primary);
-      background: rgba(0, 217, 255, 0.08);
-    }
-
-    header {
-      min-height: 85vh;
-      display: grid;
-      place-items: center;
-      position: relative;
-      padding: 120px 20px 60px;
-      background: radial-gradient(circle at 20% 20%, rgba(0, 217, 255, 0.12), transparent 35%),
-                  radial-gradient(circle at 80% 80%, rgba(0, 153, 204, 0.10), transparent 40%),
-                  linear-gradient(135deg, #050508, #0a0a12);
-    }
-    .hero {
-      max-width: 1000px;
-      text-align: center;
-      animation: fadeInUp .9s ease-out;
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    h1 {
-      font-size: clamp(2.2rem, 6vw, 4.4rem);
-      line-height: 1.08;
-      letter-spacing: -1px;
-      background: linear-gradient(135deg, #00d9ff, #0099cc);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 20px;
-    }
-    .hero p {
-      color: var(--text-muted);
-      max-width: 800px;
-      margin: 0 auto 24px;
-      font-size: clamp(.92rem, 2vw, 1.1rem);
-    }
-    .pill-row {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 16px;
-    }
-    .pill {
-      border: 1px solid var(--border);
-      background: var(--bg-raised);
-      color: var(--text);
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: .78rem;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 34px 20px 84px;
-    }
-    section { margin: 52px 0; }
-    section h2 {
-      color: var(--primary);
-      font-size: clamp(1.55rem, 4vw, 2.5rem);
-      margin-bottom: 18px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 12px;
-    }
-    h3 {
-      color: var(--primary);
-      margin: 22px 0 10px;
-      font-size: 1.06rem;
-    }
-    p {
-      color: var(--text);
-      margin-bottom: 10px;
-      font-size: 0.92rem;
-      max-width: 86ch;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 12px;
-      margin-top: 12px;
-    }
-    .card {
-      border: 1px solid var(--border);
-      background: var(--bg-card);
-      border-radius: 12px;
-      padding: 12px;
-    }
-    .card h4 { color: var(--primary); margin-bottom: 8px; font-size: .95rem; }
-    .muted { color: var(--text-muted); }
-
-    ul, ol { padding-left: 20px; margin: 8px 0; }
-    li { margin: 6px 0; font-size: .92rem; }
-    .ok { color: var(--ok); }
-    .warn { color: var(--warn); }
-
-    pre {
-      border: 1px solid var(--border);
-      background: #09090f;
-      border-radius: 10px;
-      padding: 12px;
-      overflow-x: auto;
-      font-size: .83rem;
-    }
-    code { color: var(--primary); }
-
-    .timeline {
-      border-left: 2px solid var(--border);
-      margin-left: 6px;
-      padding-left: 18px;
-    }
-    .timeline .item { margin-bottom: 16px; }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding-top: 18px;
-      margin-top: 30px;
-      color: var(--text-muted);
-      font-size: .85rem;
-    }
-    .last-mod {
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 1px solid var(--border);
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-    .last-mod code {
-      color: var(--primary);
-      background: rgba(0, 217, 255, 0.08);
-      border: 1px solid rgba(0, 217, 255, 0.25);
-      border-radius: 6px;
-      padding: 2px 6px;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" href="favicon-512x512.png" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <nav>
-    <ul>
-      <li><a href="#overview" class="active">Overview</a></li>
-      <li><a href="#delivered">Delivered</a></li>
-      <li><a href="#qmd">QMD</a></li>
-      <li><a href="#audit">Adoption Audit</a></li>
-      <li><a href="#ops">Ops + Quality</a></li>
-      <li><a href="#next">Next</a></li>
-    </ul>
+  <div class="page-grid" aria-hidden="true"></div>
+  <div class="ambient ambient-one" data-depth="0.18"></div>
+  <div class="ambient ambient-two" data-depth="0.11"></div>
+  <div class="ambient ambient-three" data-depth="0.07"></div>
+
+  <nav class="site-nav">
+    <a class="brand" href="#hero">
+      <span class="brand-mark">APEX</span>
+      <span class="brand-copy">Engineering Intelligence</span>
+    </a>
+    <div class="nav-links">
+      <a href="#capabilities">Capabilities</a>
+      <a href="#systems">Systems</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#proof">Proof</a>
+      <a href="#contact">Deploy</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">MENU</button>
   </nav>
 
-  <header>
-    <div class="hero">
-      <h1>APEX Progress Snapshot</h1>
-      <p>Clean rebuild of the project status page with the same visual language (JetBrains Mono + cyan-on-dark), now focused on concrete delivery outcomes and operating maturity.</p>
-      <div class="pill-row">
-        <span class="pill">QMD v1 Active</span>
-        <span class="pill">Quality Gate + Telemetry</span>
-        <span class="pill">Skill Framework Hardened</span>
-        <span class="pill">Website + Repos Updated</span>
-      </div>
-    </div>
-  </header>
-
   <main>
-    <section id="overview">
-      <h2>Overview</h2>
-      <p>Current state: memory runtime is QMD-first, FAISS path removed from active flow, quality controls are enforced and measurable, and engineering gates are codified in workspace artifacts.</p>
-      <div class="grid">
-        <div class="card">
-          <h4>Primary Memory Runtime</h4>
-          <p><code>/api/qmd/*</code> with SQLite + FTS5, tags, relations, linked context.</p>
+    <section id="hero" class="hero section">
+      <div class="hero-copy" data-reveal>
+        <p class="eyebrow">Principal-Level Engineering Agent</p>
+        <h1>Architecture, memory, automation, and delivery sharpened into one system.</h1>
+        <p class="hero-text">
+          APEX is a workspace-native engineering intelligence layer built to design, implement, harden, remember,
+          recover, and improve. The site you are looking at is static, GitHub Pages safe, and intentionally shows
+          off real operational capability rather than generic AI marketing noise.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#capabilities">Explore Capabilities</a>
+          <a class="button ghost" href="#proof">See Operational Proof</a>
         </div>
-        <div class="card">
-          <h4>Quality Controls</h4>
-          <p>Entry quality gate, rejection telemetry, warmup-aware alerting, dedupe and maintenance run.</p>
+        <div class="signal-row">
+          <span class="signal-pill">JetBrains Mono</span>
+          <span class="signal-pill">Cyan-on-Dark Identity</span>
+          <span class="signal-pill">Static Deployment Ready</span>
+          <span class="signal-pill">GSAP Motion Layer</span>
+          <span class="signal-pill">Operator Console Live</span>
         </div>
-        <div class="card">
-          <h4>Workflow Governance</h4>
-          <p>Planning, review, security, testing, migration and deployment checklists integrated into APEX defaults.</p>
+      </div>
+
+      <div class="hero-panel" data-reveal>
+        <div class="hero-stack">
+          <article class="stack-card glow-card">
+            <div class="stack-label">Current Posture</div>
+            <h2>QMD-first memory with scoped recall, preflight, flush, startup hardening, and regression discipline.</h2>
+            <p>Designed for continuity without hidden state: indexed memory, explicit compaction, recoverable workflows, startup health checks, and visible operational artifacts.</p>
+          </article>
+          <article class="stack-card metrics-card">
+            <div>
+              <span class="metric-kicker">Recent Builds</span>
+              <strong class="metric-value">Memory Console + Motion</strong>
+              <p>Local-first operator surface for search, preflight, flush, recent indexed memory, one-click regression, premium dark mode, and restrained GSAP-style motion.</p>
+            </div>
+            <div>
+              <span class="metric-kicker">New Skills</span>
+              <strong class="metric-value">Browser QA + Evals + Synthesis</strong>
+              <p>APEX now carries explicit local skills for browser smoke checks, agent eval design, MCP/tool reviews, self-improvement, and memory synthesis.</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section id="delivered">
-      <h2>Delivered So Far</h2>
-      <div class="timeline">
-        <div class="item">
-          <h3>QMD Core</h3>
-          <ul>
-            <li class="ok">SQLite-backed QMD with FTS5 indexing</li>
-            <li class="ok">Endpoints for entries, search, timeline, tags, relations, context</li>
-            <li class="ok">Bootstrap import from <code>MEMORY.md</code> + daily logs</li>
-          </ul>
-        </div>
-        <div class="item">
-          <h3>Data Integrity & Cleanup</h3>
-          <ul>
-            <li class="ok">Dedupe-safe bootstrap logic</li>
-            <li class="ok">One-shot cleanup endpoint: <code>POST /api/qmd/dedupe</code></li>
-            <li class="ok">Maintenance endpoint: <code>POST /api/qmd/maintenance-run</code></li>
-          </ul>
-        </div>
-        <div class="item">
-          <h3>UI Delivery</h3>
-          <ul>
-            <li class="ok">Workspace QMD tab with search/timeline/add/bootstrap</li>
-            <li class="ok">Tag CRUD + assignment</li>
-            <li class="ok">Relation linking + linked-context pane</li>
-            <li class="ok">Quality card with warmup + trend signal</li>
-          </ul>
-        </div>
-        <div class="item">
-          <h3>Skill Enablement</h3>
-          <ul>
-            <li class="ok">Enabled <code>voice-call</code> plugin (mock provider for safe local testing)</li>
-            <li class="ok">Resolved skill dependencies for <code>session-logs</code> (<code>jq</code>, <code>rg</code>)</li>
-            <li class="ok">Enabled <code>summarize</code> skill CLI availability</li>
-            <li class="ok">Unblocked <code>wacli</code> eligibility on Windows via compatibility shim</li>
-          </ul>
-        </div>
-        <div class="item">
-          <h3>Agent + Operations Upgrade</h3>
-          <ul>
-            <li class="ok">Created persistent coding agent <code>CODEE (c0d33)</code> on <code>gpt-5.3-codex</code></li>
-            <li class="ok">Evening brief + daily surprise workflows scheduled for Discord delivery</li>
-            <li class="ok">Added backup/restore automation scripts and retention pruning</li>
-            <li class="ok">Added Windows→macOS migration guide for full APEX transfer</li>
-          </ul>
-        </div>
+    <section class="trust-band section" aria-label="Core APEX strengths">
+      <div class="trust-track">
+        <span>Architecture-first</span>
+        <span>Secure by default</span>
+        <span>Workspace-aware memory</span>
+        <span>Static site delivery</span>
+        <span>Regression discipline</span>
+        <span>Operator-grade dashboards</span>
+        <span>Startup health checks</span>
+        <span>Skill-driven execution</span>
+        <span>Architecture-first</span>
+        <span>Secure by default</span>
       </div>
     </section>
 
-    <section id="qmd">
-      <h2>QMD APIs in Use</h2>
-      <pre>GET  /api/qmd/health
-GET  /api/qmd/search?q=security&limit=5
-GET  /api/qmd/timeline?from=YYYY-MM-DD&to=YYYY-MM-DD
-POST /api/qmd/entries
-GET  /api/qmd/context/:entryId
-POST /api/qmd/relate
-GET  /api/qmd/tags
-POST /api/qmd/entry-tags
-POST /api/qmd/bootstrap
-POST /api/qmd/dedupe
-POST /api/qmd/maintenance-run?threshold=0.4
-GET  /api/qmd/quality-stats?hours=24&threshold=0.4&minSamples=10</pre>
-    </section>
-
-    <section id="audit">
-      <h2>Adoption Audit - Phase 1</h2>
-      <p>Audit executed and recorded in <code>PLAYBOOKS/ADOPTION_AUDIT_PHASE1_2026-02-25.md</code>.</p>
-      <div class="grid">
-        <div class="card">
-          <h4>Verdict</h4>
-          <p><span class="ok">PASS</span> for rollout completeness.</p>
-          <p class="muted">Operational maturity: good. Remaining value is cadence automation and evidence capture.</p>
-        </div>
-        <div class="card">
-          <h4>Active Gates</h4>
-          <ul>
-            <li>Implementation plan</li>
-            <li>Code review gate</li>
-            <li>Secure endpoint checklist</li>
-            <li>DB migration safety</li>
-            <li>Deployment readiness</li>
-            <li>Environment assumptions</li>
-            <li>Command safety notice</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h4>Runtime Controls</h4>
-          <ul>
-            <li>Unified quality evaluation path</li>
-            <li>Quality telemetry events</li>
-            <li>Warmup-aware low-rate alerts</li>
-            <li>Dedupe + maintenance controls</li>
-          </ul>
-        </div>
+    <section id="capabilities" class="section capabilities">
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">What APEX Can Do</p>
+        <h2>Built to think like an architect, execute like an engineer, and recover like an operator.</h2>
+      </div>
+      <div class="capability-grid">
+        <article class="feature-card" data-reveal>
+          <span class="feature-index">01</span>
+          <h3>Workspace Memory</h3>
+          <p>QMD-backed indexed memory with scoped recall, preflight packs, flush-to-memory, daily logs, and long-term project routing.</p>
+        </article>
+        <article class="feature-card" data-reveal>
+          <span class="feature-index">02</span>
+          <h3>Architecture & Delivery</h3>
+          <p>Production-grade implementation with configuration discipline, validation, tests, deployment guidance, and pragmatic trade-off analysis.</p>
+        </article>
+        <article class="feature-card" data-reveal>
+          <span class="feature-index">03</span>
+          <h3>Security & Hardening</h3>
+          <p>Threat-aware defaults, explicit constraints, auditability, safe failure modes, incident memory, and repeatable remediation patterns.</p>
+        </article>
+        <article class="feature-card" data-reveal>
+          <span class="feature-index">04</span>
+          <h3>Operational UX</h3>
+          <p>Local-first control surfaces, clear degradation visibility, recent-memory inspection, and manual controls that stay explicit instead of magical.</p>
+        </article>
+        <article class="feature-card" data-reveal>
+          <span class="feature-index">05</span>
+          <h3>Skill Extensions</h3>
+          <p>Purpose-built local skills for browser QA, agent evals, MCP integration review, self-improvement, and memory synthesis extend APEX beyond generic prompting.</p>
+        </article>
+        <article class="feature-card" data-reveal>
+          <span class="feature-index">06</span>
+          <h3>Startup Resilience</h3>
+          <p>Memory-console startup now includes duplicate-start protection, health verification, and an all-users logon-task registration path prepared for elevated install.</p>
+        </article>
       </div>
     </section>
 
-    <section id="ops">
-      <h2>Ops + Quality Improvements</h2>
-      <h3>Applied from cross-prompt analysis</h3>
-      <ul>
-        <li class="ok">Definition-of-Done hardening for non-trivial tasks</li>
-        <li class="ok">Question-only behavior discipline to avoid over-execution</li>
-        <li class="ok">Search-first and verification profiles documented</li>
-        <li class="ok">Command safety notice standard for impactful operations</li>
-        <li class="ok">Skill dependency troubleshooting playbook proven on Windows (bin+config resolution)</li>
-      </ul>
-
-      <h3>Current signal</h3>
-      <p class="warn">Quality snapshot can show temporary low rate if sample volume is low; warmup mode now suppresses false alerts until minimum sample threshold is reached.</p>
-      <p class="muted">Local offload readiness is now scripted (`offload-healthcheck.ps1`): core components are validated, while paired-node offload remains optional until nodes are configured.</p>
+    <section id="systems" class="section systems">
+      <div class="section-heading sticky-heading" data-reveal>
+        <p class="eyebrow">Systems Layer</p>
+        <h2>Not one feature. A composed stack.</h2>
+      </div>
+      <div class="system-panels">
+        <article class="system-card" data-reveal>
+          <div class="system-number">Memory</div>
+          <h3>QMD as indexed backbone</h3>
+          <p>Entries, tags, relations, linked context, scoped recall, and lexical-plus-vector-aware retrieval with fail-open fallback when vector runtime degrades.</p>
+          <ul>
+            <li>Scoped project/global memory</li>
+            <li>Preflight before substantial work</li>
+            <li>Flush for context compaction</li>
+          </ul>
+        </article>
+        <article class="system-card" data-reveal>
+          <div class="system-number">Execution</div>
+          <h3>Static-first delivery, real engineering underneath</h3>
+          <p>Websites, dashboards, automation, and tooling are built to run locally or ship as simple artifacts where possible, without pretending complexity away.</p>
+          <ul>
+            <li>GitHub Pages safe outputs</li>
+            <li>Windows-aware workflows</li>
+            <li>Short-path project strategy</li>
+          </ul>
+        </article>
+        <article class="system-card" data-reveal>
+          <div class="system-number">Improvement</div>
+          <h3>Visible self-improvement loop</h3>
+          <p>Mistakes are captured in `.learnings`, daily memory, and regression coverage. The process is now structured enough to repeat without relying on hidden memory.</p>
+          <ul>
+            <li>Dedicated self-improvement skill</li>
+            <li>Manifest-driven regression runner</li>
+            <li>Browseable regression index</li>
+          </ul>
+        </article>
+        <article class="system-card" data-reveal>
+          <div class="system-number">Skills</div>
+          <h3>Local capabilities as installable modules</h3>
+          <p>APEX now grows through auditable local skills instead of vague hidden adaptation, keeping new behavior explicit, reusable, and inspectable.</p>
+          <ul>
+            <li>Browser smoke-check script</li>
+            <li>Agent eval schema</li>
+            <li>Memory synthesis workflow</li>
+          </ul>
+        </article>
+      </div>
     </section>
 
-    <section id="next">
-      <h2>Next</h2>
-      <ol>
-        <li>Configure paired nodes to unlock heavy-task offload capacity.</li>
-        <li>Add regression tests for quality gate accepted/rejected edge paths.</li>
-        <li>Expand QMD quality trend panel (24h/7d + reason distribution).</li>
-        <li>Run first full restore drill to second machine baseline.</li>
-      </ol>
+    <section id="timeline" class="section timeline-section">
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">Trajectory</p>
+        <h2>From agent framework to engineering operating system.</h2>
+      </div>
+      <div class="timeline-list">
+        <article class="timeline-item" data-reveal>
+          <div class="timeline-date">Foundation</div>
+          <div class="timeline-body">
+            <h3>Workspace intelligence established</h3>
+            <p>Identity, user context, daily memory, operating constraints, and auditable artifacts became the continuity layer.</p>
+          </div>
+        </article>
+        <article class="timeline-item" data-reveal>
+          <div class="timeline-date">Memory</div>
+          <div class="timeline-body">
+            <h3>QMD-centered retrieval model</h3>
+            <p>Indexed memory moved to QMD with scoped long-term files, preflight recall, flush support, and hybrid retrieval with lexical fallback.</p>
+          </div>
+        </article>
+        <article class="timeline-item" data-reveal>
+          <div class="timeline-date">Console</div>
+          <div class="timeline-body">
+            <h3>APEX Memory Console launched</h3>
+            <p>A local-only dark-mode dashboard now exposes recall, preflight, flush, recent indexed memory, backend-mode visibility, regression control, and a polished GSAP-style motion layer.</p>
+          </div>
+        </article>
+        <article class="timeline-item" data-reveal>
+          <div class="timeline-date">Discipline</div>
+          <div class="timeline-body">
+            <h3>Self-improvement operationalized</h3>
+            <p>Failures now feed a repeatable loop: reproduce, fix root cause, add regression coverage, log the learning, and make the system safer next time.</p>
+          </div>
+        </article>
+        <article class="timeline-item" data-reveal>
+          <div class="timeline-date">Extension</div>
+          <div class="timeline-body">
+            <h3>Skill pack and startup hardening added</h3>
+            <p>APEX now carries specialized local skills plus startup wrappers and health checks so the memory console is easier to trust, verify, and recover after restart.</p>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <footer>
-      <div>APEX - Engineering Intelligence Operating Record</div>
-      <div id="last-mod" class="last-mod"></div>
-    </footer>
+    <section id="proof" class="section proof">
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">Operational Proof</p>
+        <h2>This isn’t aesthetic theater. These are real working surfaces.</h2>
+      </div>
+      <div class="proof-grid">
+        <article class="proof-card large" data-reveal>
+          <h3>Capabilities on display</h3>
+          <div class="code-window">
+            <div class="code-topline">
+              <span></span><span></span><span></span>
+            </div>
+            <pre><code>APEX
+├── Architecture-first delivery
+├── QMD indexed memory
+├── Scoped preflight + recall
+├── Flush-to-memory compaction
+├── Local operator dashboard
+├── Visible fallback handling
+├── Manifest-driven regression
+├── Startup health verification
+└── Skill-driven extension model</code></pre>
+          </div>
+        </article>
+        <article class="proof-card" data-reveal>
+          <h3>Designed for reality</h3>
+          <p>No dependency on server-side rendering, no heavy framework tax, no fake product claims. This page is static, deployable, and still carries motion, depth, and narrative.</p>
+        </article>
+        <article class="proof-card" data-reveal>
+          <h3>APEX style</h3>
+          <p>Direct, technical, and composed. The visual system keeps the existing cyan-on-dark identity and JetBrains Mono foundation while moving into a more premium, modern presentation.</p>
+        </article>
+        <article class="proof-card" data-reveal>
+          <h3>Ready to extend</h3>
+          <p>Because this is plain HTML, CSS, and JavaScript, it can be pushed straight to GitHub Pages with no build step and no hosting complexity.</p>
+        </article>
+        <article class="proof-card" data-reveal>
+          <h3>Operator proof</h3>
+          <p>The current APEX stack includes a live local memory console with startup checks, recent-memory reloads, fallback-state visibility, and one-click regression runs.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+      <div class="contact-panel" data-reveal>
+        <p class="eyebrow">Deploy</p>
+        <h2>Ready to publish.</h2>
+        <p>
+          This rebuild is static-site safe for GitHub Pages. Push the updated repository and the new experience will deploy without any server-side runtime, while still showing real APEX memory, operator, and self-improvement capability.
+        </p>
+        <div class="contact-actions">
+          <a class="button primary" href="https://github.com/poid-za/poid-za.github.io" target="_blank" rel="noreferrer">Open GitHub Repo</a>
+          <a class="button ghost" href="https://proxy4u.co.za" target="_blank" rel="noreferrer">View Mapped Domain</a>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <script>
-    document.querySelectorAll('nav a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.querySelectorAll('nav a').forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
-      });
-    });
-
-    window.addEventListener('scroll', () => {
-      const sections = document.querySelectorAll('section[id]');
-      const y = window.scrollY + 120;
-      sections.forEach(section => {
-        if (y >= section.offsetTop && y < section.offsetTop + section.offsetHeight) {
-          document.querySelectorAll('nav a').forEach(l => l.classList.remove('active'));
-          const active = document.querySelector(`nav a[href="#${section.id}"]`);
-          if (active) active.classList.add('active');
-        }
-      });
-    });
-
-    const mod = new Date(document.lastModified);
-    const formatted = mod.toLocaleString('en-ZA', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      timeZone: 'Africa/Johannesburg'
-    });
-    document.getElementById('last-mod').innerHTML = `<span style="color: var(--primary);">⟳</span> Last Modified: <code>${formatted}</code> (SAST)`;
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

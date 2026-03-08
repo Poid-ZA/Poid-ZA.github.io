@@ -1,152 +1,126 @@
-/*
- * Enhanced Portfolio Interactivity
- * Handles smooth scrolling, scroll-spy, and interactive elements
- */
+﻿const navToggle = document.getElementById('navToggle');
+const body = document.body;
+const navLinks = document.querySelectorAll('.nav-links a');
+const sections = document.querySelectorAll('main section[id]');
+const revealTargets = document.querySelectorAll('[data-reveal]');
+const parallaxTargets = document.querySelectorAll('[data-depth]');
+const trustTrack = document.querySelector('.trust-track');
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Scroll-Spy Navigation
-  const navLinks = document.querySelectorAll('.nav-links a');
-  const sections = document.querySelectorAll('section');
+navToggle?.addEventListener('click', () => {
+  body.classList.toggle('menu-open');
+});
 
-  const updateActiveLink = () => {
-    let current = '';
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      if (pageYOffset >= sectionTop - 300) {
-        current = section.getAttribute('id');
-      }
+navLinks.forEach((link) => {
+  link.addEventListener('click', () => body.classList.remove('menu-open'));
+});
+
+function updateActiveNav() {
+  let current = '#hero';
+  sections.forEach((section) => {
+    const bounds = section.getBoundingClientRect();
+    if (bounds.top <= window.innerHeight * 0.35) {
+      current = `#${section.id}`;
+    }
+  });
+
+  navLinks.forEach((link) => {
+    link.classList.toggle('is-active', link.getAttribute('href') === current);
+  });
+}
+
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+window.addEventListener('load', updateActiveNav);
+
+if (window.gsap && window.ScrollTrigger) {
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.to('.hero-copy', {
+    y: -24,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+    },
+  });
+
+  gsap.to('.hero-panel', {
+    y: -44,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+    },
+  });
+
+  revealTargets.forEach((target, index) => {
+    gsap.to(target, {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: 'power3.out',
+      delay: index < 2 ? index * 0.08 : 0,
+      scrollTrigger: {
+        trigger: target,
+        start: 'top 84%',
+        once: true,
+      },
     });
+  });
 
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href').slice(1) === current) {
-        link.classList.add('active');
-      }
+  parallaxTargets.forEach((target) => {
+    const depth = Number(target.dataset.depth || 0.08);
+    gsap.to(target, {
+      yPercent: depth * -120,
+      xPercent: depth * 30,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: document.body,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: true,
+      },
     });
-  };
+  });
 
-  window.addEventListener('scroll', updateActiveLink);
-  updateActiveLink();
-
-  // Mobile Menu Toggle
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navLinksContainer = document.getElementById('navLinks');
-  
-  if (menuToggle && navLinksContainer) {
-    menuToggle.addEventListener('click', () => {
-      navLinksContainer.classList.toggle('open');
+  if (trustTrack) {
+    gsap.to(trustTrack, {
+      xPercent: -30,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: trustTrack,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true,
+      },
     });
+  }
 
-    // Close menu when clicking a link
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        navLinksContainer.classList.remove('open');
+  document.querySelectorAll('.feature-card, .system-card, .proof-card, .stack-card').forEach((card) => {
+    card.addEventListener('mousemove', (event) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 8;
+      const y = ((event.clientY - rect.top) / rect.height - 0.5) * -8;
+      gsap.to(card, {
+        rotateX: y,
+        rotateY: x,
+        transformPerspective: 1200,
+        transformOrigin: 'center',
+        duration: 0.35,
+        ease: 'power2.out',
       });
     });
-  }
 
-  // Theme Toggle Persistence
-  const themeToggle = document.querySelector('.theme-toggle');
-  const savedTheme = localStorage.getItem('theme') || 'dark';
-  
-  if (savedTheme === 'light') {
-    document.body.classList.add('light-mode');
-    if (themeToggle) themeToggle.textContent = '☀️';
-  }
-
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('light-mode');
-      const isDark = !document.body.classList.contains('light-mode');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      themeToggle.textContent = isDark ? '🌙' : '☀️';
-    });
-  }
-
-  // Smooth Scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const href = this.getAttribute('href');
-      if (href !== '#') {
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-          navLinksContainer?.classList.remove('open');
-        }
-      }
-    });
-  });
-
-  // Add reveal animation to cards
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger);
-    
-    // Animate capability cards
-    gsap.utils.toArray('.capability-card').forEach(card => {
-      gsap.fromTo(card,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-          }
-        }
-      );
-    });
-
-    // Animate project cards
-    gsap.utils.toArray('.project-card').forEach(card => {
-      gsap.fromTo(card,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-          }
-        }
-      );
-    });
-
-    // Animate sections
-    gsap.utils.toArray('section').forEach((section, index) => {
-      if (index > 0) {
-        gsap.fromTo(section,
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            scrollTrigger: {
-              trigger: section,
-              start: "top 80%",
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
-      }
-    });
-  }
-
-  // Project card click animation
-  document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-      if (typeof gsap !== 'undefined') {
-        gsap.to(card, { duration: 0.3, scale: 1.02 });
-      }
-    });
     card.addEventListener('mouseleave', () => {
-      if (typeof gsap !== 'undefined') {
-        gsap.to(card, { duration: 0.3, scale: 1 });
-      }
+      gsap.to(card, {
+        rotateX: 0,
+        rotateY: 0,
+        duration: 0.45,
+        ease: 'power2.out',
+      });
     });
   });
-});
+}
