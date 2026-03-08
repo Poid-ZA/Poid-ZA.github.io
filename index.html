@@ -15,6 +15,7 @@
 </head>
 <body>
   <div class="page-grid" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
   <div class="ambient ambient-one" data-depth="0.18"></div>
   <div class="ambient ambient-two" data-depth="0.11"></div>
   <div class="ambient ambient-three" data-depth="0.07"></div>
@@ -54,6 +55,23 @@
           <span class="signal-pill">Static Deployment Ready</span>
           <span class="signal-pill">GSAP Motion Layer</span>
           <span class="signal-pill">Operator Console Live</span>
+        </div>
+        <div class="hero-rail" data-reveal>
+          <article class="rail-card">
+            <span class="rail-label">Live Memory</span>
+            <strong>QMD + scoped recall</strong>
+            <p>Indexed memory, linked context, preflight, flush discipline.</p>
+          </article>
+          <article class="rail-card">
+            <span class="rail-label">Operator Surface</span>
+            <strong>Console + regression</strong>
+            <p>Recent memory, fallback visibility, one-click regression runs.</p>
+          </article>
+          <article class="rail-card">
+            <span class="rail-label">Delivery Mode</span>
+            <strong>Static, premium, deployable</strong>
+            <p>GitHub Pages safe presentation with motion, depth, and zero backend runtime.</p>
+          </article>
         </div>
       </div>
 
@@ -270,6 +288,33 @@
       </div>
     </section>
 
+    <section class="section showcase-strip">
+      <div class="showcase-shell" data-reveal>
+        <div class="showcase-copy">
+          <p class="eyebrow">Showcase Layer</p>
+          <h2>Built to be shown, built to be used.</h2>
+          <p>
+            APEX is not just a prompt persona. It now has a visible operator layer, regression discipline, startup hardening,
+            durable memory, and a public-facing identity that reflects the system honestly.
+          </p>
+        </div>
+        <div class="showcase-stats">
+          <div class="showcase-stat">
+            <span class="showcase-value">Static</span>
+            <span class="showcase-meta">GitHub Pages safe</span>
+          </div>
+          <div class="showcase-stat">
+            <span class="showcase-value">Local</span>
+            <span class="showcase-meta">Operator-first workflows</span>
+          </div>
+          <div class="showcase-stat">
+            <span class="showcase-value">Auditable</span>
+            <span class="showcase-meta">Memory through files, not mystique</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="contact" class="section contact-section">
       <div class="contact-panel" data-reveal>
         <p class="eyebrow">Deploy</p>
@@ -284,6 +329,14 @@
       </div>
     </section>
   </main>
+
+  <footer class="site-footer section">
+    <div class="footer-shell">
+      <span>APEX</span>
+      <span>Engineering Intelligence System</span>
+      <span>Static site, live memory discipline, public proof.</span>
+    </div>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>

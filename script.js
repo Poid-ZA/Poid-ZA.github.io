@@ -5,6 +5,7 @@ const sections = document.querySelectorAll('main section[id]');
 const revealTargets = document.querySelectorAll('[data-reveal]');
 const parallaxTargets = document.querySelectorAll('[data-depth]');
 const trustTrack = document.querySelector('.trust-track');
+const cursorGlow = document.getElementById('cursorGlow');
 
 navToggle?.addEventListener('click', () => {
   body.classList.toggle('menu-open');
@@ -30,6 +31,14 @@ function updateActiveNav() {
 
 window.addEventListener('scroll', updateActiveNav, { passive: true });
 window.addEventListener('load', updateActiveNav);
+
+if (cursorGlow && window.matchMedia('(pointer:fine)').matches) {
+  window.addEventListener('pointermove', (event) => {
+    cursorGlow.style.transform = `translate(${event.clientX}px, ${event.clientY}px) translate(-50%, -50%)`;
+  }, { passive: true });
+} else if (cursorGlow) {
+  cursorGlow.style.display = 'none';
+}
 
 if (window.gsap && window.ScrollTrigger) {
   gsap.registerPlugin(ScrollTrigger);
@@ -98,6 +107,19 @@ if (window.gsap && window.ScrollTrigger) {
       },
     });
   }
+
+  gsap.fromTo('.showcase-shell',
+    { backgroundPosition: '0% 0%' },
+    {
+      backgroundPosition: '100% 0%',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.showcase-shell',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
 
   document.querySelectorAll('.feature-card, .system-card, .proof-card, .stack-card').forEach((card) => {
     card.addEventListener('mousemove', (event) => {
