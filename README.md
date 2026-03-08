@@ -32,6 +32,7 @@ Recent public updates also reflect:
 - a live digest-manager backend on Supabase
 - Edge Function execution for digest runs
 - feed-first publishing in place of email-preview demo flows
+- direct latest-run refresh in the digest feed UI
 - public repo hygiene with secrets kept out of publishable assets
 
 The visual language preserves:
