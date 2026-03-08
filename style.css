@@ -12,6 +12,7 @@
   --shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
   --max-width: 1200px;
   --radius: 24px;
+  --measure: 68ch;
 }
 
 * {
@@ -27,6 +28,7 @@ body {
     radial-gradient(circle at 85% 18%, rgba(0, 153, 204, 0.13), transparent 24%),
     linear-gradient(180deg, #040408, #070912 34%, #050508 100%);
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
 body.menu-open {
@@ -124,7 +126,7 @@ body.menu-open {
   background: linear-gradient(135deg, var(--primary), #8cf1ff);
   font-weight: 800;
   letter-spacing: 0.14em;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
 }
 
 .brand-copy {
@@ -146,7 +148,7 @@ body.menu-open {
   text-decoration: none;
   border: 1px solid transparent;
   background: transparent;
-  padding: 10px 14px;
+  padding: 10px 15px;
   border-radius: 999px;
   font: inherit;
   font-size: 0.8rem;
@@ -183,15 +185,15 @@ main {
   gap: clamp(24px, 4vw, 56px);
   align-items: center;
   padding-top: 120px;
-  padding-bottom: 80px;
+  padding-bottom: 92px;
 }
 
 .eyebrow {
-  margin: 0 0 16px;
+  margin: 0 0 18px;
   color: var(--primary);
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
 }
 
 h1,
@@ -204,10 +206,11 @@ ul {
 }
 
 h1 {
-  margin-bottom: 24px;
+  max-width: 11ch;
+  margin-bottom: 28px;
   font-size: clamp(2.7rem, 8vw, 6.1rem);
-  line-height: 0.95;
-  letter-spacing: -0.05em;
+  line-height: 0.93;
+  letter-spacing: -0.055em;
   color: transparent;
   background: linear-gradient(135deg, #ffffff 8%, #8cf1ff 38%, var(--primary) 74%, var(--primary-dark) 100%);
   -webkit-background-clip: text;
@@ -216,14 +219,18 @@ h1 {
 
 .hero-text,
 .section-heading p,
+.identity-card p,
+.build-card p,
+.rail-card p,
 .feature-card p,
 .system-card p,
 .timeline-body p,
 .proof-card p,
 .contact-panel p {
   color: var(--text-muted);
-  line-height: 1.75;
-  font-size: 0.96rem;
+  line-height: 1.82;
+  font-size: 0.97rem;
+  max-width: var(--measure);
 }
 
 .hero-actions,
@@ -235,32 +242,34 @@ h1 {
 }
 
 .hero-actions {
-  margin: 28px 0 22px;
+  margin: 32px 0 24px;
 }
 
 .signal-row {
-  margin-top: 8px;
+  margin-top: 12px;
+  gap: 10px;
 }
 
 .hero-rail {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 26px;
+  gap: 16px;
+  margin-top: 30px;
 }
 
 .signal-pill {
-  padding: 10px 14px;
+  padding: 10px 15px;
   border-radius: 999px;
   border: 1px solid rgba(0, 217, 255, 0.18);
   background: rgba(10, 10, 18, 0.72);
   color: var(--text);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.03em;
 }
 
 .rail-card {
   position: relative;
-  padding: 18px;
+  padding: 20px;
   border-radius: 18px;
   border: 1px solid rgba(0, 217, 255, 0.14);
   background: linear-gradient(180deg, rgba(10, 12, 18, 0.88), rgba(8, 10, 16, 0.72));
@@ -270,22 +279,23 @@ h1 {
 .rail-card strong,
 .showcase-value {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   color: #ffffff;
-  font-size: 1rem;
+  font-size: 1.02rem;
+  line-height: 1.35;
 }
 
 .rail-card p,
 .showcase-meta {
   margin-bottom: 0;
   color: var(--text-muted);
-  line-height: 1.6;
-  font-size: 0.83rem;
+  line-height: 1.68;
+  font-size: 0.85rem;
 }
 
 .rail-label {
   display: inline-flex;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   color: var(--primary);
   font-size: 0.72rem;
   letter-spacing: 0.16em;
@@ -302,7 +312,8 @@ h1 {
   border-radius: 999px;
   border: 1px solid transparent;
   text-decoration: none;
-  font-size: 0.84rem;
+  font-size: 0.83rem;
+  letter-spacing: 0.02em;
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
 
@@ -328,7 +339,7 @@ h1 {
 
 .hero-stack {
   display: grid;
-  gap: 18px;
+  gap: 20px;
 }
 
 .stack-card,
@@ -338,7 +349,7 @@ h1 {
 .contact-panel {
   position: relative;
   overflow: hidden;
-  padding: 24px;
+  padding: 26px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
   background: linear-gradient(180deg, rgba(14, 18, 28, 0.92), rgba(9, 11, 18, 0.84));
@@ -366,17 +377,18 @@ h1 {
 .feature-index,
 .system-number {
   display: inline-flex;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   color: var(--primary);
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.17em;
 }
 
 .glow-card h2 {
-  margin-bottom: 16px;
+  max-width: 16ch;
+  margin-bottom: 18px;
   font-size: clamp(1.6rem, 3vw, 2.5rem);
-  line-height: 1.12;
+  line-height: 1.18;
 }
 
 .metrics-card {
@@ -386,13 +398,14 @@ h1 {
 
 .metric-value {
   display: block;
-  margin: 8px 0 8px;
-  font-size: 1.2rem;
+  margin: 10px 0 10px;
+  font-size: 1.18rem;
+  line-height: 1.4;
   color: #ffffff;
 }
 
 .trust-band {
-  padding-bottom: 56px;
+  padding-bottom: 44px;
   overflow: hidden;
 }
 
@@ -417,12 +430,14 @@ h1 {
 
 .section-heading {
   max-width: 760px;
-  margin-bottom: 32px;
+  margin-bottom: 38px;
 }
 
 .section-heading h2 {
   font-size: clamp(1.8rem, 4vw, 3.4rem);
-  line-height: 1.02;
+  max-width: 14ch;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
 }
 
 .identity-section,
@@ -432,21 +447,21 @@ h1 {
 .timeline-section,
 .proof,
 .contact-section {
-  padding: 56px 0 82px;
+  padding: 64px 0 92px;
 }
 
 .identity-grid,
 .builds-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+  gap: 20px;
 }
 
 .identity-card,
 .build-card {
   position: relative;
   overflow: hidden;
-  padding: 24px;
+  padding: 26px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
   background: linear-gradient(180deg, rgba(14, 18, 28, 0.92), rgba(9, 11, 18, 0.84));
@@ -467,39 +482,35 @@ h1 {
   display: inline-flex;
   margin-bottom: 16px;
   color: var(--primary);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   text-transform: uppercase;
   letter-spacing: 0.16em;
 }
 
 .identity-card h3,
 .build-card h3 {
-  margin-bottom: 14px;
-  font-size: 1.22rem;
+  margin-bottom: 16px;
+  font-size: 1.18rem;
+  line-height: 1.4;
   color: #ffffff;
-}
-
-.identity-card p,
-.build-card p {
-  color: var(--text-muted);
-  line-height: 1.75;
 }
 
 .build-card ul {
   padding-left: 18px;
-  margin: 18px 0 0;
+  margin: 20px 0 0;
   color: var(--text);
 }
 
 .build-card li {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  line-height: 1.65;
 }
 
 .capability-grid,
 .proof-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+  gap: 20px;
 }
 
 .feature-card {
@@ -511,8 +522,9 @@ h1 {
 .timeline-body h3,
 .proof-card h3,
 .contact-panel h2 {
-  margin-bottom: 14px;
-  font-size: 1.22rem;
+  margin-bottom: 16px;
+  font-size: 1.18rem;
+  line-height: 1.4;
   color: #ffffff;
 }
 
@@ -524,28 +536,29 @@ h1 {
 .systems {
   display: grid;
   grid-template-columns: 0.92fr 1.08fr;
-  gap: 28px;
+  gap: 32px;
 }
 
 .system-panels {
   display: grid;
-  gap: 18px;
+  gap: 20px;
 }
 
 .system-card ul {
   padding-left: 18px;
-  margin: 18px 0 0;
+  margin: 20px 0 0;
   color: var(--text);
 }
 
 .system-card li {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  line-height: 1.65;
 }
 
 .timeline-list {
   position: relative;
   display: grid;
-  gap: 22px;
+  gap: 24px;
 }
 
 .timeline-list::before {
@@ -562,7 +575,7 @@ h1 {
   position: relative;
   display: grid;
   grid-template-columns: 96px 1fr;
-  gap: 28px;
+  gap: 32px;
   align-items: start;
 }
 
@@ -581,9 +594,9 @@ h1 {
 .timeline-date {
   margin-top: 2px;
   color: var(--primary);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.17em;
 }
 
 .timeline-body {
@@ -628,13 +641,13 @@ h1 {
   margin: 0;
   padding: 20px;
   overflow: auto;
-  font-size: 0.92rem;
-  line-height: 1.7;
+  font-size: 0.88rem;
+  line-height: 1.8;
   color: #9beeff;
 }
 
 .contact-section {
-  padding-bottom: 110px;
+  padding-bottom: 118px;
 }
 
 .contact-panel {
@@ -643,14 +656,14 @@ h1 {
 }
 
 .showcase-strip {
-  padding: 14px 0 82px;
+  padding: 22px 0 92px;
 }
 
 .showcase-shell {
   display: grid;
   grid-template-columns: 1.08fr 0.92fr;
-  gap: 20px;
-  padding: 28px;
+  gap: 24px;
+  padding: 30px;
   border-radius: 28px;
   border: 1px solid rgba(0, 217, 255, 0.14);
   background:
@@ -661,18 +674,18 @@ h1 {
 
 .showcase-stats {
   display: grid;
-  gap: 14px;
+  gap: 16px;
 }
 
 .showcase-stat {
-  padding: 18px;
+  padding: 20px;
   border-radius: 18px;
   border: 1px solid rgba(0, 217, 255, 0.12);
   background: rgba(7, 9, 14, 0.84);
 }
 
 .site-footer {
-  padding-bottom: 48px;
+  padding-bottom: 56px;
 }
 
 .footer-shell {
@@ -680,10 +693,11 @@ h1 {
   flex-wrap: wrap;
   gap: 12px 18px;
   justify-content: space-between;
-  padding: 18px 0 0;
+  padding: 22px 0 0;
   border-top: 1px solid rgba(0, 217, 255, 0.1);
   color: var(--text-muted);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
+  line-height: 1.7;
 }
 
 [data-reveal] {
@@ -773,6 +787,7 @@ h1 {
 
   .hero {
     padding-top: 108px;
+    padding-bottom: 76px;
   }
 
   .stack-card,
@@ -782,6 +797,20 @@ h1 {
   .contact-panel,
   .showcase-shell {
     padding: 18px;
+  }
+
+  .section-heading {
+    margin-bottom: 28px;
+  }
+
+  .identity-section,
+  .capabilities,
+  .builds-section,
+  .systems,
+  .timeline-section,
+  .proof,
+  .contact-section {
+    padding: 48px 0 72px;
   }
 
   .cursor-glow {

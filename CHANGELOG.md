@@ -29,3 +29,4 @@
 - tightened the one-page story around the Proxy4u identity so the site reads more like a principal-engineering public profile than a generic system overview
 - integrated the APEX Memory Console, APEX Relay, and Daily Tech Digest MVP more cleanly into the single-page flow
 - smoothed navigation and scroll motion by removing conflicting native smooth scrolling, softening GSAP scrub timing, and easing pointer glow movement
+- Applied a typography and micro-spacing refinement pass to the live `Poid-ZA.github.io` one-pager: tightened headline measure, improved section rhythm, increased body-text readability, and cleaned card/list spacing so the page feels more deliberate on both desktop and mobile.
