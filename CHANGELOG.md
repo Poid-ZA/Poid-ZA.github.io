@@ -24,3 +24,8 @@
   - hero rail cards
   - showcase strip
   - footer refinement
+
+### Proxy4u narrative and motion refinement
+- tightened the one-page story around the Proxy4u identity so the site reads more like a principal-engineering public profile than a generic system overview
+- integrated the APEX Memory Console, APEX Relay, and Daily Tech Digest MVP more cleanly into the single-page flow
+- smoothed navigation and scroll motion by removing conflicting native smooth scrolling, softening GSAP scrub timing, and easing pointer glow movement

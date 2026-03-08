@@ -6,6 +6,20 @@ const revealTargets = document.querySelectorAll('[data-reveal]');
 const parallaxTargets = document.querySelectorAll('[data-depth]');
 const trustTrack = document.querySelector('.trust-track');
 const cursorGlow = document.getElementById('cursorGlow');
+const tiltTargets = document.querySelectorAll('.feature-card, .system-card, .proof-card, .stack-card, .identity-card, .build-card, .rail-card');
+
+const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+let reducedMotion = reducedMotionQuery.matches;
+
+if (typeof reducedMotionQuery.addEventListener === 'function') {
+  reducedMotionQuery.addEventListener('change', (event) => {
+    reducedMotion = event.matches;
+  });
+} else if (typeof reducedMotionQuery.addListener === 'function') {
+  reducedMotionQuery.addListener((event) => {
+    reducedMotion = event.matches;
+  });
+}
 
 navToggle?.addEventListener('click', () => {
   body.classList.toggle('menu-open');
@@ -32,36 +46,103 @@ function updateActiveNav() {
 window.addEventListener('scroll', updateActiveNav, { passive: true });
 window.addEventListener('load', updateActiveNav);
 
+navLinks.forEach((link) => {
+  link.addEventListener('click', (event) => {
+    const href = link.getAttribute('href');
+    if (!href || !href.startsWith('#')) {
+      return;
+    }
+
+    const target = document.querySelector(href);
+    if (!target) {
+      return;
+    }
+
+    event.preventDefault();
+    const top = target.getBoundingClientRect().top + window.scrollY - 86;
+
+    if (reducedMotion) {
+      window.scrollTo(0, top);
+    } else if (window.gsap) {
+      gsap.to(window, {
+        duration: 1.15,
+        ease: 'power3.inOut',
+        scrollTo: { y: top, autoKill: true },
+        overwrite: 'auto',
+      });
+    } else {
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+
+    history.replaceState(null, '', href);
+    body.classList.remove('menu-open');
+  });
+});
+
 if (cursorGlow && window.matchMedia('(pointer:fine)').matches) {
+  let glowX = window.innerWidth * 0.5;
+  let glowY = window.innerHeight * 0.28;
+  let targetX = glowX;
+  let targetY = glowY;
+  let rafId = 0;
+
+  const renderGlow = () => {
+    glowX += (targetX - glowX) * 0.14;
+    glowY += (targetY - glowY) * 0.14;
+    cursorGlow.style.transform = `translate(${glowX}px, ${glowY}px) translate(-50%, -50%)`;
+    rafId = window.requestAnimationFrame(renderGlow);
+  };
+
   window.addEventListener('pointermove', (event) => {
-    cursorGlow.style.transform = `translate(${event.clientX}px, ${event.clientY}px) translate(-50%, -50%)`;
+    targetX = event.clientX;
+    targetY = event.clientY;
   }, { passive: true });
+
+  if (!reducedMotion) {
+    rafId = window.requestAnimationFrame(renderGlow);
+  } else {
+    cursorGlow.style.transform = `translate(${targetX}px, ${targetY}px) translate(-50%, -50%)`;
+  }
+
+  window.addEventListener('beforeunload', () => {
+    if (rafId) {
+      window.cancelAnimationFrame(rafId);
+    }
+  });
 } else if (cursorGlow) {
   cursorGlow.style.display = 'none';
 }
 
 if (window.gsap && window.ScrollTrigger) {
   gsap.registerPlugin(ScrollTrigger);
+  if (window.ScrollToPlugin) {
+    gsap.registerPlugin(ScrollToPlugin);
+  }
+
+  gsap.defaults({
+    overwrite: 'auto',
+    ease: 'power2.out',
+  });
 
   gsap.to('.hero-copy', {
-    y: -24,
+    y: -18,
     ease: 'none',
     scrollTrigger: {
       trigger: '#hero',
       start: 'top top',
       end: 'bottom top',
-      scrub: true,
+      scrub: reducedMotion ? false : 1.1,
     },
   });
 
   gsap.to('.hero-panel', {
-    y: -44,
+    y: -28,
     ease: 'none',
     scrollTrigger: {
       trigger: '#hero',
       start: 'top top',
       end: 'bottom top',
-      scrub: true,
+      scrub: reducedMotion ? false : 1.3,
     },
   });
 
@@ -83,27 +164,27 @@ if (window.gsap && window.ScrollTrigger) {
   parallaxTargets.forEach((target) => {
     const depth = Number(target.dataset.depth || 0.08);
     gsap.to(target, {
-      yPercent: depth * -120,
-      xPercent: depth * 30,
+      yPercent: depth * -84,
+      xPercent: depth * 18,
       ease: 'none',
       scrollTrigger: {
         trigger: document.body,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: true,
+        scrub: reducedMotion ? false : 1.5,
       },
     });
   });
 
   if (trustTrack) {
     gsap.to(trustTrack, {
-      xPercent: -30,
+      xPercent: -18,
       ease: 'none',
       scrollTrigger: {
         trigger: trustTrack,
         start: 'top bottom',
         end: 'bottom top',
-        scrub: true,
+        scrub: reducedMotion ? false : 1.2,
       },
     });
   }
@@ -117,21 +198,25 @@ if (window.gsap && window.ScrollTrigger) {
         trigger: '.showcase-shell',
         start: 'top bottom',
         end: 'bottom top',
-        scrub: true,
+        scrub: reducedMotion ? false : 1.35,
       },
     });
 
-  document.querySelectorAll('.feature-card, .system-card, .proof-card, .stack-card').forEach((card) => {
+  tiltTargets.forEach((card) => {
     card.addEventListener('mousemove', (event) => {
+      if (reducedMotion) {
+        return;
+      }
+
       const rect = card.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 8;
-      const y = ((event.clientY - rect.top) / rect.height - 0.5) * -8;
+      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 5;
+      const y = ((event.clientY - rect.top) / rect.height - 0.5) * -5;
       gsap.to(card, {
         rotateX: y,
         rotateY: x,
         transformPerspective: 1200,
         transformOrigin: 'center',
-        duration: 0.35,
+        duration: 0.42,
         ease: 'power2.out',
       });
     });
