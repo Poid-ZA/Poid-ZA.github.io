@@ -14,6 +14,10 @@ const footerVisitCount = document.getElementById('footerVisitCount');
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 let reducedMotion = reducedMotionQuery.matches;
 
+if (!reducedMotion) {
+  document.documentElement.classList.add('js-motion');
+}
+
 if (typeof reducedMotionQuery.addEventListener === 'function') {
   reducedMotionQuery.addEventListener('change', (event) => {
     reducedMotion = event.matches;
@@ -112,13 +116,6 @@ navLinks.forEach((link) => {
 
     if (reducedMotion) {
       window.scrollTo(0, top);
-    } else if (window.gsap) {
-      gsap.to(window, {
-        duration: 1.15,
-        ease: 'power3.inOut',
-        scrollTo: { y: top, autoKill: true },
-        overwrite: 'auto',
-      });
     } else {
       window.scrollTo({ top, behavior: 'smooth' });
     }
@@ -162,121 +159,51 @@ if (cursorGlow && window.matchMedia('(pointer:fine)').matches) {
   cursorGlow.style.display = 'none';
 }
 
-if (window.gsap && window.ScrollTrigger) {
-  gsap.registerPlugin(ScrollTrigger);
-  if (window.ScrollToPlugin) {
-    gsap.registerPlugin(ScrollToPlugin);
-  }
-
-  gsap.defaults({
-    overwrite: 'auto',
-    ease: 'power2.out',
-  });
-
-  gsap.to('.hero-copy', {
-    y: -18,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '#hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: reducedMotion ? false : 1.1,
-    },
-  });
-
-  gsap.to('.hero-panel', {
-    y: -28,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '#hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: reducedMotion ? false : 1.3,
-    },
-  });
-
-  revealTargets.forEach((target, index) => {
-    gsap.to(target, {
-      opacity: 1,
-      y: 0,
-      duration: 0.9,
-      ease: 'power3.out',
-      delay: index < 2 ? index * 0.08 : 0,
-      scrollTrigger: {
-        trigger: target,
-        start: 'top 84%',
-        once: true,
-      },
-    });
-  });
-
-  parallaxTargets.forEach((target) => {
-    const depth = Number(target.dataset.depth || 0.08);
-    gsap.to(target, {
-      yPercent: depth * -84,
-      xPercent: depth * 18,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: document.body,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: reducedMotion ? false : 1.5,
-      },
-    });
-  });
-
-  if (trustTrack) {
-    gsap.to(trustTrack, {
-      xPercent: -18,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: trustTrack,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: reducedMotion ? false : 1.2,
-      },
-    });
-  }
-
-  gsap.fromTo('.showcase-shell',
-    { backgroundPosition: '0% 0%' },
-    {
-      backgroundPosition: '100% 0%',
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.showcase-shell',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: reducedMotion ? false : 1.35,
-      },
-    });
-
-  tiltTargets.forEach((card) => {
-    card.addEventListener('mousemove', (event) => {
-      if (reducedMotion) {
+if ('IntersectionObserver' in window) {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) {
         return;
       }
+      entry.target.classList.add('is-revealed');
+      observer.unobserve(entry.target);
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -10% 0px',
+  });
 
+  revealTargets.forEach((target) => revealObserver.observe(target));
+} else {
+  revealTargets.forEach((target) => target.classList.add('is-revealed'));
+}
+
+if (!reducedMotion && parallaxTargets.length > 0) {
+  const updateParallax = () => {
+    const scrollY = window.scrollY;
+    parallaxTargets.forEach((target) => {
+      const depth = Number(target.dataset.depth || 0.08);
+      const translateY = scrollY * depth * -0.18;
+      const translateX = scrollY * depth * 0.03;
+      target.style.transform = `translate3d(${translateX}px, ${translateY}px, 0)`;
+    });
+  };
+
+  updateParallax();
+  window.addEventListener('scroll', updateParallax, { passive: true });
+}
+
+if (!reducedMotion) {
+  tiltTargets.forEach((card) => {
+    card.addEventListener('mousemove', (event) => {
       const rect = card.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 5;
-      const y = ((event.clientY - rect.top) / rect.height - 0.5) * -5;
-      gsap.to(card, {
-        rotateX: y,
-        rotateY: x,
-        transformPerspective: 1200,
-        transformOrigin: 'center',
-        duration: 0.42,
-        ease: 'power2.out',
-      });
+      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 4;
+      const y = ((event.clientY - rect.top) / rect.height - 0.5) * -4;
+      card.style.transform = `perspective(1200px) rotateX(${y}deg) rotateY(${x}deg)`;
     });
 
     card.addEventListener('mouseleave', () => {
-      gsap.to(card, {
-        rotateX: 0,
-        rotateY: 0,
-        duration: 0.45,
-        ease: 'power2.out',
-      });
+      card.style.transform = '';
     });
   });
 }

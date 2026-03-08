@@ -21,7 +21,7 @@
 
 body {
   margin: 0;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "SFMono-Regular", "Cascadia Code", "JetBrains Mono", "Fira Code", "Consolas", monospace;
   color: var(--text);
   background:
     radial-gradient(circle at top left, rgba(0, 217, 255, 0.12), transparent 28%),
@@ -758,8 +758,42 @@ h1 {
 }
 
 [data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+.js-motion [data-reveal] {
   opacity: 0;
   transform: translateY(24px);
+}
+
+.is-revealed {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: opacity 520ms ease, transform 520ms ease;
+}
+
+.trust-track {
+  animation: trust-drift 26s linear infinite;
+}
+
+@keyframes trust-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-12%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trust-track {
+    animation: none;
+  }
+
+  .is-revealed {
+    transition: none;
+  }
 }
 
 @media (max-width: 1080px) {
