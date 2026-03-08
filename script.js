@@ -7,6 +7,9 @@ const parallaxTargets = document.querySelectorAll('[data-depth]');
 const trustTrack = document.querySelector('.trust-track');
 const cursorGlow = document.getElementById('cursorGlow');
 const tiltTargets = document.querySelectorAll('.feature-card, .system-card, .proof-card, .stack-card, .identity-card, .build-card, .rail-card');
+const footerLastUpdated = document.getElementById('footerLastUpdated');
+const footerLocalTime = document.getElementById('footerLocalTime');
+const footerVisitCount = document.getElementById('footerVisitCount');
 
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 let reducedMotion = reducedMotionQuery.matches;
@@ -20,6 +23,43 @@ if (typeof reducedMotionQuery.addEventListener === 'function') {
     reducedMotion = event.matches;
   });
 }
+
+function formatFooterTimestamp(value) {
+  return new Intl.DateTimeFormat(undefined, {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date(value));
+}
+
+function updateFooterClock() {
+  if (!footerLocalTime) {
+    return;
+  }
+
+  footerLocalTime.textContent = new Intl.DateTimeFormat(undefined, {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  }).format(new Date());
+}
+
+if (footerLastUpdated) {
+  footerLastUpdated.textContent = formatFooterTimestamp(document.lastModified);
+}
+
+if (footerVisitCount) {
+  const storageKey = 'proxy4u-visit-count';
+  const previousVisits = Number.parseInt(window.localStorage.getItem(storageKey) || '0', 10);
+  const nextVisits = Number.isFinite(previousVisits) ? previousVisits + 1 : 1;
+  window.localStorage.setItem(storageKey, String(nextVisits));
+  footerVisitCount.textContent = String(nextVisits);
+}
+
+updateFooterClock();
+window.setInterval(updateFooterClock, 1000);
 
 navToggle?.addEventListener('click', () => {
   body.classList.toggle('menu-open');
