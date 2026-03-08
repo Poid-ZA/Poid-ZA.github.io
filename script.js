@@ -10,6 +10,7 @@ const tiltTargets = document.querySelectorAll('.feature-card, .system-card, .pro
 const footerLastUpdated = document.getElementById('footerLastUpdated');
 const footerLocalTime = document.getElementById('footerLocalTime');
 const footerVisitCount = document.getElementById('footerVisitCount');
+const scrollProgress = document.getElementById('scrollProgress');
 
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 let reducedMotion = reducedMotionQuery.matches;
@@ -96,8 +97,22 @@ function updateActiveNav() {
   });
 }
 
+function updateScrollProgress() {
+  if (!scrollProgress) {
+    return;
+  }
+
+  const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const ratio = scrollableHeight <= 0 ? 0 : Math.min(1, Math.max(0, window.scrollY / scrollableHeight));
+  scrollProgress.style.width = `${ratio * 100}%`;
+}
+
 window.addEventListener('scroll', updateActiveNav, { passive: true });
-window.addEventListener('load', updateActiveNav);
+window.addEventListener('scroll', updateScrollProgress, { passive: true });
+window.addEventListener('load', () => {
+  updateActiveNav();
+  updateScrollProgress();
+});
 
 navLinks.forEach((link) => {
   link.addEventListener('click', (event) => {
@@ -165,6 +180,8 @@ if ('IntersectionObserver' in window) {
       if (!entry.isIntersecting) {
         return;
       }
+      const order = revealTargets ? Array.from(revealTargets).indexOf(entry.target) : 0;
+      entry.target.style.transitionDelay = order >= 0 ? `${Math.min(order * 35, 180)}ms` : '0ms';
       entry.target.classList.add('is-revealed');
       observer.unobserve(entry.target);
     });
