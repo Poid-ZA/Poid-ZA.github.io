@@ -258,6 +258,11 @@ main {
   z-index: 2;
 }
 
+main > .section {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
 .section {
   width: min(var(--max-width), calc(100vw - 32px));
   margin: 0 auto;
@@ -434,6 +439,7 @@ h1 {
 .hero-stack {
   display: grid;
   gap: 20px;
+  animation: stack-float 9s ease-in-out infinite;
 }
 
 .stack-card,
@@ -841,6 +847,7 @@ h1 {
     radial-gradient(circle at top right, rgba(125, 255, 155, 0.12), transparent 30%),
     linear-gradient(180deg, rgba(9, 16, 10, 0.96), rgba(5, 10, 7, 0.92));
   box-shadow: var(--shadow);
+  animation: shell-float 11s ease-in-out infinite;
 }
 
 .showcase-stats {
@@ -928,6 +935,16 @@ h1 {
   text-shadow: 0 0 12px rgba(125, 255, 155, 0.34);
 }
 
+.hero-copy,
+.hero-panel,
+.section-heading,
+.showcase-copy,
+.showcase-stats,
+.contact-panel {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
 [data-reveal] {
   opacity: 1;
   transform: none;
@@ -966,12 +983,37 @@ h1 {
   }
 }
 
+@keyframes stack-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes shell-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .trust-track {
     animation: none;
   }
 
   body::after {
+    animation: none;
+  }
+
+  .hero-stack,
+  .showcase-shell {
     animation: none;
   }
 

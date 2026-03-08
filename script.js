@@ -11,6 +11,7 @@ const footerLastUpdated = document.getElementById('footerLastUpdated');
 const footerLocalTime = document.getElementById('footerLocalTime');
 const footerVisitCount = document.getElementById('footerVisitCount');
 const scrollProgress = document.getElementById('scrollProgress');
+const sectionParallaxTargets = document.querySelectorAll('.hero-copy, .hero-panel, .section-heading, .showcase-copy, .showcase-stats, .contact-panel');
 
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 let reducedMotion = reducedMotionQuery.matches;
@@ -196,27 +197,53 @@ if ('IntersectionObserver' in window) {
 }
 
 if (!reducedMotion && parallaxTargets.length > 0) {
-  const updateParallax = () => {
+  let ticking = false;
+
+  const renderParallax = () => {
     const scrollY = window.scrollY;
+
     parallaxTargets.forEach((target) => {
       const depth = Number(target.dataset.depth || 0.08);
       const translateY = scrollY * depth * -0.18;
       const translateX = scrollY * depth * 0.03;
       target.style.transform = `translate3d(${translateX}px, ${translateY}px, 0)`;
     });
+
+    sectionParallaxTargets.forEach((target, index) => {
+      const bounds = target.getBoundingClientRect();
+      const viewportCenter = window.innerHeight * 0.5;
+      const elementCenter = bounds.top + bounds.height * 0.5;
+      const distanceFromCenter = (elementCenter - viewportCenter) / window.innerHeight;
+      const depth = index % 2 === 0 ? 18 : 12;
+      const translateY = distanceFromCenter * depth * -1;
+      const scale = 1 - Math.min(Math.abs(distanceFromCenter) * 0.018, 0.018);
+      target.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
+    });
+
+    ticking = false;
+  };
+
+  const updateParallax = () => {
+    if (ticking) {
+      return;
+    }
+
+    ticking = true;
+    window.requestAnimationFrame(renderParallax);
   };
 
   updateParallax();
   window.addEventListener('scroll', updateParallax, { passive: true });
+  window.addEventListener('resize', updateParallax, { passive: true });
 }
 
 if (!reducedMotion) {
   tiltTargets.forEach((card) => {
     card.addEventListener('mousemove', (event) => {
       const rect = card.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 4;
-      const y = ((event.clientY - rect.top) / rect.height - 0.5) * -4;
-      card.style.transform = `perspective(1200px) rotateX(${y}deg) rotateY(${x}deg)`;
+      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 7;
+      const y = ((event.clientY - rect.top) / rect.height - 0.5) * -7;
+      card.style.transform = `perspective(1400px) rotateX(${y}deg) rotateY(${x}deg) translate3d(0, -6px, 0)`;
     });
 
     card.addEventListener('mouseleave', () => {
