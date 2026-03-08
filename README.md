@@ -20,7 +20,7 @@ It is intentionally:
 The current version presents APEX as a principal-level engineering intelligence system focused on:
 
 - architecture-first implementation
-- QMD-backed workspace memory
+- Supabase-primary workspace memory
 - scoped recall, preflight, and flush discipline
 - local operator dashboards
 - Supabase-backed digest infrastructure
@@ -29,6 +29,8 @@ The current version presents APEX as a principal-level engineering intelligence 
 
 Recent public updates also reflect:
 
+- a live `apex_memory_*` Supabase backend for durable memory and relations
+- remote-first memory runtime with explicit local fallback only when requested
 - a live digest-manager backend on Supabase
 - Edge Function execution for digest runs
 - feed-first publishing in place of email-preview demo flows
