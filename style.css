@@ -429,12 +429,74 @@ h1 {
   line-height: 1.02;
 }
 
+.identity-section,
 .capabilities,
+.builds-section,
 .systems,
 .timeline-section,
 .proof,
 .contact-section {
   padding: 56px 0 82px;
+}
+
+.identity-grid,
+.builds-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.identity-card,
+.build-card {
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(14, 18, 28, 0.92), rgba(9, 11, 18, 0.84));
+  box-shadow: var(--shadow);
+}
+
+.identity-card::before,
+.build-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.06), transparent 38%, transparent 60%, rgba(0, 153, 204, 0.09));
+  pointer-events: none;
+}
+
+.identity-label,
+.build-label {
+  display: inline-flex;
+  margin-bottom: 16px;
+  color: var(--primary);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.identity-card h3,
+.build-card h3 {
+  margin-bottom: 14px;
+  font-size: 1.22rem;
+  color: #ffffff;
+}
+
+.identity-card p,
+.build-card p {
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+.build-card ul {
+  padding-left: 18px;
+  margin: 18px 0 0;
+  color: var(--text);
+}
+
+.build-card li {
+  margin-bottom: 10px;
 }
 
 .capability-grid,
@@ -675,6 +737,8 @@ h1 {
   }
 
   .capability-grid,
+  .identity-grid,
+  .builds-grid,
   .proof-grid {
     grid-template-columns: 1fr;
   }
