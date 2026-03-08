@@ -39,11 +39,11 @@ Recent public updates also reflect:
 - vendored JetBrains Mono font assets served directly from the repo
 - public repo hygiene with secrets kept out of publishable assets
 
-The visual language preserves:
+The visual language now leans into:
 - `JetBrains Mono`
-- cyan-on-dark identity
-- premium dark UI
-- GSAP-based motion and parallax polish
+- restrained Matrix-green console styling
+- premium dark terminal UI
+- lightweight native motion and parallax polish
 
 ## Core Files
 
