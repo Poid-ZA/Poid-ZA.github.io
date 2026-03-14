@@ -6,16 +6,15 @@
   <meta name="description" content="APEX is a principal-level engineering intelligence system for architecture, memory, automation, governance, and production-grade delivery." />
   <meta name="color-scheme" content="dark" />
   <title>APEX | Engineering Intelligence System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/png" href="favicon-512x512.png" />
-  <link rel="preload" href="assets/fonts/JetBrainsMono-400.ttf" as="font" type="font/ttf" crossorigin />
-  <link rel="preload" href="assets/fonts/JetBrainsMono-700.ttf" as="font" type="font/ttf" crossorigin />
-  <link rel="stylesheet" href="style.css?v=20260308g" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
   <div class="page-grid" aria-hidden="true"></div>
-  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
   <div class="ambient ambient-one" data-depth="0.18"></div>
   <div class="ambient ambient-two" data-depth="0.11"></div>
   <div class="ambient ambient-three" data-depth="0.07"></div>
@@ -26,10 +25,8 @@
       <span class="brand-copy">Engineering Intelligence</span>
     </a>
     <div class="nav-links">
-      <a href="#identity">Identity</a>
       <a href="#capabilities">Capabilities</a>
       <a href="#systems">Systems</a>
-      <a href="#builds">Builds</a>
       <a href="#timeline">Timeline</a>
       <a href="#proof">Proof</a>
       <a href="#contact">Deploy</a>
@@ -40,49 +37,43 @@
   <main>
     <section id="hero" class="hero section">
       <div class="hero-copy" data-reveal>
-        <p class="eyebrow">Proxy4u | Principal Engineering + APEX</p>
-        <h1>Systems thinking, AI execution, and operator discipline in one public surface.</h1>
+        <p class="eyebrow">Principal-Level Engineering Agent</p>
+        <h1>Architecture, memory, automation, and delivery sharpened into one system.</h1>
         <p class="hero-text">
-          This is the public edge of a deeper engineering stack: principal-level architecture, delivery, security,
-          memory systems, automation, and AI tooling built to operate in the real world. It is also a statement of
-          intent for <strong>proxy4u.co.za</strong>: serious engineering, sharpened interfaces, and systems that can
-          actually be run, tested, recovered, and evolved.
+          APEX is a workspace-native engineering intelligence layer built to design, implement, harden, remember,
+          recover, and improve. The site you are looking at is static, GitHub Pages safe, and intentionally shows
+          off real operational capability rather than generic AI marketing noise.
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="#identity">Read the Profile</a>
+          <a class="button primary" href="#capabilities">Explore Capabilities</a>
           <a class="button ghost" href="#proof">See Operational Proof</a>
         </div>
         <div class="signal-row">
           <span class="signal-pill">JetBrains Mono</span>
-          <span class="signal-pill">Matrix Green Console</span>
-          <span class="signal-pill">Proxy4u Mapped Domain</span>
+          <span class="signal-pill">Cyan-on-Dark Identity</span>
           <span class="signal-pill">Static Deployment Ready</span>
-          <span class="signal-pill">Native Motion Layer</span>
+          <span class="signal-pill">GSAP Motion Layer</span>
           <span class="signal-pill">Operator Console Live</span>
-          <span class="signal-pill">Supabase Memory Primary</span>
-          <span class="signal-pill">Supabase Digest Live</span>
         </div>
-        <div class="hero-rail" data-reveal>
-          <article class="rail-card">
-            <span class="rail-label">Live Memory</span>
-            <strong>Supabase-primary recall</strong>
-            <p>Remote-first memory, scoped recall, preflight, flush discipline, and explicit local fallback only when requested.</p>
-          </article>
-          <article class="rail-card">
-            <span class="rail-label">Operator Surface</span>
-            <strong>Console + regression</strong>
-            <p>Recent memory, fallback visibility, one-click regression runs.</p>
-          </article>
-          <article class="rail-card">
-            <span class="rail-label">Delivery Mode</span>
-            <strong>Static, premium, deployable</strong>
-            <p>GitHub Pages safe presentation with motion, depth, and zero backend runtime.</p>
-          </article>
-          <article class="rail-card">
-            <span class="rail-label">New Surface</span>
-            <strong>Digest feed published live</strong>
-            <p>Supabase-backed ingestion, curated run output, and a refreshable in-browser RSS feed that updates directly from the latest live run.</p>
-          </article>
+        <div class="release-strip" data-reveal>
+          <div class="release-strip-head">
+            <span class="release-badge">LATEST CHANGES</span>
+            <span class="release-stamp">Live site refresh</span>
+          </div>
+          <div class="release-grid">
+            <article class="release-item">
+              <strong>Backup + restore discipline added</strong>
+              <p>Canonical archive layout, SHA verification, restore script compatibility, and a documented recovery path.</p>
+            </article>
+            <article class="release-item">
+              <strong>Nightly offsite copy running</strong>
+              <p>Scheduled local backups now replicate to mapped Google Drive for lightweight off-machine recovery.</p>
+            </article>
+            <article class="release-item">
+              <strong>Public surface tightened</strong>
+              <p>Sharper narrative, stronger proof posture, and a clearer bridge between engineering work and deployable outcomes.</p>
+            </article>
+          </div>
         </div>
       </div>
 
@@ -90,65 +81,42 @@
         <div class="hero-stack">
           <article class="stack-card glow-card">
             <div class="stack-label">Current Posture</div>
-            <h2>Principal engineering with APEX as the intelligence layer, not a gimmick.</h2>
-            <p>Supabase-primary memory, scoped recall, explicit flush discipline, startup hardening, regression coverage, and visible operator surfaces all working together as one system.</p>
+            <h2>QMD-first memory, recoverable workflows, offsite backups, and operator-visible discipline.</h2>
+            <p>Designed for continuity without hidden state: indexed memory, explicit compaction, recoverable workflows, startup health checks, verified backups, and visible operational artifacts.</p>
+            <div class="status-cluster" aria-label="Latest operational changes">
+              <span class="status-chip online">Nightly backups active</span>
+              <span class="status-chip">Restore guide published</span>
+              <span class="status-chip">Google Drive mirror configured</span>
+            </div>
           </article>
-          <article class="stack-card metrics-card">
+          <article class="stack-card metrics-card status-card">
             <div>
-              <span class="metric-kicker">Operator Layer</span>
+              <span class="metric-kicker">Recent Builds</span>
               <strong class="metric-value">Memory Console + Motion</strong>
-              <p>Search, preflight, flush, recent remote memory, one-click regression, premium dark mode, and restrained native motion in an operator surface that now runs remote-first.</p>
+              <p>Local-first operator surface for search, preflight, flush, recent indexed memory, one-click regression, premium dark mode, and restrained GSAP-style motion.</p>
             </div>
             <div>
-              <span class="metric-kicker">Public Direction</span>
-              <strong class="metric-value">Proxy4u as engineering presence</strong>
-              <p>This site now reads less like a changelog and more like a credible engineering profile: systems, proof, delivery, and tooling in one clean one-pager.</p>
+              <span class="metric-kicker">Operational Layer</span>
+              <strong class="metric-value">Backup + Recovery Surface</strong>
+              <p>Canonical backup archives, SHA verification, restore compatibility, scheduled offsite replication, and recovery notes now sit inside the stack instead of outside it.</p>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="identity" class="section identity-section">
-      <div class="section-heading" data-reveal>
-        <p class="eyebrow">Identity</p>
-        <h2>Built around senior engineering judgment, not generic AI output.</h2>
-      </div>
-      <div class="identity-grid">
-        <article class="identity-card" data-reveal>
-          <span class="identity-label">Who this is for</span>
-          <h3>Proxy4u as a sharper technical presence</h3>
-          <p>
-            The goal is not to look like another AI landing page. It is to present the operator behind the system:
-            senior engineering, architecture-first delivery, secure-by-default thinking, and an obvious bias toward
-            systems that can be audited and maintained.
-          </p>
-        </article>
-        <article class="identity-card" data-reveal>
-          <span class="identity-label">How it is framed</span>
-          <h3>One operator, one system, one clear narrative</h3>
-          <p>
-            APEX is shown here as the force multiplier, not the mask. The site is about what can actually be built:
-            memory tooling, relay infrastructure, automated digest systems, regression discipline, and modern static delivery.
-          </p>
-        </article>
-      </div>
-    </section>
-
     <section class="trust-band section" aria-label="Core APEX strengths">
       <div class="trust-track">
-        <span>Principal engineering</span>
         <span>Architecture-first</span>
         <span>Secure by default</span>
         <span>Workspace-aware memory</span>
-        <span>Proxy4u technical identity</span>
         <span>Static site delivery</span>
         <span>Regression discipline</span>
         <span>Operator-grade dashboards</span>
         <span>Startup health checks</span>
         <span>Skill-driven execution</span>
-        <span>Principal engineering</span>
         <span>Architecture-first</span>
+        <span>Secure by default</span>
       </div>
     </section>
 
@@ -161,12 +129,12 @@
         <article class="feature-card" data-reveal>
           <span class="feature-index">01</span>
           <h3>Workspace Memory</h3>
-          <p>Supabase-primary indexed memory with scoped recall, preflight packs, flush-to-memory, daily logs as audit artifacts, and explicit local fallback only when intentionally enabled.</p>
+          <p>QMD-backed indexed memory with scoped recall, preflight packs, flush-to-memory, daily logs, and long-term project routing.</p>
         </article>
         <article class="feature-card" data-reveal>
           <span class="feature-index">02</span>
           <h3>Architecture & Delivery</h3>
-          <p>Production-grade implementation with configuration discipline, validation, tests, deployment guidance, pragmatic trade-off analysis, and a bias toward clean operating models.</p>
+          <p>Production-grade implementation with configuration discipline, validation, tests, deployment guidance, and pragmatic trade-off analysis.</p>
         </article>
         <article class="feature-card" data-reveal>
           <span class="feature-index">03</span>
@@ -176,7 +144,7 @@
         <article class="feature-card" data-reveal>
           <span class="feature-index">04</span>
           <h3>Operational UX</h3>
-          <p>Local-first control surfaces, clear degradation visibility, recent-memory inspection, and manual controls that stay explicit instead of magical or misleading.</p>
+          <p>Local-first control surfaces, clear degradation visibility, recent-memory inspection, and manual controls that stay explicit instead of magical.</p>
         </article>
         <article class="feature-card" data-reveal>
           <span class="feature-index">05</span>
@@ -191,45 +159,6 @@
       </div>
     </section>
 
-    <section id="builds" class="section builds-section">
-      <div class="section-heading" data-reveal>
-        <p class="eyebrow">Builds</p>
-        <h2>Three proof points, one continuous flow.</h2>
-      </div>
-      <div class="builds-grid">
-        <article class="build-card" data-reveal>
-          <span class="build-label">Memory</span>
-          <h3>APEX Memory Console</h3>
-          <p>A dark-first operator console for recall, preflight, flush, recent remote memory, regression runs, and visible fallback handling, now backed by Supabase as the primary durable memory layer with a terminal-grade visual posture.</p>
-          <ul>
-            <li>Supabase-primary recall and preflight</li>
-            <li>Explicit flush discipline</li>
-            <li>Explicit local fallback control</li>
-          </ul>
-        </article>
-        <article class="build-card" data-reveal>
-          <span class="build-label">Relay</span>
-          <h3>APEX Relay</h3>
-          <p>An APEX-native analogue to the Distil proxy pattern: Go daemon, websocket broker, bounded fetch execution, release metadata, binary delivery model, and bootstrap installers.</p>
-          <ul>
-            <li>Daemon + broker loop</li>
-            <li>Release metadata endpoint</li>
-            <li>Binary download model</li>
-          </ul>
-        </article>
-        <article class="build-card" data-reveal>
-          <span class="build-label">Digest</span>
-          <h3>Daily Tech Digest Platform</h3>
-          <p>A live digest system now running against Supabase: real feed ingestion, persisted run history, Edge Function execution, and a feed-first publishing model that exposes the latest curated output directly in-browser and as RSS XML with immediate refresh from the latest run.</p>
-          <ul>
-            <li>Live feed ingestion across active sources</li>
-            <li>Supabase-backed persistence and run history</li>
-            <li>Digest feed publishing with direct latest-run refresh</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
     <section id="systems" class="section systems">
       <div class="section-heading sticky-heading" data-reveal>
         <p class="eyebrow">Systems Layer</p>
@@ -238,13 +167,12 @@
       <div class="system-panels">
         <article class="system-card" data-reveal>
           <div class="system-number">Memory</div>
-          <h3>Supabase as the memory backbone</h3>
-          <p>Entries, relations, linked context, scoped recall, and remote-first retrieval now live in Supabase, with local QMD retained only as an explicit fallback and migration cache.</p>
+          <h3>QMD as indexed backbone</h3>
+          <p>Entries, tags, relations, linked context, scoped recall, and lexical-plus-vector-aware retrieval with fail-open fallback when vector runtime degrades.</p>
           <ul>
             <li>Scoped project/global memory</li>
-            <li>Remote-first runtime by default</li>
             <li>Preflight before substantial work</li>
-            <li>Explicit fallback rather than silent fail-open</li>
+            <li>Flush for context compaction</li>
           </ul>
         </article>
         <article class="system-card" data-reveal>
@@ -255,17 +183,6 @@
             <li>GitHub Pages safe outputs</li>
             <li>Windows-aware workflows</li>
             <li>Short-path project strategy</li>
-          </ul>
-        </article>
-        <article class="system-card" data-reveal>
-          <div class="system-number">Data</div>
-          <h3>Supabase as the durable backend tier</h3>
-          <p>Memory durability, relation graphs, digest persistence, Edge execution, and public-safe deployment hygiene are now aligned around a hosted backend layer instead of local-only state.</p>
-          <ul>
-            <li>Hosted Postgres persistence</li>
-            <li>Remote memory entries plus relations</li>
-            <li>Edge Functions for digest runs</li>
-            <li>Redacted public repo posture</li>
           </ul>
         </article>
         <article class="system-card" data-reveal>
@@ -307,15 +224,15 @@
         <article class="timeline-item" data-reveal>
           <div class="timeline-date">Memory</div>
           <div class="timeline-body">
-            <h3>Supabase-primary memory activated</h3>
-            <p>APEX memory moved onto remote `apex_memory_*` tables with full entry and relation sync, while local files remained as auditable artifacts and explicit fallback paths.</p>
+            <h3>QMD-centered retrieval model</h3>
+            <p>Indexed memory moved to QMD with scoped long-term files, preflight recall, flush support, and hybrid retrieval with lexical fallback.</p>
           </div>
         </article>
         <article class="timeline-item" data-reveal>
           <div class="timeline-date">Console</div>
           <div class="timeline-body">
             <h3>APEX Memory Console launched</h3>
-            <p>A local-only dark-mode dashboard now exposes recall, preflight, flush, recent indexed memory, backend-mode visibility, regression control, and a polished native motion layer.</p>
+            <p>A local-only dark-mode dashboard now exposes recall, preflight, flush, recent indexed memory, backend-mode visibility, regression control, and a polished GSAP-style motion layer.</p>
           </div>
         </article>
         <article class="timeline-item" data-reveal>
@@ -332,19 +249,29 @@
             <p>APEX now carries specialized local skills plus startup wrappers and health checks so the memory console is easier to trust, verify, and recover after restart.</p>
           </div>
         </article>
-        <article class="timeline-item" data-reveal>
-          <div class="timeline-date">Showcase</div>
-          <div class="timeline-body">
-            <h3>Proxy4u public surface rebuilt</h3>
-            <p>The GitHub Pages site was turned into a cleaner one-page engineering profile that now shows the memory console, relay work, and digest system in one coherent flow.</p>
-          </div>
+      </div>
+    </section>
+
+    <section class="section latest-updates">
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">Latest Changes</p>
+        <h2>Recent work now shows up as operational improvements, not just code churn.</h2>
+      </div>
+      <div class="updates-grid">
+        <article class="update-card" data-reveal>
+          <span class="update-tag">Recovery</span>
+          <h3>Backup and restore standardized</h3>
+          <p>Backup payloads now follow one canonical structure with manifest metadata, SHA sidecars, and restore logic aligned to the archive layout.</p>
         </article>
-        <article class="timeline-item" data-reveal>
-          <div class="timeline-date">Backend</div>
-          <div class="timeline-body">
-            <h3>Digest platform moved onto Supabase</h3>
-            <p>The digest manager now persists state remotely, runs via Edge Functions, and publishes curated output as a feed instead of relying on local-only storage or email preview scaffolding.</p>
-          </div>
+        <article class="update-card" data-reveal>
+          <span class="update-tag">Offsite</span>
+          <h3>Google Drive replication added</h3>
+          <p>Nightly local archives now copy to a mapped Google Drive path so recovery is not limited to one disk or one machine.</p>
+        </article>
+        <article class="update-card" data-reveal>
+          <span class="update-tag">Presentation</span>
+          <h3>Public edge sharpened</h3>
+          <p>The site now better reflects the latest posture: engineering systems that can be built, verified, backed up, and restored without drama.</p>
         </article>
       </div>
     </section>
@@ -363,11 +290,11 @@
             </div>
             <pre><code>APEX
 ├── Architecture-first delivery
-├── Supabase-primary memory
+├── QMD indexed memory
 ├── Scoped preflight + recall
 ├── Flush-to-memory compaction
 ├── Local operator dashboard
-├── Explicit fallback control
+├── Visible fallback handling
 ├── Manifest-driven regression
 ├── Startup health verification
 └── Skill-driven extension model</code></pre>
@@ -379,7 +306,7 @@
         </article>
         <article class="proof-card" data-reveal>
           <h3>APEX style</h3>
-          <p>Direct, technical, and composed. The visual system now leans into a restrained late-90s Matrix terminal mood while keeping the layout premium, readable, and current.</p>
+          <p>Direct, technical, and composed. The visual system keeps the existing cyan-on-dark identity and JetBrains Mono foundation while moving into a more premium, modern presentation.</p>
         </article>
         <article class="proof-card" data-reveal>
           <h3>Ready to extend</h3>
@@ -387,59 +314,24 @@
         </article>
         <article class="proof-card" data-reveal>
           <h3>Operator proof</h3>
-          <p>The current APEX stack includes a live memory console with startup checks, remote memory verification, explicit fallback-state visibility, and one-click regression runs.</p>
+          <p>The current APEX stack includes a live local memory console with startup checks, recent-memory reloads, fallback-state visibility, and one-click regression runs.</p>
         </article>
-        <article class="proof-card" data-reveal>
-          <h3>Build proof</h3>
-          <p>Relay infrastructure, Supabase-primary memory, and the digest pipeline are now part of the same APEX story: durable hosted state, secure deployment hygiene, static-friendly presentation, and real end-to-end validation instead of mock demos.</p>
-        </article>
-        <article class="proof-card" data-reveal>
-          <h3>Digest proof</h3>
-          <p>The digest system now fetches live sources, records real run history, and publishes a latest-run RSS feed view that refreshes directly from the newest run instead of pretending that preview emails are the product.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section showcase-strip">
-      <div class="showcase-shell" data-reveal>
-        <div class="showcase-copy">
-          <p class="eyebrow">Showcase Layer</p>
-          <h2>Built to be shown, built to be used, built to represent you cleanly.</h2>
-          <p>
-            This one-pager now ties the story together: senior engineering judgment, APEX as the intelligence layer, and
-            concrete shipped systems under the Proxy4u identity instead of disconnected demos.
-          </p>
-        </div>
-        <div class="showcase-stats">
-          <div class="showcase-stat">
-            <span class="showcase-value">Profile</span>
-            <span class="showcase-meta">Sharper public engineering identity</span>
-          </div>
-          <div class="showcase-stat">
-            <span class="showcase-value">Flow</span>
-            <span class="showcase-meta">One page, clean progression, no dead-end detours</span>
-          </div>
-          <div class="showcase-stat">
-            <span class="showcase-value">Proof</span>
-            <span class="showcase-meta">Console, relay, digest, and delivery in one narrative</span>
-          </div>
-        </div>
       </div>
     </section>
 
     <section id="contact" class="section contact-section">
       <div class="contact-panel" data-reveal>
         <p class="eyebrow">Deploy</p>
-        <h2>Ready to build from.</h2>
+        <h2>Ready to publish. Ready to recover.</h2>
         <p>
-          The site now works as a public engineering profile, an APEX showcase, and a clean launch point for future client-facing or product-facing pages without needing to split the story into separate routes.
+          This rebuild is static-site safe for GitHub Pages. Push the updated repository and the new experience deploys without any server-side runtime, while still showing real APEX memory, operator, backup, and recovery capability.
         </p>
-        <p>
-          Current public posture: no secret keys in the publishable repos, placeholder-only env examples, and backend-capable systems running on Supabase so the public surface stays simple while the operating layer stays real.
-        </p>
-        <p>
-          Latest shift: memory now runs Supabase-first with remote relation graphs and explicit local fallback, while the digest platform continues as a live Supabase-backed service with Edge execution and feed-first publishing.
-        </p>
+        <div class="deploy-points">
+          <span>Static deployment</span>
+          <span>Verified backup path</span>
+          <span>Offsite mirror</span>
+          <span>Fast restore workflow</span>
+        </div>
         <div class="contact-actions">
           <a class="button primary" href="https://github.com/poid-za/poid-za.github.io" target="_blank" rel="noreferrer">Open GitHub Repo</a>
           <a class="button ghost" href="https://proxy4u.co.za" target="_blank" rel="noreferrer">View Mapped Domain</a>
@@ -448,30 +340,8 @@
     </section>
   </main>
 
-  <footer class="site-footer section">
-    <div class="footer-shell">
-      <div class="footer-brand">
-        <span>APEX</span>
-        <span>Engineering Intelligence System</span>
-        <span>Static site, live memory discipline, terminal-grade public proof.</span>
-      </div>
-      <div class="footer-matrix" aria-label="Site status indicators">
-        <article class="matrix-card">
-          <span class="matrix-label">Last Updated</span>
-          <strong class="matrix-value" id="footerLastUpdated">Syncing...</strong>
-        </article>
-        <article class="matrix-card">
-          <span class="matrix-label">Local Time</span>
-          <strong class="matrix-value" id="footerLocalTime">--:--:--</strong>
-        </article>
-        <article class="matrix-card">
-          <span class="matrix-label">This Browser Visits</span>
-          <strong class="matrix-value" id="footerVisitCount">0</strong>
-        </article>
-      </div>
-    </div>
-  </footer>
-
-  <script src="script.js?v=20260308f"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
