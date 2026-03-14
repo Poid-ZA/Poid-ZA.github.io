@@ -30,3 +30,11 @@
 - integrated the APEX Memory Console, APEX Relay, and Daily Tech Digest MVP more cleanly into the single-page flow
 - smoothed navigation and scroll motion by removing conflicting native smooth scrolling, softening GSAP scrub timing, and easing pointer glow movement
 - Applied a typography and micro-spacing refinement pass to the live `Poid-ZA.github.io` one-pager: tightened headline measure, improved section rhythm, increased body-text readability, and cleaned card/list spacing so the page feels more deliberate on both desktop and mobile.
+
+## 2026-03-14
+
+### Control-plane and ACP delivery update
+- added Codex ACP as the default execution lane for non-trivial repo work
+- updated public copy to reflect the lower-token control-plane model
+- added durable session/task-state pattern to reduce transcript replay and context burn
+- refreshed backup/recovery posture after the ACP/runtime changes
