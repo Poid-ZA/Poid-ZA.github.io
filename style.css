@@ -281,6 +281,33 @@ h1 {
   border-color: rgba(255,255,255,0.08);
 }
 
+.release-meta,
+.deploy-meta,
+.metrics-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 14px;
+}
+
+.release-meta span,
+.deploy-meta span,
+.metrics-footer span {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  font-size: 0.74rem;
+}
+
+.metrics-footer {
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
 .release-grid,
 .updates-grid {
   display: grid;
