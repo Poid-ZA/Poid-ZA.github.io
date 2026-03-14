@@ -167,13 +167,13 @@ main {
 }
 
 .hero {
-  min-height: 100vh;
+  min-height: auto;
   display: grid;
   grid-template-columns: 1.2fr 0.95fr;
-  gap: clamp(24px, 4vw, 56px);
-  align-items: center;
-  padding-top: 120px;
-  padding-bottom: 80px;
+  gap: clamp(20px, 3vw, 36px);
+  align-items: start;
+  padding-top: 88px;
+  padding-bottom: 48px;
 }
 
 .eyebrow {
@@ -312,7 +312,7 @@ h1 {
 .updates-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  gap: 12px;
 }
 
 .release-item,
@@ -405,7 +405,7 @@ h1 {
 
 .hero-stack {
   display: grid;
-  gap: 18px;
+  gap: 14px;
 }
 
 .stack-card,
@@ -469,7 +469,7 @@ h1 {
 }
 
 .trust-band {
-  padding-bottom: 56px;
+  padding-bottom: 28px;
   overflow: hidden;
 }
 
@@ -508,7 +508,7 @@ h1 {
 .latest-updates,
 .proof,
 .contact-section {
-  padding: 56px 0 82px;
+  padding: 40px 0 56px;
 }
 
 .capability-grid,
