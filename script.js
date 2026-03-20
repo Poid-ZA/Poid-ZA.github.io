@@ -135,3 +135,10 @@ if (statusChips.length) {
     activeIndex += 1;
   }, 2200);
 }
+
+const verifiedEl = document.getElementById('lastVerified');
+if (verifiedEl) {
+  const now = new Date();
+  const formatted = `${String(now.getDate()).padStart(2, '0')} ${now.toLocaleString('en-US', { month: 'short' })} ${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+  verifiedEl.textContent = `Last verified: ${formatted}`;
+}
