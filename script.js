@@ -146,17 +146,33 @@ if (verifiedEl) {
 }
 
 if (scanlineToggle) {
+  const savedScanlines = window.localStorage.getItem('apex.scanlines') === 'on';
+  if (savedScanlines) {
+    document.body.classList.add('scanlines');
+  }
+  scanlineToggle.textContent = savedScanlines ? 'Scanlines: on' : 'Scanlines: off';
+  scanlineToggle.setAttribute('aria-pressed', String(savedScanlines));
+
   scanlineToggle.addEventListener('click', () => {
     const enabled = document.body.classList.toggle('scanlines');
     scanlineToggle.textContent = enabled ? 'Scanlines: on' : 'Scanlines: off';
     scanlineToggle.setAttribute('aria-pressed', String(enabled));
+    window.localStorage.setItem('apex.scanlines', enabled ? 'on' : 'off');
   });
 }
 
 if (minimalToggle) {
+  const savedMinimal = window.localStorage.getItem('apex.minimalMode') === 'on';
+  if (savedMinimal) {
+    document.body.classList.add('minimal-mode');
+  }
+  minimalToggle.textContent = savedMinimal ? 'Minimal mode: on' : 'Minimal mode: off';
+  minimalToggle.setAttribute('aria-pressed', String(savedMinimal));
+
   minimalToggle.addEventListener('click', () => {
     const enabled = document.body.classList.toggle('minimal-mode');
     minimalToggle.textContent = enabled ? 'Minimal mode: on' : 'Minimal mode: off';
     minimalToggle.setAttribute('aria-pressed', String(enabled));
+    window.localStorage.setItem('apex.minimalMode', enabled ? 'on' : 'off');
   });
 }
