@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Proxy4u builds practical engineering systems: architecture, automation, recovery, hardening, and operator-ready delivery." />
+  <meta name="description" content="APEX is a principal-level engineering intelligence system for architecture, memory, automation, governance, and production-grade delivery." />
   <meta name="color-scheme" content="dark" />
-  <title>Proxy4u | Engineering Systems That Ship</title>
+  <title>APEX | Engineering Intelligence System</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -21,16 +21,15 @@
 
   <nav class="site-nav">
     <a class="brand" href="#hero">
-      <span class="brand-mark">PROXY4U</span>
-      <span class="brand-copy">Engineering Delivery</span>
+      <span class="brand-mark">APEX</span>
+      <span class="brand-copy">Engineering Intelligence</span>
     </a>
     <div class="nav-links">
-      <a href="#benefits">Benefits</a>
-      <a href="#features">Features</a>
-      <a href="#use-cases">Use Cases</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Start</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#systems">Architecture</a>
+      <a href="#timeline">Evolution</a>
+      <a href="#proof">Proof</a>
+      <a href="#contact">Delivery</a>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">MENU</button>
   </nav>
@@ -38,235 +37,312 @@
   <main>
     <section id="hero" class="hero section">
       <div class="hero-copy" data-reveal>
-        <p class="eyebrow">Principal-level engineering partner</p>
-        <h1>We build reliable platforms without the drama.</h1>
+        <p class="eyebrow">Principal-Level Engineering Systems</p>
+        <h1>Architecture-first engineering that ships cleanly, recovers fast, and stays auditable.</h1>
         <p class="hero-text">
-          Proxy4u helps teams ship architecture-first systems that are secure, observable, and recoverable.
-          No platform theater. No fragile shortcuts. Just clean execution.
+          APEX is the intelligence layer behind Proxy4U's delivery model: memory-aware execution, operational discipline,
+          verified recovery, and production-grade implementation without platform theater.
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="#contact">Book a delivery call</a>
-          <a class="button ghost" href="#pricing">See pricing</a>
+          <a class="button primary" href="#capabilities">Explore Capabilities</a>
+          <a class="button ghost" href="#proof">See Operational Proof</a>
         </div>
         <div class="signal-row">
-          <span class="signal-pill">Architecture-first</span>
-          <span class="signal-pill">Security by default</span>
-          <span class="signal-pill">Recovery ready</span>
-          <span class="signal-pill">Operational handover</span>
+          <span class="signal-pill">Codex ACP execution</span>
+          <span class="signal-pill">Lower-token control plane</span>
+          <span class="signal-pill">Recovery-ready</span>
+          <span class="signal-pill">Workspace-aware memory</span>
+        </div>
+        <div class="release-strip" data-reveal>
+          <div class="release-strip-head">
+            <span class="release-badge">LATEST CHANGES</span>
+            <span class="release-stamp">Live site refresh</span>
+          </div>
+          <div class="release-meta" aria-label="Release metadata">
+            <span>Last updated: 14 Mar 2026 | 09:06 SAST</span>
+            <span>Release window: March 2026</span>
+            <span>Surface: GitHub Pages / APEX showcase</span>
+          </div>
+          <div class="release-grid">
+            <article class="release-item">
+              <strong>Backup + restore discipline added</strong>
+              <p>Canonical archive layout, SHA verification, restore script compatibility, and a documented recovery path.</p>
+            </article>
+            <article class="release-item">
+              <strong>Nightly offsite copy running</strong>
+              <p>Scheduled local backups now replicate to mapped Google Drive for lightweight off-machine recovery.</p>
+            </article>
+            <article class="release-item">
+              <strong>Codex ACP execution lane added</strong>
+              <p>Non-trivial coding work now routes to Codex ACP so the main thread can stay thin, lower-token, and focused on control rather than implementation chatter.</p>
+            </article>
+          </div>
         </div>
       </div>
 
       <div class="hero-panel" data-reveal>
         <div class="hero-stack">
           <article class="stack-card glow-card">
-            <div class="stack-label">What you get</div>
-            <h2>Execution that survives real-world pressure.</h2>
-            <p>From design to deployment, we build systems with explicit trade-offs, guardrails, and runbooks so your team can operate with confidence.</p>
-            <div class="status-cluster" aria-label="Delivery outcomes">
-              <span class="status-chip online">Faster incident recovery</span>
-              <span class="status-chip">Lower integration risk</span>
-              <span class="status-chip">Clear ownership boundaries</span>
+            <div class="stack-label">Current Posture</div>
+            <h2>Memory-aware engineering workflows with verified recovery, operational discipline, and deployable output.</h2>
+            <p>Designed for continuity without hidden state: scoped recall, explicit recovery paths, verified backups, startup health checks, and visible operational artifacts.</p>
+            <div class="status-cluster" aria-label="Latest operational changes">
+              <span class="status-chip online">Nightly backups active</span>
+              <span class="status-chip">Restore guide published</span>
+              <span class="status-chip">Google Drive mirror configured</span>
             </div>
           </article>
           <article class="stack-card metrics-card status-card">
             <div>
-              <span class="metric-kicker">Delivery model</span>
-              <strong class="metric-value">Build + Harden + Handover</strong>
-              <p>Scoped implementation, security hardening, verification, and production handoff in one flow.</p>
+              <span class="metric-kicker">Recent Builds</span>
+              <strong class="metric-value">Control Plane + Codex ACP</strong>
+              <p>Main chat stays lean while non-trivial coding runs through Codex ACP, with durable state files reducing transcript replay and context burn.</p>
             </div>
             <div>
-              <span class="metric-kicker">Ideal for</span>
-              <strong class="metric-value">Ops-heavy teams</strong>
-              <p>Teams that need stable systems now, not endless architecture slides.</p>
+              <span class="metric-kicker">Operational Layer</span>
+              <strong class="metric-value">Backup + Recovery Surface</strong>
+              <p>Canonical backup archives, SHA verification, restore compatibility, scheduled offsite replication, and recovery notes now sit inside the stack instead of outside it.</p>
             </div>
             <div class="metrics-footer">
-              <span>Static site / GitHub Pages</span>
-              <span>No build required to publish</span>
-              <span>Direct editable HTML/CSS/JS</span>
+              <span>Updated 2026-03-14</span>
+              <span>Static deploy target</span>
+              <span>Recovery-aligned surface</span>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="trust-band section" aria-label="Core strengths">
+    <section class="trust-band section" aria-label="Core APEX strengths">
       <div class="trust-track">
-        <span>Architecture reviews</span>
-        <span>Platform hardening</span>
-        <span>Automation lanes</span>
-        <span>Recovery planning</span>
-        <span>Operator documentation</span>
+        <span>Architecture-first</span>
+        <span>Secure by default</span>
+        <span>Recoverable workflows</span>
+        <span>Workspace-aware memory</span>
+        <span>Static deployment ready</span>
       </div>
     </section>
 
-    <section id="benefits" class="section capabilities">
+    <section id="capabilities" class="section capabilities">
       <div class="section-heading" data-reveal>
-        <p class="eyebrow">Benefits</p>
-        <h2>Built for teams who care about uptime, clarity, and execution speed.</h2>
+        <p class="eyebrow">Capabilities</p>
+        <h2>Built to think like an architect, execute like an engineer, and recover like an operator.</h2>
       </div>
       <div class="capability-grid">
         <article class="feature-card" data-reveal>
           <span class="feature-index">01</span>
-          <h3>Less rework</h3>
-          <p>We lock architecture and interfaces early so implementation doesn’t churn every sprint.</p>
+          <h3>Workspace Memory</h3>
+          <p>QMD-backed indexed memory with scoped recall, preflight packs, flush-to-memory, daily logs, and long-term project routing.</p>
         </article>
         <article class="feature-card" data-reveal>
           <span class="feature-index">02</span>
-          <h3>Lower risk</h3>
-          <p>Threat-aware defaults, input validation, and explicit failure modes are built in from day one.</p>
+          <h3>Architecture & Delivery</h3>
+          <p>Production-grade implementation with configuration discipline, validation, tests, deployment guidance, pragmatic trade-off analysis, and Codex ACP execution for non-trivial repo work.</p>
         </article>
         <article class="feature-card" data-reveal>
           <span class="feature-index">03</span>
-          <h3>Faster troubleshooting</h3>
-          <p>Structured logs, health checks, and operational runbooks reduce mean time to recovery.</p>
+          <h3>Security & Hardening</h3>
+          <p>Threat-aware defaults, explicit constraints, auditability, safe failure modes, incident memory, and repeatable remediation patterns.</p>
         </article>
         <article class="feature-card" data-reveal>
           <span class="feature-index">04</span>
-          <h3>Cleaner handover</h3>
-          <p>Your team gets clear docs, known constraints, and practical next steps — not a black box.</p>
+          <h3>Operational UX</h3>
+          <p>Local-first control surfaces, clear degradation visibility, recent-memory inspection, task-state files, and explicit controls that reduce transcript-heavy iteration.</p>
+        </article>
+        <article class="feature-card" data-reveal>
+          <span class="feature-index">05</span>
+          <h3>Skill Extensions</h3>
+          <p>Purpose-built local skills for browser QA, agent evals, MCP integration review, self-improvement, and memory synthesis extend APEX beyond generic prompting.</p>
+        </article>
+        <article class="feature-card" data-reveal>
+          <span class="feature-index">06</span>
+          <h3>Startup Resilience</h3>
+          <p>Memory-console startup now includes duplicate-start protection, health verification, and an all-users logon-task registration path prepared for elevated install.</p>
         </article>
       </div>
     </section>
 
-    <section id="features" class="section systems">
+    <section id="systems" class="section systems">
       <div class="section-heading sticky-heading" data-reveal>
-        <p class="eyebrow">Features</p>
-        <h2>Core capabilities included in delivery.</h2>
+        <p class="eyebrow">Architecture</p>
+        <h2>A composed stack, not a pile of features.</h2>
       </div>
       <div class="system-panels">
         <article class="system-card" data-reveal>
-          <div class="system-number">Architecture</div>
-          <h3>Decision-first design</h3>
-          <p>Service boundaries, data flows, failure domains, and scaling limits mapped before build starts.</p>
+          <div class="system-number">Memory</div>
+          <h3>QMD as indexed backbone</h3>
+          <p>Entries, tags, relations, linked context, scoped recall, and lexical-plus-vector-aware retrieval with fail-open fallback when vector runtime degrades.</p>
           <ul>
-            <li>Trade-off matrix</li>
-            <li>Integration contract map</li>
-            <li>Risk register</li>
+            <li>Scoped project/global memory</li>
+            <li>Preflight before substantial work</li>
+            <li>Flush for context compaction</li>
           </ul>
         </article>
         <article class="system-card" data-reveal>
-          <div class="system-number">Delivery</div>
-          <h3>Production-grade implementation</h3>
-          <p>Robust code paths with validation, retries, observability hooks, and deploy-ready conventions.</p>
+          <div class="system-number">Execution</div>
+          <h3>Static-first delivery, real engineering underneath</h3>
+          <p>Websites, dashboards, automation, and tooling are built to run locally or ship as simple artifacts where possible, without pretending complexity away.</p>
           <ul>
-            <li>Timeouts + backoff</li>
-            <li>Health checks + logs</li>
-            <li>Verified handover notes</li>
+            <li>GitHub Pages safe outputs</li>
+            <li>Windows-aware workflows</li>
+            <li>Short-path project strategy</li>
           </ul>
         </article>
         <article class="system-card" data-reveal>
-          <div class="system-number">Hardening</div>
-          <h3>Security and reliability baseline</h3>
-          <p>Practical hardening with least-privilege posture, safe defaults, and clear residual-risk reporting.</p>
+          <div class="system-number">Improvement</div>
+          <h3>Visible self-improvement loop</h3>
+          <p>Mistakes are captured in `.learnings`, daily memory, and regression coverage. The process is now structured enough to repeat without relying on hidden memory.</p>
           <ul>
-            <li>Surface threat review</li>
-            <li>Safe parsing + validation</li>
-            <li>Audit-friendly controls</li>
+            <li>Dedicated self-improvement skill</li>
+            <li>Manifest-driven regression runner</li>
+            <li>Browseable regression index</li>
+          </ul>
+        </article>
+        <article class="system-card" data-reveal>
+          <div class="system-number">Skills</div>
+          <h3>Local capabilities as installable modules</h3>
+          <p>APEX now grows through auditable local skills instead of vague hidden adaptation, keeping new behavior explicit, reusable, and inspectable.</p>
+          <ul>
+            <li>Browser smoke-check script</li>
+            <li>Agent eval schema</li>
+            <li>Memory synthesis workflow</li>
           </ul>
         </article>
       </div>
     </section>
 
-    <section id="use-cases" class="section timeline-section">
+    <section id="timeline" class="section timeline-section">
       <div class="section-heading" data-reveal>
-        <p class="eyebrow">Use Cases</p>
-        <h2>Where Proxy4u is usually brought in.</h2>
+        <p class="eyebrow">Evolution</p>
+        <h2>From agent framework to engineering operating system.</h2>
       </div>
       <div class="timeline-list">
         <article class="timeline-item" data-reveal>
-          <div class="timeline-date">Platform</div>
+          <div class="timeline-date">Foundation</div>
           <div class="timeline-body">
-            <h3>Stabilize a growing internal platform</h3>
-            <p>Fix architecture debt, tighten deployment safety, and create an operating baseline the team can trust.</p>
+            <h3>Workspace intelligence established</h3>
+            <p>Identity, user context, daily memory, operating constraints, and auditable artifacts became the continuity layer.</p>
           </div>
         </article>
         <article class="timeline-item" data-reveal>
-          <div class="timeline-date">Migration</div>
+          <div class="timeline-date">Memory</div>
           <div class="timeline-body">
-            <h3>Move to modern infrastructure safely</h3>
-            <p>Map migration phases, isolate risk, and keep rollback options explicit through each cutover.</p>
+            <h3>QMD-centered retrieval model</h3>
+            <p>Indexed memory moved to QMD with scoped long-term files, preflight recall, flush support, and hybrid retrieval with lexical fallback.</p>
           </div>
         </article>
         <article class="timeline-item" data-reveal>
-          <div class="timeline-date">Incident</div>
+          <div class="timeline-date">Console</div>
           <div class="timeline-body">
-            <h3>Recover from repeated outages</h3>
-            <p>Introduce observability, resilience patterns, and postmortem-driven fixes that prevent repeat failures.</p>
+            <h3>APEX Memory Console launched</h3>
+            <p>A local-only dark-mode dashboard now exposes recall, preflight, flush, recent indexed memory, backend-mode visibility, regression control, and a polished GSAP-style motion layer.</p>
+          </div>
+        </article>
+        <article class="timeline-item" data-reveal>
+          <div class="timeline-date">Discipline</div>
+          <div class="timeline-body">
+            <h3>Self-improvement operationalized</h3>
+            <p>Failures now feed a repeatable loop: reproduce, fix root cause, add regression coverage, log the learning, and make the system safer next time.</p>
+          </div>
+        </article>
+        <article class="timeline-item" data-reveal>
+          <div class="timeline-date">Extension</div>
+          <div class="timeline-body">
+            <h3>Skill pack and startup hardening added</h3>
+            <p>APEX now carries specialized local skills plus startup wrappers and health checks so the memory console is easier to trust, verify, and recover after restart.</p>
           </div>
         </article>
       </div>
     </section>
 
-    <section id="pricing" class="section latest-updates">
+    <section class="section latest-updates">
       <div class="section-heading" data-reveal>
-        <p class="eyebrow">Pricing</p>
-        <h2>Simple delivery options. Scope first, then execution.</h2>
+        <p class="eyebrow">Latest Changes</p>
+        <h2>Recent work now shows up as operational improvements, not just code churn.</h2>
       </div>
       <div class="updates-grid">
         <article class="update-card" data-reveal>
-          <span class="update-tag">Starter</span>
-          <h3>Architecture Sprint</h3>
-          <p>Focused assessment + implementation blueprint for one high-priority system.</p>
-          <p><strong>From R18,000</strong></p>
-        </article>
-        <article class="update-card featured" data-reveal>
-          <span class="update-tag">Core</span>
-          <h3>Build + Harden</h3>
-          <p>Implementation with security baseline, observability, and production handover.</p>
-          <p><strong>From R45,000</strong></p>
+          <span class="update-tag">Recovery</span>
+          <h3>Backup and restore standardized</h3>
+          <p>Backup payloads now follow one canonical structure with manifest metadata, SHA sidecars, and restore logic aligned to the archive layout.</p>
         </article>
         <article class="update-card" data-reveal>
-          <span class="update-tag">Ops</span>
-          <h3>Ongoing Engineering Partner</h3>
-          <p>Monthly delivery lane for roadmap execution, incident prevention, and platform evolution.</p>
-          <p><strong>Retainer pricing</strong></p>
+          <span class="update-tag">Offsite</span>
+          <h3>Google Drive replication added</h3>
+          <p>Nightly local archives now copy to a mapped Google Drive path so recovery is not limited to one disk or one machine.</p>
+        </article>
+        <article class="update-card" data-reveal>
+          <span class="update-tag">Presentation</span>
+          <h3>Public edge sharpened</h3>
+          <p>The site now better reflects the latest posture: engineering systems that can be built, verified, backed up, and restored without drama.</p>
         </article>
       </div>
     </section>
 
-    <section id="faq" class="section proof">
+    <section id="proof" class="section proof">
       <div class="section-heading" data-reveal>
-        <p class="eyebrow">FAQ</p>
-        <h2>Short answers to common questions.</h2>
+        <p class="eyebrow">Operational Proof</p>
+        <h2>This isn’t aesthetic theater. These are real working surfaces.</h2>
       </div>
       <div class="proof-grid">
-        <article class="proof-card" data-reveal>
-          <h3>Do you work with existing stacks?</h3>
-          <p>Yes. Most work starts in a live environment with constraints. We optimize what exists before replacing anything.</p>
+        <article class="proof-card large" data-reveal>
+          <h3>Capabilities on display</h3>
+          <div class="code-window">
+            <div class="code-topline">
+              <span></span><span></span><span></span>
+            </div>
+            <pre><code>APEX
+|- Architecture-first delivery
+|- QMD indexed memory
+|- Scoped preflight + recall
+|- Flush-to-memory compaction
+|- Local operator dashboard
+|- Visible fallback handling
+|- Manifest-driven regression
+|- Startup health verification
+`- Skill-driven extension model</code></pre>
+          </div>
         </article>
         <article class="proof-card" data-reveal>
-          <h3>How do you handle security?</h3>
-          <p>Security is built into design and delivery: validation, least privilege, hardening checklist, and residual-risk notes.</p>
+          <h3>Designed for reality</h3>
+          <p>No dependency on server-side rendering, no heavy framework tax, no fake product claims. This page is static, deployable, and still carries motion, depth, and narrative.</p>
         </article>
         <article class="proof-card" data-reveal>
-          <h3>Can you work async with my team?</h3>
-          <p>Yes. We run clear worklogs, decision notes, and handoff artifacts to minimize meeting overhead.</p>
+          <h3>APEX style</h3>
+          <p>Direct, technical, and composed. The visual system keeps the existing cyan-on-dark identity and JetBrains Mono foundation while moving into a more premium, modern presentation.</p>
+        </article>
+        <article class="proof-card" data-reveal>
+          <h3>Ready to extend</h3>
+          <p>Because this is plain HTML, CSS, and JavaScript, it can be pushed straight to GitHub Pages with no build step and no hosting complexity.</p>
+        </article>
+        <article class="proof-card" data-reveal>
+          <h3>Operator proof</h3>
+          <p>The current APEX stack includes a live local memory console with startup checks, recent-memory reloads, fallback-state visibility, and one-click regression runs.</p>
         </article>
       </div>
     </section>
 
     <section id="contact" class="section contact-section">
       <div class="contact-panel" data-reveal>
-        <p class="eyebrow">Start</p>
-        <h2>Bring your toughest system problem.</h2>
+        <p class="eyebrow">Delivery</p>
+        <h2>Ready to publish. Ready to recover.</h2>
         <p>
-          Send your current architecture, constraints, and timeline. We’ll respond with a practical delivery plan,
-          not generic advice.
+          This site is intentionally static, deployable, and operationally honest: no framework theater, no fake product claims, and no server-side dependency required to present real engineering capability.
         </p>
-        <div class="deploy-meta" aria-label="Contact metadata">
-          <span>Primary surface: poid-za.github.io</span>
+        <div class="deploy-meta" aria-label="Deployment metadata">
+          <span>Published surface: poid-za.github.io</span>
+          <span>Last content refresh: 14 Mar 2026</span>
           <span>Timezone: Africa/Johannesburg</span>
-          <span>Format: static HTML/CSS/JS</span>
         </div>
         <div class="deploy-points">
-          <span>Architecture-first</span>
-          <span>Production-focused</span>
-          <span>Security-aware</span>
-          <span>Operator-ready</span>
+          <span>Static deployment</span>
+          <span>Verified backup path</span>
+          <span>Offsite mirror</span>
+          <span>Fast restore workflow</span>
         </div>
         <div class="contact-actions">
           <a class="button primary" href="https://github.com/poid-za/poid-za.github.io" target="_blank" rel="noreferrer">Open GitHub Repo</a>
-          <a class="button ghost" href="https://proxy4u.co.za" target="_blank" rel="noreferrer">Visit proxy4u.co.za</a>
+          <a class="button ghost" href="https://proxy4u.co.za" target="_blank" rel="noreferrer">View Mapped Domain</a>
         </div>
       </div>
     </section>

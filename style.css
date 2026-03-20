@@ -173,7 +173,7 @@ main {
   gap: clamp(20px, 3vw, 36px);
   align-items: start;
   padding-top: 88px;
-  padding-bottom: 34px;
+  padding-bottom: 48px;
 }
 
 .eyebrow {
@@ -321,33 +321,6 @@ h1 {
   border-radius: 18px;
   border: 1px solid rgba(0, 217, 255, 0.12);
   background: rgba(255,255,255,0.02);
-}
-
-.update-card {
-  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-}
-
-.update-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(0, 217, 255, 0.26);
-  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.3);
-}
-
-.update-card.featured {
-  border-color: rgba(0, 217, 255, 0.36);
-  background: linear-gradient(180deg, rgba(0, 217, 255, 0.12), rgba(255,255,255,0.03));
-  box-shadow: 0 24px 44px rgba(0, 153, 204, 0.22);
-}
-
-.update-card.featured .update-tag {
-  border-color: rgba(140, 241, 255, 0.5);
-  background: rgba(140, 241, 255, 0.14);
-  color: #c7f7ff;
-}
-
-.update-card strong {
-  font-size: 1.05rem;
-  color: #c7f7ff;
 }
 
 .release-item strong,
@@ -535,7 +508,7 @@ h1 {
 .latest-updates,
 .proof,
 .contact-section {
-  padding: 30px 0 46px;
+  padding: 40px 0 56px;
 }
 
 .capability-grid,
@@ -683,13 +656,6 @@ h1 {
 .contact-panel {
   display: grid;
   gap: 12px;
-  border-color: rgba(0, 217, 255, 0.34);
-  background: linear-gradient(180deg, rgba(9, 15, 24, 0.95), rgba(6, 10, 16, 0.9));
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 217, 255, 0.08) inset;
-}
-
-.contact-panel .button.primary {
-  box-shadow: 0 20px 44px rgba(0, 217, 255, 0.28);
 }
 
 .updates-grid {
