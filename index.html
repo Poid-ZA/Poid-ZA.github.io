@@ -123,6 +123,29 @@
       </div>
     </section>
 
+    <section class="section status-strip" data-reveal>
+      <article class="status-tile">
+        <span class="status-label">Now</span>
+        <strong>Nerve-first control surface</strong>
+        <p>Webchat disabled; operations routed through hardened control interfaces.</p>
+      </article>
+      <article class="status-tile">
+        <span class="status-label">Build lane</span>
+        <strong>Codex ACP active</strong>
+        <p>Non-trivial implementation delegated to ACP sessions with auditable outputs.</p>
+      </article>
+      <article class="status-tile">
+        <span class="status-label">Recovery</span>
+        <strong>Backup posture monitored</strong>
+        <p>Heartbeat checks enforce gateway, nerve, and backup integrity baselines.</p>
+      </article>
+      <article class="status-tile">
+        <span class="status-label">Trust</span>
+        <strong>Plugin allowlist pinned</strong>
+        <p>Explicit trusted plugin IDs configured to prevent ambiguous autoload behavior.</p>
+      </article>
+    </section>
+
     <section class="section capabilities">
       <div class="section-heading" data-reveal>
         <p class="eyebrow">Ecosystem Surfaces</p>
@@ -197,6 +220,18 @@
         <h2>A composed stack, not a pile of features.</h2>
       </div>
       <div class="system-panels">
+        <article class="system-card architecture-map" data-reveal>
+          <div class="system-number">Flow</div>
+          <h3>Memory → Execution → Recovery loop</h3>
+          <p>APEX keeps state explicit, executes through controlled lanes, and verifies recoverability as a first-class outcome.</p>
+          <div class="map-grid">
+            <div class="map-node">Memory</div>
+            <div class="map-link">→</div>
+            <div class="map-node">Execution</div>
+            <div class="map-link">→</div>
+            <div class="map-node">Recovery</div>
+          </div>
+        </article>
         <article class="system-card" data-reveal>
           <div class="system-number">Memory</div>
           <h3>QMD as indexed backbone</h3>
