@@ -7,6 +7,7 @@ const parallaxTargets = document.querySelectorAll('[data-depth]');
 const trustTrack = document.querySelector('.trust-track');
 const statusChips = document.querySelectorAll('.status-chip');
 const scanlineToggle = document.getElementById('scanlineToggle');
+const minimalToggle = document.getElementById('minimalToggle');
 
 navToggle?.addEventListener('click', () => {
   body.classList.toggle('menu-open');
@@ -149,5 +150,13 @@ if (scanlineToggle) {
     const enabled = document.body.classList.toggle('scanlines');
     scanlineToggle.textContent = enabled ? 'Scanlines: on' : 'Scanlines: off';
     scanlineToggle.setAttribute('aria-pressed', String(enabled));
+  });
+}
+
+if (minimalToggle) {
+  minimalToggle.addEventListener('click', () => {
+    const enabled = document.body.classList.toggle('minimal-mode');
+    minimalToggle.textContent = enabled ? 'Minimal mode: on' : 'Minimal mode: off';
+    minimalToggle.setAttribute('aria-pressed', String(enabled));
   });
 }
