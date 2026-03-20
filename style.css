@@ -1,15 +1,15 @@
 ﻿:root {
-  --primary: #00d9ff;
-  --primary-dark: #0099cc;
-  --bg-dark: #050508;
-  --bg-deep: #090b12;
-  --bg-card: rgba(13, 13, 18, 0.8);
-  --bg-raised: rgba(26, 26, 36, 0.88);
-  --border: rgba(42, 42, 52, 0.95);
-  --border-strong: rgba(0, 217, 255, 0.28);
-  --text: #e0e0e0;
-  --text-muted: #8a8a98;
-  --shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
+  --primary: #39ff14;
+  --primary-dark: #1faa00;
+  --bg-dark: #020503;
+  --bg-deep: #06110a;
+  --bg-card: rgba(8, 15, 10, 0.84);
+  --bg-raised: rgba(12, 22, 14, 0.9);
+  --border: rgba(44, 93, 52, 0.8);
+  --border-strong: rgba(57, 255, 20, 0.34);
+  --text: #d9ffe0;
+  --text-muted: #89b592;
+  --shadow: 0 28px 80px rgba(0, 0, 0, 0.5);
   --max-width: 1200px;
   --radius: 24px;
 }
@@ -27,9 +27,9 @@ body {
   font-family: 'JetBrains Mono', monospace;
   color: var(--text);
   background:
-    radial-gradient(circle at top left, rgba(0, 217, 255, 0.12), transparent 28%),
-    radial-gradient(circle at 85% 18%, rgba(0, 153, 204, 0.13), transparent 24%),
-    linear-gradient(180deg, #040408, #070912 34%, #050508 100%);
+    radial-gradient(circle at top left, rgba(57, 255, 20, 0.12), transparent 28%),
+    radial-gradient(circle at 85% 18%, rgba(25, 160, 34, 0.14), transparent 24%),
+    linear-gradient(180deg, #020503, #06110a 34%, #030704 100%);
   overflow-x: hidden;
 }
 
@@ -41,10 +41,10 @@ body.menu-open {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: 0.09;
+  opacity: 0.11;
   background-image:
-    linear-gradient(rgba(0, 217, 255, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 217, 255, 0.12) 1px, transparent 1px);
+    linear-gradient(rgba(57, 255, 20, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57, 255, 20, 0.14) 1px, transparent 1px);
   background-size: 72px 72px;
   mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
 }
@@ -63,7 +63,7 @@ body.menu-open {
   right: -10vw;
   width: 36vw;
   height: 36vw;
-  background: radial-gradient(circle, rgba(0, 217, 255, 0.28), transparent 68%);
+  background: radial-gradient(circle, rgba(57, 255, 20, 0.24), transparent 68%);
 }
 
 .ambient-two {
@@ -71,7 +71,7 @@ body.menu-open {
   left: -8vw;
   width: 28vw;
   height: 28vw;
-  background: radial-gradient(circle, rgba(0, 153, 204, 0.18), transparent 70%);
+  background: radial-gradient(circle, rgba(23, 160, 39, 0.2), transparent 70%);
 }
 
 .ambient-three {
@@ -79,7 +79,7 @@ body.menu-open {
   right: 10vw;
   width: 24vw;
   height: 24vw;
-  background: radial-gradient(circle, rgba(0, 217, 255, 0.12), transparent 75%);
+  background: radial-gradient(circle, rgba(57, 255, 20, 0.1), transparent 75%);
 }
 
 .site-nav {
@@ -225,7 +225,7 @@ h1 {
   line-height: 0.95;
   letter-spacing: -0.05em;
   color: transparent;
-  background: linear-gradient(135deg, #ffffff 8%, #8cf1ff 38%, var(--primary) 74%, var(--primary-dark) 100%);
+  background: linear-gradient(135deg, #f2fff4 8%, #abff9a 38%, var(--primary) 74%, var(--primary-dark) 100%);
   -webkit-background-clip: text;
   background-clip: text;
 }
@@ -485,6 +485,22 @@ h1 {
 .metrics-card {
   display: grid;
   gap: 20px;
+}
+
+.runtime-card {
+  border-color: rgba(57, 255, 20, 0.34);
+}
+
+.runtime-graph {
+  margin: 8px 0 0;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(57, 255, 20, 0.24);
+  background: rgba(1, 7, 3, 0.72);
+  color: #89ff73;
+  line-height: 1.6;
+  font-size: 0.82rem;
+  overflow: auto;
 }
 
 .metric-value {
