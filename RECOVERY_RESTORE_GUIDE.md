@@ -30,6 +30,19 @@ Expected key artifacts:
   - `startup-state\inventory.json`
   - `scripts\restore-from-drive-latest.ps1`
 
+### Nerve coverage in backup (important)
+
+What **is included**:
+- Full workspace tree (`C:\Users\faceb\.openclaw\workspace`) including Nerve-related project files/scripts.
+- Startup-state exports (task XML + inventory) used to rehydrate Nerve/OpenClaw startup behavior.
+
+What is **not fully included**:
+- Dependency caches like `node_modules` are excluded by design.
+
+Implication:
+- Nerve configuration/startup wiring is preserved.
+- If dependencies are missing after restore, run dependency install in the Nerve project before starting services.
+
 ---
 
 ## 3) Fast restore (recommended)
@@ -143,7 +156,15 @@ openclaw doctor --non-interactive
 openclaw security audit --deep
 ```
 
-5. Heartbeat tasks:
+5. Nerve validation:
+
+```powershell
+Test-NetConnection 127.0.0.1 -Port 80
+```
+
+If Nerve is not up and dependency folders are missing, reinstall dependencies in the Nerve project, then start stack/services again.
+
+6. Heartbeat tasks:
 - Confirm backup freshness and recovery-pack checks pass.
 
 ---
