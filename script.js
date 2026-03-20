@@ -6,6 +6,7 @@ const revealTargets = document.querySelectorAll('[data-reveal]');
 const parallaxTargets = document.querySelectorAll('[data-depth]');
 const trustTrack = document.querySelector('.trust-track');
 const statusChips = document.querySelectorAll('.status-chip');
+const scanlineToggle = document.getElementById('scanlineToggle');
 
 navToggle?.addEventListener('click', () => {
   body.classList.toggle('menu-open');
@@ -141,4 +142,12 @@ if (verifiedEl) {
   const now = new Date();
   const formatted = `${String(now.getDate()).padStart(2, '0')} ${now.toLocaleString('en-US', { month: 'short' })} ${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
   verifiedEl.textContent = `Last verified: ${formatted}`;
+}
+
+if (scanlineToggle) {
+  scanlineToggle.addEventListener('click', () => {
+    const enabled = document.body.classList.toggle('scanlines');
+    scanlineToggle.textContent = enabled ? 'Scanlines: on' : 'Scanlines: off';
+    scanlineToggle.setAttribute('aria-pressed', String(enabled));
+  });
 }
