@@ -63,6 +63,12 @@ updateHeaderState();
 window.addEventListener('scroll', updateActiveNav, { passive: true });
 window.addEventListener('scroll', updateHeaderState, { passive: true });
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch(() => {});
+  });
+}
+
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   body.classList.add('reduced-motion');
 }
