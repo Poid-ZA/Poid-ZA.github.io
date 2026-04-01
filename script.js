@@ -1,178 +1,68 @@
-const navToggle = document.getElementById('navToggle');
 const body = document.body;
-const navLinks = document.querySelectorAll('.nav-links a');
-const sections = document.querySelectorAll('main section[id]');
-const revealTargets = document.querySelectorAll('[data-reveal]');
-const parallaxTargets = document.querySelectorAll('[data-depth]');
-const trustTrack = document.querySelector('.trust-track');
-const statusChips = document.querySelectorAll('.status-chip');
-const scanlineToggle = document.getElementById('scanlineToggle');
-const minimalToggle = document.getElementById('minimalToggle');
+const menuToggle = document.getElementById('menuToggle');
+const nav = document.getElementById('siteNav');
+const navLinks = nav ? [...nav.querySelectorAll('a')] : [];
+const sections = [...document.querySelectorAll('main section[id]')];
+const revealTargets = [...document.querySelectorAll('.reveal')];
 
-navToggle?.addEventListener('click', () => {
-  body.classList.toggle('menu-open');
-});
+if (menuToggle) {
+  menuToggle.addEventListener('click', () => {
+    const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+    menuToggle.setAttribute('aria-expanded', String(!expanded));
+    body.classList.toggle('menu-open', !expanded);
+  });
+}
 
 navLinks.forEach((link) => {
-  link.addEventListener('click', () => body.classList.remove('menu-open'));
+  link.addEventListener('click', () => {
+    body.classList.remove('menu-open');
+    menuToggle?.setAttribute('aria-expanded', 'false');
+  });
 });
 
 function updateActiveNav() {
-  let current = '#hero';
+  let current = sections[0]?.id || '';
   sections.forEach((section) => {
-    const bounds = section.getBoundingClientRect();
-    if (bounds.top <= window.innerHeight * 0.35) {
-      current = `#${section.id}`;
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= window.innerHeight * 0.28) {
+      current = section.id;
     }
   });
 
   navLinks.forEach((link) => {
-    link.classList.toggle('is-active', link.getAttribute('href') === current);
+    const href = link.getAttribute('href') || '';
+    link.classList.toggle('is-active', href === `#${current}`);
   });
 }
 
+function updateHeaderState() {
+  body.classList.toggle('nav-scrolled', window.scrollY > 12);
+}
+
+const observer = 'IntersectionObserver' in window
+  ? new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' })
+  : null;
+
+revealTargets.forEach((target) => {
+  if (observer) {
+    observer.observe(target);
+  } else {
+    target.classList.add('is-visible');
+  }
+});
+
+updateActiveNav();
+updateHeaderState();
 window.addEventListener('scroll', updateActiveNav, { passive: true });
-window.addEventListener('load', updateActiveNav);
+window.addEventListener('scroll', updateHeaderState, { passive: true });
 
-if (window.gsap && window.ScrollTrigger) {
-  gsap.registerPlugin(ScrollTrigger);
-
-  gsap.to('.hero-copy', {
-    y: -24,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '#hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: true,
-    },
-  });
-
-  gsap.to('.hero-panel', {
-    y: -44,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '#hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: true,
-    },
-  });
-
-  revealTargets.forEach((target, index) => {
-    gsap.to(target, {
-      opacity: 1,
-      y: 0,
-      duration: 0.9,
-      ease: 'power3.out',
-      delay: index < 2 ? index * 0.08 : 0,
-      scrollTrigger: {
-        trigger: target,
-        start: 'top 84%',
-        once: true,
-      },
-    });
-  });
-
-  parallaxTargets.forEach((target) => {
-    const depth = Number(target.dataset.depth || 0.08);
-    gsap.to(target, {
-      yPercent: depth * -120,
-      xPercent: depth * 30,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: document.body,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: true,
-      },
-    });
-  });
-
-  if (trustTrack) {
-    gsap.to(trustTrack, {
-      xPercent: -30,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: trustTrack,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: true,
-      },
-    });
-  }
-
-  document.querySelectorAll('.feature-card, .system-card, .proof-card, .stack-card, .update-card, .release-item').forEach((card) => {
-    card.addEventListener('mousemove', (event) => {
-      const rect = card.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 8;
-      const y = ((event.clientY - rect.top) / rect.height - 0.5) * -8;
-      gsap.to(card, {
-        rotateX: y,
-        rotateY: x,
-        transformPerspective: 1200,
-        transformOrigin: 'center',
-        duration: 0.35,
-        ease: 'power2.out',
-      });
-    });
-
-    card.addEventListener('mouseleave', () => {
-      gsap.to(card, {
-        rotateX: 0,
-        rotateY: 0,
-        duration: 0.45,
-        ease: 'power2.out',
-      });
-    });
-  });
-}
-
-if (statusChips.length) {
-  let activeIndex = 0;
-  window.setInterval(() => {
-    statusChips.forEach((chip, chipIndex) => {
-      chip.classList.toggle('online', chipIndex === activeIndex % statusChips.length);
-    });
-    activeIndex += 1;
-  }, 2200);
-}
-
-const verifiedEl = document.getElementById('lastVerified');
-if (verifiedEl) {
-  const now = new Date();
-  const formatted = `${String(now.getDate()).padStart(2, '0')} ${now.toLocaleString('en-US', { month: 'short' })} ${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-  verifiedEl.textContent = `Last verified: ${formatted}`;
-}
-
-if (scanlineToggle) {
-  const savedScanlines = window.localStorage.getItem('apex.scanlines') === 'on';
-  if (savedScanlines) {
-    document.body.classList.add('scanlines');
-  }
-  scanlineToggle.textContent = savedScanlines ? 'Scanlines: on' : 'Scanlines: off';
-  scanlineToggle.setAttribute('aria-pressed', String(savedScanlines));
-
-  scanlineToggle.addEventListener('click', () => {
-    const enabled = document.body.classList.toggle('scanlines');
-    scanlineToggle.textContent = enabled ? 'Scanlines: on' : 'Scanlines: off';
-    scanlineToggle.setAttribute('aria-pressed', String(enabled));
-    window.localStorage.setItem('apex.scanlines', enabled ? 'on' : 'off');
-  });
-}
-
-if (minimalToggle) {
-  const savedMinimal = window.localStorage.getItem('apex.minimalMode') === 'on';
-  if (savedMinimal) {
-    document.body.classList.add('minimal-mode');
-  }
-  minimalToggle.textContent = savedMinimal ? 'Minimal mode: on' : 'Minimal mode: off';
-  minimalToggle.setAttribute('aria-pressed', String(savedMinimal));
-
-  minimalToggle.addEventListener('click', () => {
-    const enabled = document.body.classList.toggle('minimal-mode');
-    minimalToggle.textContent = enabled ? 'Minimal mode: on' : 'Minimal mode: off';
-    minimalToggle.setAttribute('aria-pressed', String(enabled));
-    window.localStorage.setItem('apex.minimalMode', enabled ? 'on' : 'off');
-  });
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  body.classList.add('reduced-motion');
 }

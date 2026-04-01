@@ -1,435 +1,270 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="APEX is a principal-level engineering intelligence system for architecture, memory, automation, governance, and production-grade delivery." />
+  <meta name="description" content="Poid-ZA presents APEX: an engineering intelligence system focused on memory, execution control, recovery discipline, and static-first delivery." />
   <meta name="color-scheme" content="dark" />
-  <title>APEX | Engineering Intelligence System</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <title>Poid-ZA | APEX Engineering Intelligence</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/png" href="favicon-512x512.png" />
-  <link rel="stylesheet" href="style.css?v=20260320-3" />
+  <link rel="stylesheet" href="style.css?v=20260401-1" />
 </head>
 <body>
-  <div class="page-grid" aria-hidden="true"></div>
-  <div class="ambient ambient-one" data-depth="0.18"></div>
-  <div class="ambient ambient-two" data-depth="0.11"></div>
-  <div class="ambient ambient-three" data-depth="0.07"></div>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="glow glow-one" aria-hidden="true"></div>
+  <div class="glow glow-two" aria-hidden="true"></div>
 
-  <nav class="site-nav">
-    <a class="brand" href="#hero">
-      <span class="brand-mark">APEX</span>
-      <span class="brand-copy">Engineering Intelligence</span>
-    </a>
-    <div class="nav-links">
-      <a href="#capabilities">Capabilities</a>
-      <a href="#systems">Architecture</a>
-      <a href="#timeline">Evolution</a>
-      <a href="#proof">Proof</a>
-      <a href="#contact">Delivery</a>
+  <header class="site-header">
+    <div class="brand-bar container">
+      <a class="brand" href="#top" aria-label="Poid-ZA home">
+        <span class="brand-kicker">Poid-ZA</span>
+        <span class="brand-name">APEX</span>
+        <span class="brand-copy">Engineering intelligence system</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="siteNav">Menu</button>
+      <nav class="site-nav" id="siteNav" aria-label="Primary navigation">
+        <a href="#overview">Overview</a>
+        <a href="#systems">Systems</a>
+        <a href="#proof">Proof</a>
+        <a href="#evolution">Evolution</a>
+        <a href="#delivery">Delivery</a>
+      </nav>
     </div>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">MENU</button>
-  </nav>
+  </header>
 
-  <main>
-    <section class="section release-banner" data-reveal>
-      <div class="release-banner-inner">
-        <span class="release-badge">NEW</span>
-        <strong>APEX vNext visual pass is now live</strong>
-        <span class="release-note">Status rail, architecture flow map, heartbeat pulse, and ecosystem-first copy now active.</span>
-      </div>
-    </section>
-
-    <section id="hero" class="hero section">
-      <div class="hero-copy" data-reveal>
-        <p class="eyebrow">APEX Engineering Ecosystem</p>
-        <h1>Operate like an engineering command center, not a chatbot.</h1>
-        <p class="hero-text">
-          Architecture-first reasoning, ACP execution lanes, explicit memory, and verified recovery — all composed into one auditable operator stack.
+  <main id="top">
+    <section class="hero container section">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Principal engineering surface</p>
+        <h1>Memory. Execution. Recovery. Presented as one disciplined stack.</h1>
+        <p class="lead">
+          APEX is the public face of a real engineering system: architecture-first reasoning, auditable execution lanes, explicit memory, and verified backup posture without framework theater.
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="#proof">View Operator Proof</a>
-          <a class="button ghost" href="#timeline">See Evolution</a>
+          <a class="button primary" href="#proof">View operational proof</a>
+          <a class="button secondary" href="https://github.com/Poid-ZA/OpenClaw" target="_blank" rel="noreferrer">Open core repo</a>
         </div>
-        <div class="signal-row">
-          <span class="signal-pill">ACP/Codex Delegation</span>
-          <span class="signal-pill">QMD Memory</span>
-          <span class="signal-pill">Heartbeat Checks</span>
-          <span class="signal-pill">Recovery Discipline</span>
-        </div>
+        <ul class="signal-list" aria-label="Core strengths">
+          <li>QMD-backed memory</li>
+          <li>ACP / Codex execution lane</li>
+          <li>Heartbeat and backup validation</li>
+          <li>Static-first deployment</li>
+        </ul>
       </div>
 
-      <div class="hero-panel" data-reveal>
-        <div class="hero-stack">
-          <article class="stack-card glow-card">
-            <div class="stack-label">Architecture loop</div>
-            <h2>Stateful memory, controlled execution, verified recovery.</h2>
-            <p>APEX keeps critical context in files, routes non-trivial work through Codex ACP, and continuously validates recoverability posture.</p>
-            <div class="status-cluster" aria-label="Latest operational changes">
-              <span class="status-chip online">Operator mode active</span>
-              <span class="status-chip">Plugin trust pinned</span>
-              <span class="status-chip">Nerve-first interface</span>
-            </div>
-          </article>
-          <article class="stack-card runtime-card">
-            <div class="metric-kicker">Runtime graph</div>
-            <pre class="runtime-graph"><code>[MEMORY]====>[EXECUTION]====>[RECOVERY]
-   |             |                |
- [QMD]        [ACP/Codex]     [Backups]
-   |             |                |
-[Recall]      [Verification]   [Restore]</code></pre>
-          </article>
+      <div class="hero-panel reveal">
+        <div class="panel-shell">
+          <div class="panel-label">Current posture</div>
+          <div class="runtime-lines">
+            <div><span>Interface</span><strong>Nerve-first control surface</strong></div>
+            <div><span>Memory</span><strong>QMD + file continuity</strong></div>
+            <div><span>Execution</span><strong>ACP delegated for non-trivial work</strong></div>
+            <div><span>Recovery</span><strong>Backup integrity checked</strong></div>
+            <div><span>Trust</span><strong>Explicit plugin allowlist pinned</strong></div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="trust-band section" aria-label="Core APEX strengths">
-      <div class="trust-track">
-        <span>Architecture-first</span>
-        <span>Secure by default</span>
-        <span>Recoverable workflows</span>
-        <span>Workspace-aware memory</span>
-        <span>Static deployment ready</span>
-      </div>
-      <div class="heartbeat-inline" aria-label="Live heartbeat status">
-        <span class="heartbeat-dot" aria-hidden="true"></span>
-        <span>Heartbeat: operational</span>
-        <span class="verified-pill" id="lastVerified">Last verified: --</span>
-      </div>
-    </section>
-
-    <section class="section status-strip" data-reveal>
-      <article class="status-tile">
-        <span class="status-label">Now</span>
-        <strong>Nerve-first control surface</strong>
-        <p>Webchat disabled; operations routed through hardened control interfaces.</p>
-      </article>
-      <article class="status-tile">
-        <span class="status-label">Build lane</span>
-        <strong>Codex ACP active</strong>
-        <p>Non-trivial implementation delegated to ACP sessions with auditable outputs.</p>
-      </article>
-      <article class="status-tile">
-        <span class="status-label">Recovery</span>
-        <strong>Backup posture monitored</strong>
-        <p>Heartbeat checks enforce gateway, nerve, and backup integrity baselines.</p>
-      </article>
-      <article class="status-tile">
-        <span class="status-label">Trust</span>
-        <strong>Plugin allowlist pinned</strong>
-        <p>Explicit trusted plugin IDs configured to prevent ambiguous autoload behavior.</p>
-      </article>
-    </section>
-
-    <section class="section capabilities">
-      <div class="section-heading" data-reveal>
-        <p class="eyebrow">Ecosystem Surfaces</p>
-        <h2>APEX is not one model prompt. It is a coordinated operating stack.</h2>
-      </div>
-      <div class="capability-grid">
-        <article class="feature-card" data-reveal>
-          <span class="feature-index">A1</span>
-          <h3>Operator Core</h3>
-          <p>SOUL, AGENTS, USER, MEMORY, and heartbeat rules define deterministic operating behavior for each session.</p>
-        </article>
-        <article class="feature-card" data-reveal>
-          <span class="feature-index">A2</span>
-          <h3>Execution Mesh</h3>
-          <p>ACP/Codex delegation handles non-trivial implementation so orchestration stays clear, auditable, and cost-aware.</p>
-        </article>
-        <article class="feature-card" data-reveal>
-          <span class="feature-index">A3</span>
-          <h3>Memory Layer</h3>
-          <p>File-backed continuity with indexed recall (QMD) and sidecar options keeps state explicit instead of hidden.</p>
-        </article>
-        <article class="feature-card" data-reveal>
-          <span class="feature-index">A4</span>
-          <h3>Operational Guardrails</h3>
-          <p>Health checks, backup validation, and restart-safe routines protect uptime and reduce recovery time.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="capabilities" class="section capabilities">
-      <div class="section-heading" data-reveal>
-        <p class="eyebrow">Capabilities</p>
-        <h2>Built to think like an architect, execute like an engineer, and recover like an operator.</h2>
-      </div>
-      <div class="capability-grid">
-        <article class="feature-card" data-reveal>
-          <span class="feature-index">01</span>
-          <h3>Workspace Memory</h3>
-          <p>QMD-backed indexed memory with scoped recall, preflight packs, flush-to-memory, daily logs, and long-term project routing.</p>
-        </article>
-        <article class="feature-card" data-reveal>
-          <span class="feature-index">02</span>
-          <h3>Architecture & Delivery</h3>
-          <p>Production-grade implementation with configuration discipline, validation, tests, deployment guidance, pragmatic trade-off analysis, and Codex ACP execution for non-trivial repo work.</p>
-        </article>
-        <article class="feature-card" data-reveal>
-          <span class="feature-index">03</span>
-          <h3>Security & Hardening</h3>
-          <p>Threat-aware defaults, explicit constraints, auditability, safe failure modes, incident memory, and repeatable remediation patterns.</p>
-        </article>
-        <article class="feature-card" data-reveal>
-          <span class="feature-index">04</span>
-          <h3>Operational UX</h3>
-          <p>Local-first control surfaces, clear degradation visibility, recent-memory inspection, task-state files, and explicit controls that reduce transcript-heavy iteration.</p>
-        </article>
-        <article class="feature-card" data-reveal>
-          <span class="feature-index">05</span>
-          <h3>Skill Extensions</h3>
-          <p>Purpose-built local skills for browser QA, agent evals, MCP integration review, self-improvement, and memory synthesis extend APEX beyond generic prompting.</p>
-        </article>
-        <article class="feature-card" data-reveal>
-          <span class="feature-index">06</span>
-          <h3>Startup Resilience</h3>
-          <p>Memory-console startup now includes duplicate-start protection, health verification, and an all-users logon-task registration path prepared for elevated install.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="systems" class="section systems">
-      <div class="section-heading sticky-heading" data-reveal>
-        <p class="eyebrow">Architecture</p>
-        <h2>A composed stack, not a pile of features.</h2>
-      </div>
-      <div class="system-panels">
-        <article class="system-card architecture-map" data-reveal>
-          <div class="system-number">Flow</div>
-          <h3>Memory → Execution → Recovery loop</h3>
-          <p>APEX keeps state explicit, executes through controlled lanes, and verifies recoverability as a first-class outcome.</p>
-          <div class="map-grid">
-            <div class="map-node">Memory</div>
-            <div class="map-link">→</div>
-            <div class="map-node">Execution</div>
-            <div class="map-link">→</div>
-            <div class="map-node">Recovery</div>
-          </div>
-        </article>
-        <article class="system-card" data-reveal>
-          <div class="system-number">Memory</div>
-          <h3>QMD as indexed backbone</h3>
-          <p>Entries, tags, relations, linked context, scoped recall, and lexical-plus-vector-aware retrieval with fail-open fallback when vector runtime degrades.</p>
-          <ul>
-            <li>Scoped project/global memory</li>
-            <li>Preflight before substantial work</li>
-            <li>Flush for context compaction</li>
-          </ul>
-        </article>
-        <article class="system-card" data-reveal>
-          <div class="system-number">Execution</div>
-          <h3>Static-first delivery, real engineering underneath</h3>
-          <p>Websites, dashboards, automation, and tooling are built to run locally or ship as simple artifacts where possible, without pretending complexity away.</p>
-          <ul>
-            <li>GitHub Pages safe outputs</li>
-            <li>Windows-aware workflows</li>
-            <li>Short-path project strategy</li>
-          </ul>
-        </article>
-        <article class="system-card" data-reveal>
-          <div class="system-number">Improvement</div>
-          <h3>Visible self-improvement loop</h3>
-          <p>Mistakes are captured in `.learnings`, daily memory, and regression coverage. The process is now structured enough to repeat without relying on hidden memory.</p>
-          <ul>
-            <li>Dedicated self-improvement skill</li>
-            <li>Manifest-driven regression runner</li>
-            <li>Browseable regression index</li>
-          </ul>
-        </article>
-        <article class="system-card" data-reveal>
-          <div class="system-number">Skills</div>
-          <h3>Local capabilities as installable modules</h3>
-          <p>APEX now grows through auditable local skills instead of vague hidden adaptation, keeping new behavior explicit, reusable, and inspectable.</p>
-          <ul>
-            <li>Browser smoke-check script</li>
-            <li>Agent eval schema</li>
-            <li>Memory synthesis workflow</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section id="timeline" class="section timeline-section">
-      <div class="section-heading" data-reveal>
-        <p class="eyebrow">Evolution</p>
-        <h2>From agent framework to engineering operating system.</h2>
-      </div>
-      <div class="timeline-list">
-        <article class="timeline-item" data-reveal>
-          <div class="timeline-date">Foundation</div>
-          <div class="timeline-body">
-            <h3>Workspace intelligence established</h3>
-            <p>Identity, user context, daily memory, operating constraints, and auditable artifacts became the continuity layer.</p>
-          </div>
-        </article>
-        <article class="timeline-item" data-reveal>
-          <div class="timeline-date">Memory</div>
-          <div class="timeline-body">
-            <h3>QMD-centered retrieval model</h3>
-            <p>Indexed memory moved to QMD with scoped long-term files, preflight recall, flush support, and hybrid retrieval with lexical fallback.</p>
-          </div>
-        </article>
-        <article class="timeline-item" data-reveal>
-          <div class="timeline-date">Console</div>
-          <div class="timeline-body">
-            <h3>APEX Memory Console launched</h3>
-            <p>A local-only dark-mode dashboard now exposes recall, preflight, flush, recent indexed memory, backend-mode visibility, regression control, and a polished GSAP-style motion layer.</p>
-          </div>
-        </article>
-        <article class="timeline-item" data-reveal>
-          <div class="timeline-date">Discipline</div>
-          <div class="timeline-body">
-            <h3>Self-improvement operationalized</h3>
-            <p>Failures now feed a repeatable loop: reproduce, fix root cause, add regression coverage, log the learning, and make the system safer next time.</p>
-          </div>
-        </article>
-        <article class="timeline-item" data-reveal>
-          <div class="timeline-date">Extension</div>
-          <div class="timeline-body">
-            <h3>Skill pack and startup hardening added</h3>
-            <p>APEX now carries specialized local skills plus startup wrappers and health checks so the memory console is easier to trust, verify, and recover after restart.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section latest-updates">
-      <div class="section-heading" data-reveal>
-        <p class="eyebrow">Operational Highlights</p>
-        <h2>Recent work appears as measurable operating improvements, not code churn.</h2>
-      </div>
-      <div class="updates-grid">
-        <article class="update-card" data-reveal>
-          <span class="update-tag">Recovery</span>
-          <h3>Backup and restore standardized</h3>
-          <p>Backup payloads now follow one canonical structure with manifest metadata, SHA sidecars, and restore logic aligned to the archive layout.</p>
-        </article>
-        <article class="update-card" data-reveal>
-          <span class="update-tag">Offsite</span>
-          <h3>Recovery mirror maintained</h3>
-          <p>Offsite mirrors and startup-state packs are kept in sync to support fast restore after host-level failures.</p>
-        </article>
-        <article class="update-card" data-reveal>
-          <span class="update-tag">Presentation</span>
-          <h3>Public edge sharpened</h3>
-          <p>The site now better reflects the latest posture: engineering systems that can be built, verified, backed up, and restored without drama.</p>
-        </article>
-      </div>
-
-      <div class="section-heading" data-reveal style="margin-top:28px;">
-        <p class="eyebrow">Now / Next</p>
-        <h2>APEX evolution cadence</h2>
-      </div>
-      <div class="updates-grid">
-        <article class="update-card" data-reveal>
-          <span class="update-tag">Now</span>
-          <h3>Codex ACP execution lane active</h3>
-          <p>Non-trivial coding is delegated through ACP to keep the main operator thread lean and control-oriented.</p>
-        </article>
-        <article class="update-card" data-reveal>
-          <span class="update-tag">Now</span>
-          <h3>Heartbeat + backup validation in place</h3>
-          <p>Gateway/nerve health checks and backup integrity checks are embedded into operational routines.</p>
-        </article>
-        <article class="update-card" data-reveal>
-          <span class="update-tag">Next</span>
-          <h3>Ecosystem telemetry surface</h3>
-          <p>Expose a concise status layer for memory mode, execution lanes, recovery posture, and active automation health.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="proof" class="section proof">
-      <div class="section-heading" data-reveal>
-        <p class="eyebrow">Operational Proof</p>
-        <h2>Real posture, real controls, real recoverability.</h2>
-      </div>
-      <div class="proof-grid">
-        <article class="proof-card large" data-reveal>
-          <h3>Current runtime posture</h3>
-          <div class="code-window">
-            <div class="code-topline">
-              <span></span><span></span><span></span>
-            </div>
-            <pre><code>INTERFACE: Nerve-first (webchat disabled)
-MEMORY: QMD-backed + file continuity
-EXECUTION: ACP/Codex delegated lane
-HEALTH: Heartbeat checks enforced
-TRUST: Explicit plugin allowlist pinned
-DEPLOY: Static GitHub Pages surface</code></pre>
-          </div>
-        </article>
-        <article class="proof-card" data-reveal>
-          <h3>Latest hardening action</h3>
-          <p>Plugin autoload trust warnings were eliminated by pinning explicit trusted plugin IDs in config.</p>
-        </article>
-        <article class="proof-card" data-reveal>
-          <h3>Recovery discipline</h3>
-          <p>Backup integrity and mirror expectations are validated via heartbeat checks before drift becomes outages.</p>
-        </article>
-        <article class="proof-card" data-reveal>
-          <h3>Execution hygiene</h3>
-          <p>Non-trivial coding is offloaded to ACP sessions, keeping operator threads lean and easier to audit.</p>
-        </article>
-        <article class="proof-card" data-reveal>
-          <h3>Delivery realism</h3>
-          <p>Public surface stays static and deployable while operational complexity is handled behind the control plane.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="contact" class="section contact-section">
-      <div class="contact-panel" data-reveal>
-        <p class="eyebrow">Delivery</p>
-        <h2>Ready to publish. Ready to recover.</h2>
+    <section id="overview" class="section container">
+      <div class="section-heading reveal centered">
+        <p class="eyebrow">Overview</p>
+        <h2>A cleaner public explanation of what the system actually does.</h2>
         <p>
-          This site is intentionally static, deployable, and operationally honest: no framework theater, no fake product claims, and no server-side dependency required to present real engineering capability.
+          The previous site had strong raw material but mixed narratives, stale artifacts, and multiple visual directions. This rebuild keeps the APEX identity while making the story calmer, clearer, and easier to trust.
         </p>
-        <div class="deploy-meta" aria-label="Deployment metadata">
-          <span>Published surface: poid-za.github.io</span>
-          <span>Last content refresh: 20 Mar 2026</span>
-          <span>Timezone: Africa/Johannesburg</span>
-        </div>
-        <div class="deploy-points">
+      </div>
+
+      <div class="card-grid three-up">
+        <article class="info-card reveal">
+          <span class="card-index">01</span>
+          <h3>Operator core</h3>
+          <p>Identity, memory rules, execution constraints, and recovery discipline are explicit instead of implied.</p>
+        </article>
+        <article class="info-card reveal">
+          <span class="card-index">02</span>
+          <h3>Execution mesh</h3>
+          <p>Non-trivial implementation is routed through controlled lanes so the operator thread stays lean and auditable.</p>
+        </article>
+        <article class="info-card reveal">
+          <span class="card-index">03</span>
+          <h3>Recovery posture</h3>
+          <p>Backups, restore packs, heartbeat checks, and operational verification are treated as first-class outcomes.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="systems" class="section container">
+      <div class="section-heading reveal centered">
+        <p class="eyebrow">Systems</p>
+        <h2>Built as a composed loop, not a feature pile.</h2>
+      </div>
+
+      <div class="systems-layout">
+        <article class="system-card reveal emphasis">
+          <div class="system-tag">Loop</div>
+          <h3>Memory → Execution → Recovery</h3>
+          <p>State stays explicit, work runs through controlled lanes, and recoverability is checked before drift becomes outage.</p>
+          <div class="loop-row" aria-label="Architecture loop">
+            <span>Memory</span>
+            <span class="arrow">→</span>
+            <span>Execution</span>
+            <span class="arrow">→</span>
+            <span>Recovery</span>
+          </div>
+        </article>
+
+        <article class="system-card reveal">
+          <div class="system-tag">Memory</div>
+          <h3>QMD-backed recall</h3>
+          <ul>
+            <li>Scoped project and global memory</li>
+            <li>Preflight recall before substantial work</li>
+            <li>Flush-to-memory for controlled context compaction</li>
+          </ul>
+        </article>
+
+        <article class="system-card reveal">
+          <div class="system-tag">Execution</div>
+          <h3>Static-first delivery</h3>
+          <ul>
+            <li>GitHub Pages-safe public surface</li>
+            <li>Pragmatic local workflows behind the scenes</li>
+            <li>Low-token operator thread with delegated build lanes</li>
+          </ul>
+        </article>
+
+        <article class="system-card reveal">
+          <div class="system-tag">Improvement</div>
+          <h3>Visible hardening loop</h3>
+          <ul>
+            <li>Learning capture from failures and fixes</li>
+            <li>Repeatable regression coverage patterns</li>
+            <li>Skills as explicit, inspectable capability modules</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="proof" class="section container">
+      <div class="section-heading reveal centered">
+        <p class="eyebrow">Proof</p>
+        <h2>Public copy should reflect real controls, not vague claims.</h2>
+      </div>
+
+      <div class="proof-grid">
+        <article class="proof-card reveal wide">
+          <h3>Runtime summary</h3>
+          <pre class="proof-block"><code>INTERFACE  : Nerve-first (webchat disabled)
+MEMORY     : QMD-backed + file continuity
+EXECUTION  : ACP / Codex delegated lane
+HEALTH     : Heartbeat checks enforced
+TRUST      : Explicit plugin allowlist pinned
+DELIVERY   : Static GitHub Pages surface</code></pre>
+        </article>
+        <article class="proof-card reveal">
+          <h3>Latest hardening</h3>
+          <p>Plugin trust was tightened through explicit allowlisting instead of relying on ambiguous autoload behavior.</p>
+        </article>
+        <article class="proof-card reveal">
+          <h3>Backup discipline</h3>
+          <p>Backup payloads, mirror expectations, and restore flow are treated as operating requirements, not afterthoughts.</p>
+        </article>
+        <article class="proof-card reveal">
+          <h3>Execution hygiene</h3>
+          <p>Non-trivial coding is delegated so the main operator context stays focused on direction, validation, and control.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="evolution" class="section container">
+      <div class="section-heading reveal centered">
+        <p class="eyebrow">Evolution</p>
+        <h2>From agent framework toward an engineering operating system.</h2>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item reveal">
+          <span class="timeline-key">Foundation</span>
+          <div>
+            <h3>Workspace intelligence established</h3>
+            <p>Identity, user context, memory files, operating constraints, and auditable artifacts became the continuity layer.</p>
+          </div>
+        </article>
+        <article class="timeline-item reveal">
+          <span class="timeline-key">Memory</span>
+          <div>
+            <h3>QMD-centered retrieval model</h3>
+            <p>Indexed memory, scoped recall, preflight packs, and flush support created a stronger state model.</p>
+          </div>
+        </article>
+        <article class="timeline-item reveal">
+          <span class="timeline-key">Console</span>
+          <div>
+            <h3>Memory console and control surfaces</h3>
+            <p>Local dashboards and visible controls made system status, memory posture, and regression work easier to inspect.</p>
+          </div>
+        </article>
+        <article class="timeline-item reveal">
+          <span class="timeline-key">Discipline</span>
+          <div>
+            <h3>Self-improvement operationalized</h3>
+            <p>Failures now feed reproducible fixes, regression capture, and learnings that strengthen the next iteration.</p>
+          </div>
+        </article>
+        <article class="timeline-item reveal">
+          <span class="timeline-key">Now</span>
+          <div>
+            <h3>Codex ACP and heartbeat-backed recovery</h3>
+            <p>Execution lanes, backup validation, and low-token operator patterns now work together as one coordinated posture.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="section-heading reveal centered">
+        <p class="eyebrow">Documentation</p>
+        <h2>Supporting material stays available, but the homepage stays focused.</h2>
+      </div>
+      <div class="doc-links reveal">
+        <a class="doc-link" href="README.md" target="_blank" rel="noreferrer">
+          <strong>System overview</strong>
+          <span>Full repo readme and operating context</span>
+        </a>
+        <a class="doc-link" href="RECOVERY_RESTORE_GUIDE.md" target="_blank" rel="noreferrer">
+          <strong>Recovery restore guide</strong>
+          <span>Backup and restore workflow details</span>
+        </a>
+        <a class="doc-link" href="APEX_CONTROLLER_GUIDE.md" target="_blank" rel="noreferrer">
+          <strong>Controller guide</strong>
+          <span>Dashboard and service-control reference</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="delivery" class="section container">
+      <div class="delivery-panel reveal centered-panel">
+        <p class="eyebrow">Delivery</p>
+        <h2>Static, deployable, and easier to trust.</h2>
+        <p>
+          This rebuild keeps the site FTP-ready and GitHub Pages-safe while removing stale brand leftovers, external JS animation dependencies, and conflicting public narratives.
+        </p>
+        <div class="meta-pills">
           <span>Static deployment</span>
-          <span>Verified backup path</span>
-          <span>Offsite mirror</span>
-          <span>Fast restore workflow</span>
+          <span>Vanilla JavaScript</span>
+          <span>Local font assets</span>
+          <span>Centered balanced layout</span>
         </div>
-        <div class="contact-actions">
-          <a class="button primary" href="https://github.com/poid-za/poid-za.github.io" target="_blank" rel="noreferrer">Open GitHub Repo</a>
-          <a class="button ghost" href="RECOVERY_RESTORE_GUIDE.md" target="_blank" rel="noreferrer">Open Recovery Restore Guide</a>
+        <div class="hero-actions centered-actions">
+          <a class="button primary" href="https://github.com/Poid-ZA/Poid-ZA.github.io" target="_blank" rel="noreferrer">Open website repo</a>
+          <a class="button secondary" href="https://github.com/Poid-ZA/OpenClaw" target="_blank" rel="noreferrer">Open OpenClaw</a>
         </div>
       </div>
     </section>
   </main>
 
-  <button class="scanline-toggle" id="scanlineToggle" aria-pressed="false">Scanlines: off</button>
-  <button class="minimal-toggle" id="minimalToggle" aria-pressed="false">Minimal mode: off</button>
-
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
-  <script>
-    // One-time cache hygiene for previously registered legacy service workers/caches.
-    (function () {
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function (regs) {
-          regs.forEach(function (reg) { reg.unregister(); });
-        });
-      }
-      if ('caches' in window) {
-        caches.keys().then(function (keys) {
-          keys.forEach(function (key) {
-            if (key.indexOf('fitplanr-store') !== -1) caches.delete(key);
-          });
-        });
-      }
-    })();
-  </script>
-  <script src="script.js?v=20260320-5"></script>
+  <script src="script.js?v=20260401-1"></script>
 </body>
 </html>

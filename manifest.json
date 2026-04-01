@@ -1,12 +1,12 @@
 {
-  "name": "Poid-ZA Portfolio - Principal Engineer",
-  "short_name": "Poid-ZA",
-  "description": "Portfolio of Poid-ZA - Principal Engineer specializing in Trading Bots, DevOps, and AI",
-  "start_url": "/index.html",
+  "name": "Poid-ZA | APEX Engineering Intelligence",
+  "short_name": "APEX",
+  "description": "Static public surface for Poid-ZA and the APEX engineering intelligence system.",
+  "start_url": "/Poid-ZA.github.io/",
+  "scope": "/Poid-ZA.github.io/",
   "display": "standalone",
-  "scope": "/",
-  "background_color": "#1a1a2e",
-  "theme_color": "#4ecdc4",
+  "background_color": "#05070b",
+  "theme_color": "#0b111b",
   "orientation": "portrait-primary",
   "icons": [
     {
@@ -22,38 +22,5 @@
       "purpose": "maskable"
     }
   ],
-  "screenshots": [
-    {
-      "src": "screenshot-540x720.png",
-      "sizes": "540x720",
-      "type": "image/png"
-    }
-  ],
-  "categories": ["technology", "portfolio"],
-  "shortcuts": [
-    {
-      "name": "View Projects",
-      "short_name": "Projects",
-      "description": "View my featured projects",
-      "url": "/?section=projects",
-      "icons": [
-        {
-          "src": "icon-512.png",
-          "sizes": "512x512"
-        }
-      ]
-    },
-    {
-      "name": "Contact",
-      "short_name": "Contact",
-      "description": "Get in touch",
-      "url": "/?section=contact",
-      "icons": [
-        {
-          "src": "icon-512.png",
-          "sizes": "512x512"
-        }
-      ]
-    }
-  ]
+  "categories": ["technology", "developer tools", "portfolio"]
 }
