@@ -1,7 +1,7 @@
 {
-  "name": "Poid-ZA | APEX Engineering Intelligence",
-  "short_name": "APEX",
-  "description": "Static public surface for Poid-ZA and the APEX engineering intelligence system.",
+  "name": "Poid-ZA | Hermes engineering workspace",
+  "short_name": "HERMES",
+  "description": "Static public surface for Poid-ZA and the current Hermes-based engineering workspace.",
   "start_url": "/Poid-ZA.github.io/",
   "scope": "/Poid-ZA.github.io/",
   "display": "standalone",
