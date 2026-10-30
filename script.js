@@ -1,74 +1,92 @@
-const body = document.body;
+const root = document.documentElement;
 const menuToggle = document.getElementById('menuToggle');
 const nav = document.getElementById('siteNav');
-const navLinks = nav ? [...nav.querySelectorAll('a')] : [];
+const navLinks = nav ? [...nav.querySelectorAll('a[href^="#"]')] : [];
 const sections = [...document.querySelectorAll('main section[id]')];
 const revealTargets = [...document.querySelectorAll('.reveal')];
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-if (menuToggle) {
+// Reveal styles apply only when this class is set, so content stays visible without JS.
+root.classList.add('js');
+
+function setMenu(open) {
+  nav.classList.toggle('is-open', open);
+  menuToggle.setAttribute('aria-expanded', String(open));
+}
+
+if (menuToggle && nav) {
   menuToggle.addEventListener('click', () => {
-    const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
-    menuToggle.setAttribute('aria-expanded', String(!expanded));
-    body.classList.toggle('menu-open', !expanded);
+    setMenu(!nav.classList.contains('is-open'));
+  });
+
+  navLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      // On phones the menu hides with display:none, which would drop focus to the page.
+      if (window.matchMedia('(max-width: 760px)').matches) {
+        const target = document.getElementById(link.getAttribute('href').slice(1));
+        if (target) {
+          if (!target.hasAttribute('tabindex')) {
+            target.setAttribute('tabindex', '-1');
+          }
+          target.focus({ preventScroll: true });
+        }
+      }
+      setMenu(false);
+    });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && nav.classList.contains('is-open')) {
+      setMenu(false);
+      menuToggle.focus();
+    }
   });
 }
 
-navLinks.forEach((link) => {
-  link.addEventListener('click', () => {
-    body.classList.remove('menu-open');
-    menuToggle?.setAttribute('aria-expanded', 'false');
-  });
-});
-
 function updateActiveNav() {
-  let current = sections[0]?.id || '';
+  let current = '';
   sections.forEach((section) => {
-    const rect = section.getBoundingClientRect();
-    if (rect.top <= window.innerHeight * 0.28) {
+    if (section.getBoundingClientRect().top <= window.innerHeight * 0.28) {
       current = section.id;
     }
   });
 
+  // Short last section never reaches the 28% line, so pin it at the bottom of the page.
+  if (sections.length && window.innerHeight + window.scrollY >= root.scrollHeight - 2) {
+    current = sections[sections.length - 1].id;
+  }
+
   navLinks.forEach((link) => {
-    const href = link.getAttribute('href') || '';
-    link.classList.toggle('is-active', href === `#${current}`);
+    const active = link.getAttribute('href') === `#${current}`;
+    link.classList.toggle('is-active', active);
+    if (active) {
+      link.setAttribute('aria-current', 'true');
+    } else {
+      link.removeAttribute('aria-current');
+    }
   });
 }
 
-function updateHeaderState() {
-  body.classList.toggle('nav-scrolled', window.scrollY > 12);
+if ('IntersectionObserver' in window && !reducedMotion) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  revealTargets.forEach((target) => observer.observe(target));
+} else {
+  revealTargets.forEach((target) => target.classList.add('is-visible'));
 }
 
-const observer = 'IntersectionObserver' in window
-  ? new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' })
-  : null;
-
-revealTargets.forEach((target) => {
-  if (observer) {
-    observer.observe(target);
-  } else {
-    target.classList.add('is-visible');
-  }
-});
-
 updateActiveNav();
-updateHeaderState();
 window.addEventListener('scroll', updateActiveNav, { passive: true });
-window.addEventListener('scroll', updateHeaderState, { passive: true });
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./service-worker.js').catch(() => {});
   });
-}
-
-if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  body.classList.add('reduced-motion');
 }

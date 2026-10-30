@@ -5,51 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Poid-ZA presents a Hermes-based engineering workspace focused on durable memory, secure automation, static delivery, and verified recovery." />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#0b111b" />
+  <meta name="theme-color" content="#0A0A0A" />
   <meta name="color-scheme" content="dark" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Poid-ZA | Hermes engineering workspace" />
   <meta property="og:description" content="Static public surface for Poid-ZA's current Hermes-based engineering workspace: durable memory, secure automation, backup discipline, and static-first delivery." />
-  <meta property="og:url" content="https://poid-za.github.io/Poid-ZA.github.io/" />
-  <meta property="og:image" content="https://poid-za.github.io/Poid-ZA.github.io/favicon-512x512.png" />
+  <meta property="og:url" content="https://poid-za.github.io/" />
+  <meta property="og:image" content="https://poid-za.github.io/favicon-512x512.png" />
   <meta property="og:image:alt" content="Poid-ZA site icon" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Poid-ZA | Hermes engineering workspace" />
   <meta name="twitter:description" content="Static public surface for Poid-ZA's current Hermes-based engineering workspace." />
-  <meta name="twitter:image" content="https://poid-za.github.io/Poid-ZA.github.io/favicon-512x512.png" />
+  <meta name="twitter:image" content="https://poid-za.github.io/favicon-512x512.png" />
   <title>Poid-ZA | Hermes engineering workspace</title>
-  <link rel="canonical" href="https://poid-za.github.io/Poid-ZA.github.io/" />
+  <link rel="canonical" href="https://poid-za.github.io/" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/png" href="favicon-512x512.png" />
   <link rel="apple-touch-icon" href="icon-512.png" />
-  <link rel="stylesheet" href="style.css?v=20260401-2" />
+  <link rel="stylesheet" href="style.css?v=20261030-1" />
 </head>
 <body>
-  <div class="noise" aria-hidden="true"></div>
-  <div class="glow glow-one" aria-hidden="true"></div>
-  <div class="glow glow-two" aria-hidden="true"></div>
-
-  <header class="site-header">
-    <div class="brand-bar container">
+  <header class="rail">
+    <div class="brand-bar">
       <a class="brand" href="#top" aria-label="Poid-ZA home">
         <span class="brand-kicker">Poid-ZA</span>
         <span class="brand-name">HERMES</span>
         <span class="brand-copy">Engineering workspace and automation stack</span>
       </a>
-      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="siteNav">Menu</button>
-      <nav class="site-nav" id="siteNav" aria-label="Primary navigation">
-        <a href="#overview">Overview</a>
-        <a href="#systems">Systems</a>
-        <a href="#proof">Proof</a>
-        <a href="#evolution">Evolution</a>
-        <a href="#delivery">Delivery</a>
-      </nav>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="siteNav">Menu</button>
     </div>
+    <nav class="site-nav" id="siteNav" aria-label="Primary navigation">
+      <a href="#overview">Overview</a>
+      <a href="#systems">Systems</a>
+      <a href="#proof">Proof</a>
+      <a href="#evolution">Evolution</a>
+      <a href="#delivery">Delivery</a>
+    </nav>
   </header>
 
   <main id="top">
-    <section class="hero container section">
-      <div class="hero-copy reveal">
+    <section class="hero">
+      <div class="reveal">
         <p class="eyebrow">Current engineering workspace</p>
         <h1>Durable memory, low-token execution, and verified recovery in one Hermes-based setup.</h1>
         <p class="lead">
@@ -67,22 +63,35 @@
         </ul>
       </div>
 
-      <div class="hero-panel reveal">
-        <div class="panel-shell">
-          <div class="panel-label">Current posture</div>
-          <div class="runtime-lines">
-            <div><span>Workspace</span><strong>Hermes local engineering stack</strong></div>
-            <div><span>Memory</span><strong>Durable memory + user profile + skills</strong></div>
-            <div><span>Execution</span><strong>Tool-first, low-token, verification-driven</strong></div>
-            <div><span>Recovery</span><strong>Sanitized backup repo with integrity checks</strong></div>
-            <div><span>Delivery</span><strong>Static HTML/CSS/vanilla-JS handoff</strong></div>
+      <div class="panel reveal">
+        <p class="panel-label">Current posture</p>
+        <dl class="posture">
+          <div class="posture-row">
+            <dt>Workspace</dt>
+            <dd>Hermes local engineering stack</dd>
           </div>
-        </div>
+          <div class="posture-row">
+            <dt>Memory</dt>
+            <dd>Durable memory + user profile + skills</dd>
+          </div>
+          <div class="posture-row">
+            <dt>Execution</dt>
+            <dd>Tool-first, low-token, verification-driven</dd>
+          </div>
+          <div class="posture-row">
+            <dt>Recovery</dt>
+            <dd>Sanitized backup repo with integrity checks</dd>
+          </div>
+          <div class="posture-row">
+            <dt>Delivery</dt>
+            <dd>Static HTML/CSS/vanilla-JS handoff</dd>
+          </div>
+        </dl>
       </div>
     </section>
 
-    <section id="overview" class="section container">
-      <div class="section-heading reveal centered">
+    <section id="overview" class="section">
+      <div class="section-heading reveal">
         <p class="eyebrow">Overview</p>
         <h2>A cleaner public explanation of the current stack, not the retired one.</h2>
         <p>
@@ -90,18 +99,18 @@
         </p>
       </div>
 
-      <div class="card-grid three-up">
-        <article class="info-card reveal">
+      <div class="card-stack">
+        <article class="card reveal">
           <span class="card-index">01</span>
           <h3>Workspace core</h3>
           <p>Hermes provides the local operator shell, durable memory, user profile, and tool-driven execution model.</p>
         </article>
-        <article class="info-card reveal">
+        <article class="card reveal">
           <span class="card-index">02</span>
           <h3>Skill layer</h3>
           <p>Reusable skills capture working patterns for planning, debugging, security review, site building, and backup discipline.</p>
         </article>
-        <article class="info-card reveal">
+        <article class="card reveal">
           <span class="card-index">03</span>
           <h3>Recovery posture</h3>
           <p>Sanitized GitHub backup, integrity verification, and restore scripts make configuration recovery straightforward.</p>
@@ -109,14 +118,14 @@
       </div>
     </section>
 
-    <section id="systems" class="section container">
-      <div class="section-heading reveal centered">
+    <section id="systems" class="section">
+      <div class="section-heading reveal">
         <p class="eyebrow">Systems</p>
         <h2>Built around a practical Hermes loop: remember, execute, verify, recover.</h2>
       </div>
 
-      <div class="systems-layout">
-        <article class="system-card reveal emphasis">
+      <div class="card-stack">
+        <article class="card reveal">
           <div class="system-tag">Loop</div>
           <h3>Memory → Execution → Verification → Recovery</h3>
           <p>Work starts from retained context, moves through tool-first execution, is checked before signoff, and stays recoverable through sanitized backups.</p>
@@ -131,7 +140,7 @@
           </div>
         </article>
 
-        <article class="system-card reveal">
+        <article class="card reveal">
           <div class="system-tag">Memory</div>
           <h3>Durable workspace memory</h3>
           <ul>
@@ -141,7 +150,7 @@
           </ul>
         </article>
 
-        <article class="system-card reveal">
+        <article class="card reveal">
           <div class="system-tag">Execution</div>
           <h3>Low-token, tool-first delivery</h3>
           <ul>
@@ -151,7 +160,7 @@
           </ul>
         </article>
 
-        <article class="system-card reveal">
+        <article class="card reveal">
           <div class="system-tag">Improvement</div>
           <h3>Security and integrity discipline</h3>
           <ul>
@@ -163,14 +172,14 @@
       </div>
     </section>
 
-    <section id="proof" class="section container">
-      <div class="section-heading reveal centered">
+    <section id="proof" class="section">
+      <div class="section-heading reveal">
         <p class="eyebrow">Proof</p>
         <h2>The public page now matches the current controls and artifacts.</h2>
       </div>
 
-      <div class="proof-grid">
-        <article class="proof-card reveal wide">
+      <div class="card-stack">
+        <article class="card reveal">
           <h3>Current workspace summary</h3>
           <pre class="proof-block"><code>WORKSPACE  : Hermes local engineering stack
 MEMORY     : Durable memory + user profile + skills
@@ -179,101 +188,96 @@ BACKUP     : Sanitized GitHub backup + restore scripts
 SECURITY   : Prompt-injection and secret-handling guardrails
 DELIVERY   : Static GitHub Pages surface</code></pre>
         </article>
-        <article class="proof-card reveal">
+        <article class="card reveal">
           <h3>Backup integrity</h3>
           <p>Configuration backup now lives in a sanitized GitHub repo with manifest hashes, verification, and restore scripts.</p>
         </article>
-        <article class="proof-card reveal">
+        <article class="card reveal">
           <h3>Operating style</h3>
           <p>Current work is optimized for concise output, explicit verification, and conservative changes after feedback.</p>
         </article>
-        <article class="proof-card reveal">
+        <article class="card reveal">
           <h3>Website delivery</h3>
           <p>The site itself is delivered as static HTML, CSS, and vanilla JavaScript with no framework dependency after handoff.</p>
         </article>
       </div>
     </section>
 
-    <section id="evolution" class="section container">
-      <div class="section-heading reveal centered">
+    <section id="evolution" class="section">
+      <div class="section-heading reveal">
         <p class="eyebrow">Evolution</p>
         <h2>From the older APEX/OpenClaw phase to the current Hermes-based workflow.</h2>
       </div>
 
-      <div class="timeline">
-        <article class="timeline-item reveal">
-          <span class="timeline-key">Earlier phase</span>
-          <div>
-            <h3>OpenClaw and APEX groundwork</h3>
-            <p>The earlier stack established strong ideas around memory, operational discipline, backup thinking, and local control surfaces.</p>
-          </div>
-        </article>
-        <article class="timeline-item reveal">
-          <span class="timeline-key">Migration</span>
-          <div>
-            <h3>Hermes adopted as the active workspace</h3>
-            <p>The current environment moved into Hermes with durable memory, reusable skills, and a cleaner tool-driven workflow.</p>
-          </div>
-        </article>
-        <article class="timeline-item reveal">
-          <span class="timeline-key">Memory</span>
-          <div>
-            <h3>Memory and skills refined</h3>
-            <p>Preferences, environment facts, and repeatable procedures are now captured through Hermes memory and skills instead of ad hoc notes.</p>
-          </div>
-        </article>
-        <article class="timeline-item reveal">
-          <span class="timeline-key">Security</span>
-          <div>
-            <h3>Backup and integrity hardening added</h3>
-            <p>Sanitized backup repositories, manifest verification, and restore scripts now support easier recovery without leaking secrets.</p>
-          </div>
-        </article>
-        <article class="timeline-item reveal">
-          <span class="timeline-key">Now</span>
-          <div>
-            <h3>Low-token, static-first operating style</h3>
-            <p>The live workflow now emphasizes concise execution, conservative changes, static delivery, and verification that scales with task risk.</p>
-          </div>
-        </article>
-      </div>
+      <ol class="evolution">
+        <li class="evolution-item reveal">
+          <span class="evolution-key">Earlier phase</span>
+          <h3>OpenClaw and APEX groundwork</h3>
+          <p>The earlier stack established strong ideas around memory, operational discipline, backup thinking, and local control surfaces.</p>
+        </li>
+        <li class="evolution-item reveal">
+          <span class="evolution-key">Migration</span>
+          <h3>Hermes adopted as the active workspace</h3>
+          <p>The current environment moved into Hermes with durable memory, reusable skills, and a cleaner tool-driven workflow.</p>
+        </li>
+        <li class="evolution-item reveal">
+          <span class="evolution-key">Memory</span>
+          <h3>Memory and skills refined</h3>
+          <p>Preferences, environment facts, and repeatable procedures are now captured through Hermes memory and skills instead of ad hoc notes.</p>
+        </li>
+        <li class="evolution-item reveal">
+          <span class="evolution-key">Security</span>
+          <h3>Backup and integrity hardening added</h3>
+          <p>Sanitized backup repositories, manifest verification, and restore scripts now support easier recovery without leaking secrets.</p>
+        </li>
+        <li class="evolution-item reveal">
+          <span class="evolution-key">Now</span>
+          <h3>Low-token, static-first operating style</h3>
+          <p>The live workflow now emphasizes concise execution, conservative changes, static delivery, and verification that scales with task risk.</p>
+        </li>
+      </ol>
     </section>
 
-    <section class="section container">
-      <div class="section-heading reveal centered">
+    <section class="section">
+      <div class="section-heading reveal">
         <p class="eyebrow">References</p>
         <h2>Relevant current artifacts, without dragging the homepage back into the old stack.</h2>
       </div>
-      <div class="doc-links reveal">
-        <a class="doc-link" href="https://github.com/Poid-ZA/hermes-config-backup" target="_blank" rel="noreferrer">
-          <strong>Hermes config backup</strong>
-          <span>Sanitized backup, integrity checks, and restore workflow</span>
-        </a>
-        <a class="doc-link" href="https://github.com/Poid-ZA/Poid-ZA.github.io" target="_blank" rel="noreferrer">
-          <strong>Website repository</strong>
-          <span>Source for the current static site</span>
-        </a>
-        <a class="doc-link" href="https://github.com/Poid-ZA/OpenClaw" target="_blank" rel="noreferrer">
-          <strong>Earlier platform repo</strong>
-          <span>Historical context for the pre-Hermes phase</span>
-        </a>
-      </div>
+      <ul class="reference-list">
+        <li class="reveal">
+          <a class="doc-link" href="https://github.com/Poid-ZA/hermes-config-backup" target="_blank" rel="noreferrer">
+            <strong>Hermes config backup</strong>
+            <span>Sanitized backup, integrity checks, and restore workflow</span>
+          </a>
+        </li>
+        <li class="reveal">
+          <a class="doc-link" href="https://github.com/Poid-ZA/Poid-ZA.github.io" target="_blank" rel="noreferrer">
+            <strong>Website repository</strong>
+            <span>Source for the current static site</span>
+          </a>
+        </li>
+        <li class="reveal">
+          <a class="doc-link" href="https://github.com/Poid-ZA/OpenClaw" target="_blank" rel="noreferrer">
+            <strong>Earlier platform repo</strong>
+            <span>Historical context for the pre-Hermes phase</span>
+          </a>
+        </li>
+      </ul>
     </section>
 
-    <section id="delivery" class="section container">
-      <div class="delivery-panel reveal centered-panel">
+    <section id="delivery" class="section">
+      <div class="panel delivery reveal">
         <p class="eyebrow">Delivery</p>
         <h2>Static, deployable, and aligned to the live Hermes setup.</h2>
         <p>
           The public site now reflects the current operating reality: Hermes for the active workspace, a sanitized GitHub backup for restore, and static HTML/CSS/vanilla-JS for straightforward delivery.
         </p>
-        <div class="meta-pills">
-          <span>Hermes workspace</span>
-          <span>Sanitized backup repo</span>
-          <span>Vanilla JavaScript</span>
-          <span>Centered static layout</span>
-        </div>
-        <div class="hero-actions centered-actions">
+        <ul class="meta-pills">
+          <li>Hermes workspace</li>
+          <li>Sanitized backup repo</li>
+          <li>Vanilla JavaScript</li>
+        </ul>
+        <div class="hero-actions">
           <a class="button primary" href="https://github.com/Poid-ZA/Poid-ZA.github.io" target="_blank" rel="noreferrer">Open website repo</a>
           <a class="button secondary" href="https://github.com/Poid-ZA/hermes-config-backup" target="_blank" rel="noreferrer">Open Hermes backup repo</a>
         </div>
@@ -281,6 +285,6 @@ DELIVERY   : Static GitHub Pages surface</code></pre>
     </section>
   </main>
 
-  <script src="script.js?v=20260401-2"></script>
+  <script src="script.js?v=20261030-1"></script>
 </body>
 </html>
